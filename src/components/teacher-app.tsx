@@ -476,7 +476,7 @@ export function TeacherApp() {
                     size="sm"
                     onClick={acceptBusSync}
                     disabled={busAutoAccepted}
-                    className="h-8 flex-1 text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer"
+                    className="h-8 flex-1 text-xs font-bold bg-amber-500 hover:bg-amber-400 text-amber-950 cursor-pointer"
                   >
                     {busAutoAccepted ? "✓ Bus Roll Accepted" : "Accept Bus Auto-Roll"}
                   </Button>
@@ -534,7 +534,7 @@ export function TeacherApp() {
                     <div className="grid grid-cols-4 gap-1.5 pt-1 border-t border-border/60">
                       {[
                         { key: "P", label: "Present", color: "bg-emerald-600 text-white" },
-                        { key: "L", label: "Late", color: "bg-amber-500 text-slate-950 font-bold" },
+                        { key: "L", label: "Late", color: "bg-amber-500 text-amber-950 font-bold" },
                         { key: "A", label: "Absent", color: "bg-rose-600 text-white" },
                         { key: "E", label: "Excused", color: "bg-blue-600 text-white" },
                       ].map((st) => (

@@ -268,7 +268,7 @@
 @utility status-scheduled { border: 1px solid #cbd5e1; background: #f1f5f9 !important; color: #1e293b !important; font-weight: 700; box-shadow: none; }
 @utility offline-note { margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--color-muted-foreground); font-size: 11px; }
 @utility trip-tabs { display: grid; height: 64px; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--color-border); background: var(--color-card); }
-@utility trip-tab { position: relative; display: flex; min-width: 0; align-items: center; justify-content: center; gap: 4px; border-bottom: 3px solid transparent; color: var(--color-muted-foreground); font-size: 12px; font-weight: 700; cursor: pointer; }
+@utility trip-tab { position: relative; display: flex; min-width: 0; align-items: center; justify-content: center; gap: 4px; border-bottom: 2px solid transparent; color: var(--color-muted-foreground); font-size: 12px; font-weight: 700; cursor: pointer; }
 @utility trip-tab-active { border-bottom-color: var(--color-bus); color: var(--color-bus-strong); }
 @utility alert-dot { position: absolute; right: -4px; top: -3px; width: 7px; height: 7px; border-radius: 999px; background: var(--color-destructive); }
 @utility section-heading { margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -307,10 +307,10 @@
 .arrival-done svg, .rider-status svg { width: 13px; height: 13px; }
 .trip-tab small { font-size: 9px; font-weight: 500; }
 .scanner-box span { position: absolute; width: 36px; height: 36px; border-color: var(--color-bus); }
-.scanner-box span:nth-child(1) { left: 24px; top: 24px; border-left-width: 3px; border-top-width: 3px; }
-.scanner-box span:nth-child(2) { right: 24px; top: 24px; border-right-width: 3px; border-top-width: 3px; }
-.scanner-box span:nth-child(3) { left: 24px; bottom: 24px; border-left-width: 3px; border-bottom-width: 3px; }
-.scanner-box span:nth-child(4) { right: 24px; bottom: 24px; border-right-width: 3px; border-bottom-width: 3px; }
+.scanner-box span:nth-child(1) { left: 24px; top: 24px; border-left-width: 2px; border-top-width: 2px; }
+.scanner-box span:nth-child(2) { right: 24px; top: 24px; border-right-width: 2px; border-top-width: 2px; }
+.scanner-box span:nth-child(3) { left: 24px; bottom: 24px; border-left-width: 2px; border-bottom-width: 2px; }
+.scanner-box span:nth-child(4) { right: 24px; bottom: 24px; border-right-width: 2px; border-bottom-width: 2px; }
 
 @media (max-width: 420px) {
   .app-stage { display: block; min-height: 100dvh; padding: 0; }

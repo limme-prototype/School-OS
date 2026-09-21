@@ -233,52 +233,63 @@ export function BusStaffApp() {
         {/* ============================================================ */}
         {screen === "trips" && (
           <div className="flex h-full flex-col bg-background">
-            {/* Header */}
-            <header className="bg-amber-500 px-4 pb-4 pt-3 text-slate-950">
+            {/* Modern Cockpit Header */}
+            <header className="sticky top-0 z-20 border-b border-border/60 bg-card/95 px-4 pb-3 pt-3 text-foreground backdrop-blur-xl">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="grid size-8 place-items-center rounded-lg bg-slate-950 text-amber-400 font-bold">
+                <div className="flex items-center gap-2.5">
+                  <div className="grid size-9 place-items-center rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/30">
                     <Bus className="size-4.5" />
                   </div>
                   <div>
-                    <h1 className="text-base font-bold leading-tight">School OS</h1>
-                    <p className="text-[10px] font-semibold opacity-90">Bus Staff & Driver</p>
+                    <div className="flex items-center gap-1.5">
+                      <h1 className="text-sm font-bold text-foreground">School OS</h1>
+                      <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold text-amber-700 dark:text-amber-400 border border-amber-500/25">
+                        Fleet Driver
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground">Bus KH 2A-9412 · Seng Vibol</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <button
                     onClick={toggleSync}
-                    className="flex items-center gap-1 rounded-full bg-slate-950/15 px-2.5 py-1 text-[10px] font-bold text-slate-950 hover:bg-slate-950/25 transition cursor-pointer"
+                    className={cn(
+                      "flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold transition cursor-pointer border",
+                      isOnline
+                        ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20"
+                        : "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20",
+                    )}
                     title="Tap to toggle online/offline simulation"
                   >
                     {isOnline ? (
                       <>
-                        <Wifi className="size-3 text-emerald-950" /> Online
+                        <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <Wifi className="size-3 text-emerald-600 dark:text-emerald-400" /> Online
                       </>
                     ) : (
                       <>
-                        <CloudOff className="size-3 text-rose-950" /> Offline
+                        <CloudOff className="size-3 text-amber-600 dark:text-amber-400" /> Offline
                       </>
                     )}
                   </button>
                   <button
                     onClick={() => setDriverProfileOpen(true)}
-                    className="grid size-8 place-items-center rounded-full bg-slate-950 text-white cursor-pointer hover:opacity-90"
+                    className="grid size-8 place-items-center rounded-full bg-muted text-foreground border border-border/70 cursor-pointer hover:bg-muted/80 transition"
                     title="Driver Profile"
                   >
-                    <CircleUserRound className="size-5" />
+                    <CircleUserRound className="size-4.5" />
                   </button>
                 </div>
               </div>
 
               {/* Demo Journey Scenario Switcher */}
-              <div className="mt-3 rounded-lg bg-slate-950/10 p-2 text-xs">
+              <div className="mt-3 rounded-xl border border-border/70 bg-muted/40 p-2 text-xs">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-wider opacity-80">
+                  <span className="text-[10px] font-bold text-muted-foreground">
                     Demo Journey
                   </span>
-                  <span className="text-[10px] opacity-75 font-mono">3 Scenarios</span>
+                  <span className="text-[10px] text-muted-foreground font-mono">3 Scenarios</span>
                 </div>
                 <div className="mt-1.5 grid grid-cols-3 gap-1">
                   {[
@@ -293,10 +304,10 @@ export function BusStaffApp() {
                         showToast(`Switched scenario to ${sc.label}`);
                       }}
                       className={cn(
-                        "rounded px-1.5 py-1 text-[10px] font-bold transition cursor-pointer text-center",
+                        "rounded-lg px-1.5 py-1 text-[10px] font-bold transition cursor-pointer text-center",
                         scenario === sc.id
-                          ? "bg-slate-950 text-white shadow-xs"
-                          : "bg-white/40 text-slate-900 hover:bg-white/70",
+                          ? "bg-foreground text-background shadow-xs"
+                          : "bg-card text-muted-foreground hover:text-foreground border border-border/40",
                       )}
                     >
                       {sc.label}
@@ -309,7 +320,7 @@ export function BusStaffApp() {
             {/* Trips List */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <h2 className="text-xs font-bold text-foreground">
                   Today's Active Trips · 21 Sep 2026
                 </h2>
                 <Badge variant="outline" className="text-[10px] border-amber-500/40 text-amber-700 dark:text-amber-300">
@@ -319,13 +330,13 @@ export function BusStaffApp() {
 
               {/* Active Trip Card: Route 03 AM */}
               <div className="rounded-xl border-2 border-amber-500 bg-card p-4 shadow-sm relative overflow-hidden">
-                <div className="absolute top-0 right-0 rounded-bl-lg bg-amber-500 px-2 py-0.5 text-[10px] font-bold text-slate-950">
+                <div className="absolute top-0 right-0 rounded-bl-lg bg-amber-500 px-2.5 py-0.5 text-[10px] font-bold text-amber-950">
                   CURRENT ACTIVE
                 </div>
 
                 <div className="flex items-start justify-between">
                   <div>
-                    <span className="inline-block rounded bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold text-amber-800 dark:text-amber-300">
+                    <span className="inline-block rounded-md bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold text-amber-800 dark:text-amber-300">
                       AM Session · Morning Inbound
                     </span>
                     <h3 className="mt-1 text-sm font-bold text-foreground">
@@ -363,7 +374,7 @@ export function BusStaffApp() {
 
                 <Button
                   onClick={startTrip}
-                  className="mt-3.5 h-11 w-full bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 text-xs shadow-md cursor-pointer gap-2"
+                  className="mt-3.5 h-11 w-full bg-amber-500 text-amber-950 font-bold hover:bg-amber-400 text-xs shadow-md cursor-pointer gap-2"
                 >
                   <Bus className="size-4" /> Open Active Trip Runner
                 </Button>
@@ -421,44 +432,54 @@ export function BusStaffApp() {
         {screen === "trip" && (
           <div className="flex h-full flex-col bg-background">
             {/* Header */}
-            <header className="bg-amber-500 px-4 pb-3 pt-3 text-slate-950">
+            <header className="sticky top-0 z-20 border-b border-border/60 bg-card/95 px-4 pb-3 pt-3 text-foreground backdrop-blur-xl">
               <div className="flex items-center justify-between">
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setScreen("trips")}
-                  className="size-8 text-slate-950 hover:bg-slate-950/10 cursor-pointer"
+                  className="size-8 text-foreground hover:bg-muted cursor-pointer"
                 >
                   <ArrowLeft className="size-5" />
                 </Button>
                 <div className="min-w-0 flex-1 px-2">
-                  <p className="truncate text-xs font-extrabold">Route 03 · Toul Kork</p>
-                  <p className="truncate text-[10px] opacity-85">
+                  <div className="flex items-center gap-1.5">
+                    <p className="truncate text-xs font-extrabold text-foreground">Route 03 · Toul Kork</p>
+                    <span className="rounded-full bg-amber-500/15 px-1.5 py-0.2 text-[9px] font-bold text-amber-700 dark:text-amber-400">
+                      Live Trip
+                    </span>
+                  </div>
+                  <p className="truncate text-[10px] text-muted-foreground">
                     Bus KH 2A-9412 · Driver: Seng Vibol
                   </p>
                 </div>
                 <button
                   onClick={toggleSync}
-                  className="flex items-center gap-1 rounded-full bg-slate-950/15 px-2 py-0.5 text-[10px] font-bold text-slate-950 hover:bg-slate-950/25 transition cursor-pointer"
+                  className={cn(
+                    "flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold transition cursor-pointer border",
+                    isOnline
+                      ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20"
+                      : "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20",
+                  )}
                 >
-                  {isOnline ? <Wifi className="size-3" /> : <CloudOff className="size-3" />}
+                  {isOnline ? <Wifi className="size-3 text-emerald-600 dark:text-emerald-400" /> : <CloudOff className="size-3 text-amber-600 dark:text-amber-400" />}
                   <span>{isOnline ? "Live" : "Offline"}</span>
                 </button>
               </div>
 
               {/* Live Metric Banner */}
-              <div className="mt-2.5 flex items-center justify-between rounded-lg bg-slate-950/10 px-3 py-1.5 text-xs font-bold">
+              <div className="mt-2.5 flex items-center justify-between rounded-lg bg-muted/60 px-3 py-1.5 text-xs font-semibold text-foreground border border-border/60">
                 <div className="flex items-center gap-1.5">
-                  <Clock3 className="size-3.5" />
+                  <Clock3 className="size-3.5 text-muted-foreground" />
                   <span>Started 06:35 AM</span>
                   {scenario === "delayed-noshow" && (
-                    <span className="rounded bg-rose-600 px-1.5 py-0.2 text-[9px] text-white">
+                    <span className="rounded bg-rose-600 px-1.5 py-0.2 text-[9px] text-white font-bold">
                       +12m
                     </span>
                   )}
                 </div>
-                <span>
-                  {boardedCount} Boarded · {noShowCount} No-show
+                <span className="text-muted-foreground">
+                  <strong className="text-emerald-600 dark:text-emerald-400 font-bold">{boardedCount}</strong> Boarded · <strong className="text-rose-600 dark:text-rose-400 font-bold">{noShowCount}</strong> No-show
                 </span>
               </div>
             </header>
@@ -542,7 +563,7 @@ export function BusStaffApp() {
                                 hasArrived
                                   ? "bg-emerald-500 text-white"
                                   : isNext
-                                  ? "bg-amber-500 text-slate-950 animate-pulse"
+                                  ? "bg-amber-500 text-amber-950 font-bold animate-pulse"
                                   : "bg-muted text-muted-foreground",
                               )}
                             >
@@ -575,7 +596,7 @@ export function BusStaffApp() {
                               className={cn(
                                 "h-8 px-3 text-xs font-bold cursor-pointer",
                                 isNext
-                                  ? "bg-amber-500 text-slate-950 hover:bg-amber-400"
+                                  ? "bg-amber-500 text-amber-950 font-bold hover:bg-amber-400"
                                   : "bg-muted text-foreground hover:bg-muted/80",
                               )}
                             >
@@ -621,7 +642,7 @@ export function BusStaffApp() {
                         setScanComplete(false);
                         setScanOpen(true);
                       }}
-                      className="h-9 gap-1.5 bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 text-xs px-3 cursor-pointer shrink-0"
+                      className="h-9 gap-1.5 bg-amber-500 text-amber-950 font-bold hover:bg-amber-400 text-xs px-3 cursor-pointer shrink-0"
                     >
                       <QrCode className="size-3.5" /> Scan QR
                     </Button>
@@ -865,7 +886,7 @@ export function BusStaffApp() {
                 </div>
                 <Button
                   onClick={simulateScan}
-                  className="h-10 w-full bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 text-xs cursor-pointer"
+                  className="h-10 w-full bg-amber-500 text-amber-950 font-bold hover:bg-amber-400 text-xs cursor-pointer"
                 >
                   Simulate QR Scan (Chanthou Rath)
                 </Button>
@@ -990,7 +1011,7 @@ export function BusStaffApp() {
 
             <div className="space-y-3 py-2 text-xs">
               <div className="flex items-center gap-3 rounded-xl bg-muted/60 p-3">
-                <div className="grid size-10 place-items-center rounded-full bg-amber-500 text-slate-950 font-bold">
+                <div className="grid size-10 place-items-center rounded-full bg-amber-500 text-amber-950 font-bold">
                   SV
                 </div>
                 <div>

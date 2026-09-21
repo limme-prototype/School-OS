@@ -1589,7 +1589,7 @@ function TransportPage() {
                 <Button type="button" variant="outline" size="sm" onClick={() => setAlertModalOpen(false)}>
                   Cancel
                 </Button>
-                <Button type="submit" size="sm" className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold">
+                <Button type="submit" size="sm" className="bg-amber-500 hover:bg-amber-400 text-amber-950 font-extrabold">
                   Send Broadcast
                 </Button>
               </div>

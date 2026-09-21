@@ -51,7 +51,7 @@ export function RouteProgress({
                   <CheckCircle2 className="size-4" />
                 </div>
               ) : isCurrent ? (
-                <div className="relative grid size-7 place-items-center rounded-full bg-amber-500 text-white shadow-xs animate-bounce">
+                <div className="relative grid size-7 place-items-center rounded-full bg-amber-500 text-white shadow-xs ring-4 ring-amber-500/20">
                   <MapPin className="size-4" />
                 </div>
               ) : (

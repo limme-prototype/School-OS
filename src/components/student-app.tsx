@@ -1551,7 +1551,7 @@ function renderDetail(
   if (detail === "bus") {
     return (
       <div className="space-y-3 p-3.5">
-        <div className="rounded-xl bg-amber-500 p-3.5 text-slate-950">
+        <div className="rounded-2xl bg-amber-500 p-3.5 text-amber-950">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-[11px] font-medium opacity-90">School bus · រថយន្តសាលា</p>

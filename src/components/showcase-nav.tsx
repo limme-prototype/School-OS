@@ -76,7 +76,7 @@ export const PROTOTYPES: PrototypeAppDef[] = [
     route: "/bus-staff",
     type: "mobile",
     icon: Bus,
-    color: "bg-amber-500 text-slate-950",
+    color: "bg-amber-500 text-amber-950 font-bold",
     badge: "Mobile",
     description: "Route navigator, student boarding check-in/out, and incident alerts.",
     flows: ["Trip Runner", "Student Boarding", "Live Stops", "Incident Reports"],

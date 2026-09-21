@@ -30,7 +30,7 @@ export function ShowcaseHub() {
                 <div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="grid size-10 place-items-center rounded-lg bg-slate-100 text-slate-700 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                      <div className="grid size-10 place-items-center rounded-lg bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                         <Icon className="size-5" />
                       </div>
                       <div>

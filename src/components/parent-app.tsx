@@ -301,7 +301,7 @@ export function ParentApp() {
                               Dara boarded safely at Toul Kork Circle (07:12 AM)
                             </p>
                           </div>
-                          <div className="grid size-8 place-items-center rounded-xl bg-amber-500 text-slate-950 font-bold shadow-xs">
+                          <div className="grid size-8 place-items-center rounded-xl bg-amber-500 text-amber-950 font-bold shadow-xs">
                             <Bus className="size-4.5" />
                           </div>
                         </div>
