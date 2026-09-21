@@ -31,7 +31,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { MobileDeviceFrame } from "@/components/mobile-device-frame";
-import { LanguageToggle, SupportedLanguage } from "@/components/shared/language-toggle";
 import { cn } from "@/lib/utils";
 
 type Tab = "home" | "classes" | "homework" | "results" | "more";
@@ -41,7 +40,6 @@ export interface ScheduleItem {
   id: string;
   time: string;
   subject: string;
-  kh: string;
   room: string;
   color: string;
   teacher: string;
@@ -54,7 +52,6 @@ export interface ScheduleItem {
 export interface HomeworkItem {
   id: string;
   title: string;
-  kh: string;
   subject: string;
   due: string;
   state: "Due soon" | "To do" | "Completed";
@@ -66,12 +63,11 @@ export interface HomeworkItem {
 }
 
 const schedulesByDay: Record<string, ScheduleItem[]> = {
-  Mon: [
+  Mon:  [
     {
       id: "mon-1",
       time: "8:00 - 8:50",
       subject: "Mathematics",
-      kh: "គណិតវិទ្យា",
       room: "A-203",
       color: "bg-primary",
       teacher: "Mr. Sok Vannak",
@@ -84,7 +80,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "mon-2",
       time: "9:00 - 9:50",
       subject: "Khmer Literature",
-      kh: "អក្សរសាស្ត្រខ្មែរ",
       room: "B-104",
       color: "bg-warning",
       teacher: "Mrs. Kolab Chan",
@@ -97,7 +92,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "mon-3",
       time: "10:15 - 11:05",
       subject: "Science",
-      kh: "វិទ្យាសាស្ត្រ",
       room: "Lab 2",
       color: "bg-success",
       teacher: "Mr. Kim Heng",
@@ -112,7 +106,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "tue-1",
       time: "8:00 - 8:50",
       subject: "English Language",
-      kh: "ភាសាអង់គ្លេស",
       room: "C-101",
       color: "bg-blue-600",
       teacher: "Ms. Emily Watson",
@@ -125,7 +118,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "tue-2",
       time: "9:00 - 9:50",
       subject: "Social Studies",
-      kh: "សីលធម៌-ពលរដ្ឋ",
       room: "A-102",
       color: "bg-amber-600",
       teacher: "Mr. Rathana Ly",
@@ -138,7 +130,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "tue-3",
       time: "10:15 - 11:05",
       subject: "Physical Education",
-      kh: "អប់រំកាយ និងកីឡា",
       room: "Sports Complex",
       color: "bg-emerald-600",
       teacher: "Coach Somnang",
@@ -153,7 +144,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "wed-1",
       time: "8:00 - 8:50",
       subject: "Mathematics",
-      kh: "គណិតវិទ្យា",
       room: "A-203",
       color: "bg-primary",
       teacher: "Mr. Sok Vannak",
@@ -166,7 +156,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "wed-2",
       time: "9:00 - 9:50",
       subject: "Science",
-      kh: "វិទ្យាសាស្ត្រ",
       room: "Lab 2",
       color: "bg-success",
       teacher: "Mr. Kim Heng",
@@ -179,7 +168,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "wed-3",
       time: "10:15 - 11:05",
       subject: "Art & Music",
-      kh: "សិល្បៈ និងតន្ត្រី",
       room: "Studio 1",
       color: "bg-purple-600",
       teacher: "Mrs. Neary Phun",
@@ -194,7 +182,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "thu-1",
       time: "8:00 - 8:50",
       subject: "English Language",
-      kh: "ភាសាអង់គ្លេស",
       room: "C-101",
       color: "bg-blue-600",
       teacher: "Ms. Emily Watson",
@@ -207,7 +194,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "thu-2",
       time: "9:00 - 9:50",
       subject: "Khmer Literature",
-      kh: "អក្សរសាស្ត្រខ្មែរ",
       room: "B-104",
       color: "bg-warning",
       teacher: "Mrs. Kolab Chan",
@@ -220,7 +206,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "thu-3",
       time: "10:15 - 11:05",
       subject: "Computer Science",
-      kh: "ព័ត៌មានវិទ្យា",
       room: "IT Lab 1",
       color: "bg-cyan-600",
       teacher: "Mr. Boramey Touch",
@@ -235,7 +220,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "fri-1",
       time: "8:00 - 8:50",
       subject: "Mathematics",
-      kh: "គណិតវិទ្យា",
       room: "A-203",
       color: "bg-primary",
       teacher: "Mr. Sok Vannak",
@@ -248,7 +232,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "fri-2",
       time: "9:00 - 9:50",
       subject: "Social Studies",
-      kh: "សីលធម៌-ពលរដ្ឋ",
       room: "A-102",
       color: "bg-amber-600",
       teacher: "Mr. Rathana Ly",
@@ -261,7 +244,6 @@ const schedulesByDay: Record<string, ScheduleItem[]> = {
       id: "fri-3",
       time: "10:15 - 11:05",
       subject: "Science",
-      kh: "វិទ្យាសាស្ត្រ",
       room: "Lab 2",
       color: "bg-success",
       teacher: "Mr. Kim Heng",
@@ -277,7 +259,6 @@ const initialHomework: HomeworkItem[] = [
   {
     id: "hw-1",
     title: "Algebra practice",
-    kh: "លំហាត់ពិជគណិត",
     subject: "Mathematics",
     due: "Today, 6:00 PM",
     state: "Due soon",
@@ -291,7 +272,6 @@ const initialHomework: HomeworkItem[] = [
   {
     id: "hw-2",
     title: "Read chapter 4",
-    kh: "អានជំពូកទី ៤",
     subject: "Khmer Literature",
     due: "Tomorrow, 5:00 PM",
     state: "To do",
@@ -305,7 +285,6 @@ const initialHomework: HomeworkItem[] = [
   {
     id: "hw-3",
     title: "Plant cells worksheet",
-    kh: "សន្លឹកកិច្ចការកោសិការុក្ខជាតិ",
     subject: "Science",
     due: "Sep 23, 11:59 PM",
     state: "Completed",
@@ -380,7 +359,6 @@ const subjectAssessmentData: Record<
 export function StudentApp() {
   const [tab, setTab] = useState<Tab>("home");
   const [detail, setDetail] = useState<Detail>(null);
-  const [lang, setLang] = useState<SupportedLanguage>("en");
   const [resultTab, setResultTab] = useState<"attendance" | "grades">("attendance");
   const [day, setDay] = useState("Mon");
   const [filter, setFilter] = useState("All");
@@ -472,11 +450,6 @@ export function StudentApp() {
           </div>
           {!detail && (
             <div className="flex items-center gap-1.5 shrink-0 ml-2">
-              <LanguageToggle
-                currentLanguage={lang}
-                onLanguageChange={(l) => setLang(l)}
-                size="sm"
-              />
               <Button
                 aria-label="Notifications"
                 size="icon"
@@ -564,7 +537,7 @@ export function StudentApp() {
           <div className="absolute inset-0 z-50 flex flex-col bg-background/95 backdrop-blur-sm p-4 animate-in fade-in">
             <div className="flex items-center justify-between border-b pb-3">
               <div>
-                <h3 className="text-sm font-bold text-foreground">Notifications · ដំណឹង</h3>
+                <h3 className="text-sm font-bold text-foreground">Notifications</h3>
                 <p className="text-[10px] text-muted-foreground">Recent academic and bus announcements</p>
               </div>
               <Button variant="ghost" size="icon" className="size-7" onClick={() => setNotifsOpen(false)}>
@@ -626,7 +599,7 @@ export function StudentApp() {
                   SD
                 </div>
                 <h3 className="mt-2 text-base font-bold text-foreground">Sovann Dara</h3>
-                <p className="text-xs text-muted-foreground">សុវណ្ណ ដារ៉ា · Grade 9A</p>
+                <p className="text-xs text-muted-foreground">Grade 9A</p>
                 <div className="mt-3 flex gap-2 text-[10px]">
                   <span className="rounded bg-accent px-2 py-0.5 font-bold text-primary">ID: 09284</span>
                   <span className="rounded bg-muted px-2 py-0.5 font-bold text-muted-foreground">Blood: O+</span>
@@ -725,9 +698,6 @@ export function StudentApp() {
                   <button className="flex w-full items-center justify-between p-2 rounded-lg bg-primary/10 border border-primary text-primary font-bold">
                     <span>English (EN)</span>
                     <Check className="size-4" />
-                  </button>
-                  <button className="flex w-full items-center justify-between p-2 rounded-lg hover:bg-muted font-medium">
-                    <span>ភាសាខ្មែរ (Khmer)</span>
                   </button>
                 </div>
               )}
@@ -913,7 +883,7 @@ function HomeScreen({
 
       {/* Today's Timetable Section */}
       <div>
-        <SectionHeader title="Today's Timetable" kh="កាលវិភាគថ្ងៃនេះ" action="View all" onClick={onAllClasses} />
+        <SectionHeader title="Today's Timetable" action="View all" onClick={onAllClasses} />
         <Card className="rounded-2xl overflow-hidden border-border/70 divide-y divide-border/60">
           {schedule.map((item, i) => (
             <button
@@ -954,7 +924,7 @@ function HomeScreen({
 
       {/* Homework Action Card with Toggle */}
       <div>
-        <SectionHeader title="Homework & Tasks" kh="កិច្ចការផ្ទះ" action="View all" onClick={onAllHomework} />
+        <SectionHeader title="Homework & Tasks" action="View all" onClick={onAllHomework} />
         {dueHomework && (
           <div
             className={cn(
@@ -1025,7 +995,7 @@ function ClassesScreen({
     <div className="space-y-3 p-3.5">
       <div>
         <h1 className="text-lg font-bold text-foreground">My classes</h1>
-        <p className="text-xs text-muted-foreground">ថ្នាក់រៀនរបស់ខ្ញុំ · Grade 9A</p>
+        <p className="text-xs text-muted-foreground">Grade 9A</p>
       </div>
 
       <div className="grid grid-cols-5 rounded-lg bg-secondary p-1">
@@ -1076,7 +1046,6 @@ function ClassesScreen({
             <span className={cn("w-1 self-stretch rounded-full", item.color)} />
             <div className="flex-1 min-w-0">
               <strong className="text-xs font-bold block truncate">{item.subject}</strong>
-              <p className="text-[10px] text-muted-foreground truncate">{item.kh}</p>
               <p className="mt-0.5 text-[10px] text-primary font-medium">{item.room} · {item.teacher}</p>
             </div>
             <ChevronRight className="mt-2 size-3.5 text-muted-foreground" />
@@ -1084,7 +1053,7 @@ function ClassesScreen({
         ))}
       </Card>
 
-      <SectionHeader title="My subjects" kh="មុខវិជ្ជារបស់ខ្ញុំ" />
+      <SectionHeader title="My subjects" />
       <div className="grid grid-cols-2 gap-2">
         {([
           ["Mathematics", "5 lessons"],
@@ -1122,7 +1091,7 @@ function HomeworkScreen({
     <div className="space-y-3 p-3.5">
       <div>
         <h1 className="text-lg font-bold text-foreground">Homework</h1>
-        <p className="text-xs text-muted-foreground">កិច្ចការផ្ទះ · {homeworkList.length} assignments</p>
+        <p className="text-xs text-muted-foreground">{homeworkList.length} assignments</p>
       </div>
 
       <div className="flex gap-1.5 overflow-x-auto">
@@ -1155,7 +1124,6 @@ function HomeworkScreen({
                 <div>
                   <p className="text-[10px] font-semibold text-primary">{h.subject}</p>
                   <h2 className="mt-0.5 font-bold text-xs text-foreground">{h.title}</h2>
-                  <p className="text-[10px] text-muted-foreground">{h.kh}</p>
                 </div>
                 <Chip tone={h.completed ? "success" : h.tone}>
                   {h.completed ? "Completed" : h.state}
@@ -1189,7 +1157,7 @@ function ResultsScreen({
     <div className="space-y-3 p-3.5">
       <div>
         <h1 className="text-lg font-bold text-foreground">Results</h1>
-        <p className="text-xs text-muted-foreground">លទ្ធផលសិក្សា · Term 1</p>
+        <p className="text-xs text-muted-foreground">Term 1</p>
       </div>
       <div className="grid grid-cols-2 rounded-lg bg-secondary p-1">
         <Button
@@ -1318,7 +1286,7 @@ function Grades({ onSubjectClick }: { onSubjectClick?: (s: string) => void }) {
   return (
     <div className="space-y-3 pt-1">
       <div className="rounded-xl bg-primary p-3.5 text-primary-foreground">
-        <p className="text-[10px] opacity-80">Term average · មធ្យមភាគ</p>
+        <p className="text-[10px] opacity-80">Term average</p>
         <div className="mt-1 flex items-end justify-between">
           <strong className="text-2xl font-bold">88.5%</strong>
           <span className="rounded-md bg-white/20 px-2 py-0.5 text-[10px] font-bold">↑ 3.2% gain</span>
@@ -1364,9 +1332,9 @@ function MoreScreen({
   onOpenId?: () => void;
 }) {
   const items = [
-    { icon: CircleUserRound, title: "Student Profile", kh: "ប្រវត្តិរូប", detail: "profile" as const },
-    { icon: Bus, title: "Bus Information", kh: "ព័ត៌មានរថយន្តសាលា", detail: "bus" as const },
-    { icon: Settings, title: "Settings & Language", kh: "ការកំណត់", detail: "settings" as const },
+    { icon: CircleUserRound, title: "Student Profile", detail: "profile" as const },
+    { icon: Bus, title: "Bus Information", detail: "bus" as const },
+    { icon: Settings, title: "Settings", detail: "settings" as const },
   ];
 
   return (
@@ -1393,7 +1361,7 @@ function MoreScreen({
       </div>
 
       <Card>
-        {items.map(({ icon: Icon, title, kh, detail }, i) => (
+        {items.map(({ icon: Icon, title, detail }, i) => (
           <button
             key={title}
             onClick={() => open(detail)}
@@ -1407,7 +1375,6 @@ function MoreScreen({
             </span>
             <span className="flex-1">
               <strong className="block text-xs font-bold text-foreground">{title}</strong>
-              <small className="text-[10px] text-muted-foreground">{kh}</small>
             </span>
             <ChevronRight className="size-3.5 text-muted-foreground" />
           </button>
@@ -1441,7 +1408,7 @@ function renderDetail(
             <span className="text-[11px] font-semibold text-muted-foreground">{selectedClass?.time}</span>
           </div>
           <h1 className="mt-2 text-lg font-bold text-foreground">{selectedClass?.subject}</h1>
-          <p className="text-xs text-muted-foreground">{selectedClass?.kh} · Room {selectedClass?.room}</p>
+          <p className="text-xs text-muted-foreground">Room {selectedClass?.room}</p>
         </div>
 
         <Card>
@@ -1451,7 +1418,7 @@ function renderDetail(
         </Card>
 
         <div>
-          <h2 className="mb-1.5 font-bold text-xs text-foreground">Current lesson · មេរៀន</h2>
+          <h2 className="mb-1.5 font-bold text-xs text-foreground">Current lesson</h2>
           <Card>
             <div className="p-3">
               <p className="text-[10px] font-bold text-primary">{selectedClass?.unit}</p>
@@ -1464,7 +1431,7 @@ function renderDetail(
         </div>
 
         <div>
-          <h2 className="mb-1.5 font-bold text-xs text-foreground">Learning materials · សម្ភារសិក្សា</h2>
+          <h2 className="mb-1.5 font-bold text-xs text-foreground">Learning materials</h2>
           <Card>
             <div className="flex items-center justify-between p-3">
               <div className="flex items-center gap-2.5">
@@ -1495,7 +1462,6 @@ function renderDetail(
             {isCompleted ? "Completed" : selectedHomework?.state}
           </Chip>
           <h1 className="mt-1.5 text-xl font-bold text-foreground">{selectedHomework?.title}</h1>
-          <p className="text-xs text-muted-foreground">{selectedHomework?.kh}</p>
         </div>
 
         <Card>
@@ -1505,7 +1471,7 @@ function renderDetail(
         </Card>
 
         <div>
-          <h2 className="mb-1.5 font-bold text-xs text-foreground">Instructions · សេចក្តីណែនាំ</h2>
+          <h2 className="mb-1.5 font-bold text-xs text-foreground">Instructions</h2>
           <Card>
             <p className="p-3 text-xs leading-5 text-muted-foreground">
               {selectedHomework?.instructions}
@@ -1552,7 +1518,7 @@ function renderDetail(
         <div className="rounded-2xl border border-border bg-card p-4 shadow-2xs">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[11px] font-medium text-muted-foreground">School Bus · រថយន្តសាលា</p>
+              <p className="text-[11px] font-medium text-muted-foreground">School Bus</p>
               <h1 className="mt-0.5 text-lg font-bold text-foreground">Route 07 · Sen Sok Express</h1>
             </div>
             <div className="grid size-10 place-items-center rounded-xl bg-muted text-foreground border border-border/80">
@@ -1595,7 +1561,6 @@ function renderDetail(
             SD
           </div>
           <h1 className="mt-2 text-base font-bold text-foreground">Sovann Dara</h1>
-          <p className="text-xs text-muted-foreground">សុវណ្ណ ដារ៉ា</p>
         </div>
 
         <Card>
@@ -1617,14 +1582,14 @@ function renderDetail(
     <div className="space-y-3 p-3.5">
       <div>
         <h1 className="text-lg font-bold text-foreground">Settings</h1>
-        <p className="text-xs text-muted-foreground">ការកំណត់</p>
+        <p className="text-xs text-muted-foreground">App preferences</p>
       </div>
       <Card>
         <button
           className="w-full text-left cursor-pointer"
           onClick={() => onOpenSetting?.("Language")}
         >
-          <SettingRow icon={<Languages />} label="Khmer & English" />
+          <SettingRow icon={<Languages />} label="Language" />
         </button>
         <SettingRow icon={<Bell />} label="Notifications" toggle />
         <SettingRow icon={<WifiOff />} label="Offline access" toggle />
@@ -1702,12 +1667,10 @@ function Chip({ children, tone }: { children: ReactNode; tone?: string }) {
 
 function SectionHeader({
   title,
-  kh,
   action,
   onClick,
 }: {
   title: string;
-  kh: string;
   action?: string;
   onClick?: () => void;
 }) {
@@ -1715,7 +1678,6 @@ function SectionHeader({
     <div className="flex items-end justify-between">
       <div>
         <h2 className="font-bold text-xs text-foreground">{title}</h2>
-        <p className="text-[10px] text-muted-foreground">{kh}</p>
       </div>
       {action && (
         <Button variant="link" onClick={onClick} className="h-6 p-0 text-[11px]">

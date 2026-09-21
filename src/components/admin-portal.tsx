@@ -56,24 +56,24 @@ type Section =
   | "Reports"
   | "Settings & Roles";
 
-const navItems: Array<{ label: Section; khmer: string; icon: LucideIcon }> = [
-  { label: "Dashboard", khmer: "ផ្ទាំងគ្រប់គ្រង", icon: LayoutDashboard },
-  { label: "Students & Parents", khmer: "សិស្ស និងអាណាព្យាបាល", icon: Users },
-  { label: "Classes & Programs", khmer: "ថ្នាក់ និងកម្មវិធី", icon: BookOpen },
-  { label: "Admissions", khmer: "ការចុះឈ្មោះ", icon: ClipboardList },
-  { label: "Fees & Finance", khmer: "ថ្លៃសិក្សា និងហិរញ្ញវត្ថុ", icon: CircleDollarSign },
-  { label: "Transport", khmer: "ការដឹកជញ្ជូន", icon: Bus },
-  { label: "Communication", khmer: "ទំនាក់ទំនង", icon: MessageSquare },
-  { label: "Reports", khmer: "របាយការណ៍ និងស្ថិតិ", icon: TrendingUp },
-  { label: "Settings & Roles", khmer: "ការកំណត់ និងតួនាទី", icon: Settings },
+const navItems: Array<{ label: Section; icon: LucideIcon }> = [
+  { label: "Dashboard", icon: LayoutDashboard },
+  { label: "Students & Parents", icon: Users },
+  { label: "Classes & Programs", icon: BookOpen },
+  { label: "Admissions", icon: ClipboardList },
+  { label: "Fees & Finance", icon: CircleDollarSign },
+  { label: "Transport", icon: Bus },
+  { label: "Communication", icon: MessageSquare },
+  { label: "Reports", icon: TrendingUp },
+  { label: "Settings & Roles", icon: Settings },
 ];
 
 const students = [
-  { id: "STU-2401", name: "Sokha Chan", khmer: "ចាន់ សុខា", grade: "Grade 8A", parent: "Dara Chan", attendance: "96%", status: "Active" },
-  { id: "STU-2402", name: "Sreyneang Lim", khmer: "លឹម ស្រីនាង", grade: "Grade 7B", parent: "Malis Lim", attendance: "92%", status: "Active" },
-  { id: "STU-2403", name: "Vannak Chea", khmer: "ជា វណ្ណៈ", grade: "Grade 9A", parent: "Sopheap Chea", attendance: "84%", status: "Review" },
-  { id: "STU-2404", name: "Bopha Heng", khmer: "ហេង បុប្ផា", grade: "Grade 6C", parent: "Rady Heng", attendance: "98%", status: "Active" },
-  { id: "STU-2405", name: "Makara Pen", khmer: "ប៉ែន មករា", grade: "Grade 8B", parent: "Sovann Pen", attendance: "89%", status: "Active" },
+  { id: "STU-2401", name: "Sokha Chan", grade: "Grade 8A", parent: "Dara Chan", attendance: "96%", status: "Active" },
+  { id: "STU-2402", name: "Sreyneang Lim", grade: "Grade 7B", parent: "Malis Lim", attendance: "92%", status: "Active" },
+  { id: "STU-2403", name: "Vannak Chea", grade: "Grade 9A", parent: "Sopheap Chea", attendance: "84%", status: "Review" },
+  { id: "STU-2404", name: "Bopha Heng", grade: "Grade 6C", parent: "Rady Heng", attendance: "98%", status: "Active" },
+  { id: "STU-2405", name: "Makara Pen", grade: "Grade 8B", parent: "Sovann Pen", attendance: "89%", status: "Active" },
 ];
 
 const invoices = [
@@ -147,7 +147,7 @@ function Sidebar({
           </div>
           <div className="min-w-0">
             <p className="truncate text-sm font-bold text-sidebar-foreground">School OS</p>
-            <p className="text-[11px] text-sidebar-muted">Admin Portal · ផ្ទាំងគ្រប់គ្រង</p>
+            <p className="text-[11px] text-sidebar-muted">Admin Portal</p>
           </div>
           <Button
             variant="ghost"
@@ -177,7 +177,7 @@ function Sidebar({
           <p className="mb-2 px-3 text-[11px] font-semibold text-sidebar-foreground/70">
             Workspace
           </p>
-          {navItems.map(({ label, khmer, icon: Icon }) => (
+          {navItems.map(({ label, icon: Icon }) => (
             <button
               key={label}
               onClick={() => onSelect(label)}
@@ -189,12 +189,7 @@ function Sidebar({
               )}
             >
               <Icon className={cn("size-4", section === label ? "text-primary-foreground" : "text-primary")} />
-              <span className="min-w-0 flex-1">
-                <span className="block truncate">{label}</span>
-                <span className={cn("block truncate text-[9px]", section === label ? "opacity-90" : "text-sidebar-muted")}>
-                  {khmer}
-                </span>
-              </span>
+              <span className="min-w-0 flex-1 truncate font-medium">{label}</span>
               {label === "Admissions" && (
                 <span
                   className={cn(
@@ -227,8 +222,6 @@ function Sidebar({
 }
 
 function Topbar({ onMenu }: { onMenu: () => void }) {
-  const [lang, setLang] = useState<"EN" | "ខ្មែរ">("EN");
-  const [langOpen, setLangOpen] = useState(false);
   const [notifsOpen, setNotifsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(3);
@@ -252,56 +245,6 @@ function Topbar({ onMenu }: { onMenu: () => void }) {
       </div>
 
       <div className="ml-auto flex items-center gap-2">
-        {/* Language selector dropdown */}
-        <div className="relative">
-          <Button
-            variant="ghost"
-            onClick={() => {
-              setLangOpen(!langOpen);
-              setNotifsOpen(false);
-              setUserMenuOpen(false);
-            }}
-            className="hidden h-9 gap-1 px-2.5 text-muted-foreground sm:flex text-xs font-semibold hover:text-foreground"
-          >
-            <span>{lang === "EN" ? "EN / English" : "ខ្មែរ / Khmer"}</span>
-            <ChevronDown className="size-3" />
-          </Button>
-
-          {langOpen && (
-            <>
-              <div className="fixed inset-0 z-40" onClick={() => setLangOpen(false)} />
-              <div className="absolute right-0 top-10 z-50 w-36 rounded-lg border border-border bg-popover p-1 shadow-lg text-xs">
-                <button
-                  onClick={() => {
-                    setLang("EN");
-                    setLangOpen(false);
-                  }}
-                  className={cn(
-                    "flex w-full items-center justify-between rounded-md px-3 py-2 text-left cursor-pointer",
-                    lang === "EN" ? "bg-primary text-white font-semibold" : "hover:bg-muted"
-                  )}
-                >
-                  <span>English (EN)</span>
-                  {lang === "EN" && <Check className="size-3.5" />}
-                </button>
-                <button
-                  onClick={() => {
-                    setLang("ខ្មែរ");
-                    setLangOpen(false);
-                  }}
-                  className={cn(
-                    "flex w-full items-center justify-between rounded-md px-3 py-2 text-left cursor-pointer",
-                    lang === "ខ្មែរ" ? "bg-primary text-white font-semibold" : "hover:bg-muted"
-                  )}
-                >
-                  <span>ភាសាខ្មែរ (KH)</span>
-                  {lang === "ខ្មែរ" && <Check className="size-3.5" />}
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-
         {/* Notifications Dropdown */}
         <div className="relative">
           <Button
@@ -309,7 +252,6 @@ function Topbar({ onMenu }: { onMenu: () => void }) {
             size="icon"
             onClick={() => {
               setNotifsOpen(!notifsOpen);
-              setLangOpen(false);
               setUserMenuOpen(false);
             }}
             className="relative size-9"
@@ -365,7 +307,6 @@ function Topbar({ onMenu }: { onMenu: () => void }) {
           <button
             onClick={() => {
               setUserMenuOpen(!userMenuOpen);
-              setLangOpen(false);
               setNotifsOpen(false);
             }}
             className="flex items-center gap-2 rounded-md p-1 text-left hover:bg-muted cursor-pointer transition-colors"
@@ -686,7 +627,6 @@ function StudentsPage() {
   const [selected, setSelected] = useState<(typeof students)[number] | null>(null);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [newName, setNewName] = useState("");
-  const [newKhmer, setNewKhmer] = useState("");
   const [newGrade, setNewGrade] = useState("Grade 7A");
   const [newParent, setNewParent] = useState("");
 
@@ -694,7 +634,7 @@ function StudentsPage() {
     () =>
       studentList.filter(
         (s) =>
-          `${s.name} ${s.khmer} ${s.id}`.toLowerCase().includes(query.toLowerCase()) &&
+          `${s.name} ${s.id}`.toLowerCase().includes(query.toLowerCase()) &&
           (grade === "All grades" || s.grade.includes(grade))
       ),
     [studentList, query, grade]
@@ -708,7 +648,6 @@ function StudentsPage() {
       {
         id: nextId,
         name: newName.trim(),
-        khmer: newKhmer.trim() || newName.trim(),
         grade: newGrade,
         parent: newParent.trim() || "Guardian",
         attendance: "100%",
@@ -717,7 +656,6 @@ function StudentsPage() {
       ...prev,
     ]);
     setNewName("");
-    setNewKhmer("");
     setNewParent("");
     setAddModalOpen(false);
   };
@@ -782,7 +720,7 @@ function StudentsPage() {
                   </Avatar>
                   <div>
                     <p className="text-xs font-semibold">{student.name}</p>
-                    <p className="text-[10px] text-muted-foreground">{student.khmer}</p>
+                    <p className="text-[10px] text-muted-foreground">{student.id}</p>
                   </div>
                 </div>
               </td>
@@ -805,12 +743,9 @@ function StudentsPage() {
       {/* Add Student Modal */}
       {addModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 animate-in fade-in">
-          <div className="w-full max-w-md rounded-xl border border-border bg-card p-5 shadow-2xl">
+          <div className="w-full max-w-md rounded-xl border border-border bg-card p-6 shadow-2xl">
             <div className="flex items-center justify-between border-b pb-3">
-              <div>
-                <h3 className="text-base font-bold text-foreground">Add New Student</h3>
-                <p className="text-xs text-muted-foreground">Enroll a student into the SIS</p>
-              </div>
+              <h3 className="text-sm font-bold text-foreground">Add New Student</h3>
               <Button variant="ghost" size="icon" className="size-8" onClick={() => setAddModalOpen(false)}>
                 <X className="size-4" />
               </Button>
@@ -818,21 +753,12 @@ function StudentsPage() {
 
             <form onSubmit={handleAddStudent} className="mt-4 space-y-3">
               <div>
-                <label className="text-xs font-semibold">Full Name (English) *</label>
+                <label className="text-xs font-semibold">Full Name *</label>
                 <Input
                   required
                   placeholder="e.g. Vicheka Seng"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
-                  className="mt-1 h-9 text-xs"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-semibold">Name in Khmer</label>
-                <Input
-                  placeholder="e.g. សេង វិច្ឆិកា"
-                  value={newKhmer}
-                  onChange={(e) => setNewKhmer(e.target.value)}
                   className="mt-1 h-9 text-xs"
                 />
               </div>
@@ -913,7 +839,7 @@ function StudentPanel({
         <div className="flex h-[64px] items-center justify-between border-b border-border px-5">
           <div>
             <p className="text-xs font-bold">Student profile</p>
-            <p className="text-[10px] text-muted-foreground">ព័ត៌មានសិស្ស</p>
+            <p className="text-[10px] text-muted-foreground">ID: {student.id}</p>
           </div>
           <Button variant="ghost" size="icon" className="size-8" onClick={onClose} aria-label="Close profile">
             <X className="size-4" />
@@ -928,7 +854,7 @@ function StudentPanel({
             </Avatar>
             <div>
               <h2 className="text-lg font-bold">{student.name}</h2>
-              <p className="text-xs text-muted-foreground">{student.khmer}</p>
+              <p className="text-xs text-muted-foreground">{student.grade}</p>
               <div className="mt-1.5 flex items-center gap-2">
                 <StatusChip status={student.status} />
                 <button
@@ -1176,7 +1102,6 @@ function FinancePage() {
 function FeePlans() {
   const [selectedPlan, setSelectedPlan] = useState<{
     name: string;
-    khmer: string;
     price: string;
     detail: string;
     studentsCount: number;
@@ -1188,7 +1113,6 @@ function FeePlans() {
   const plans = [
     {
       name: "Primary tuition",
-      khmer: "ថ្លៃសិក្សាបឋមសិក្សា",
       price: "$320",
       detail: "Grades 1–6",
       studentsCount: 384,
@@ -1206,7 +1130,6 @@ function FeePlans() {
     },
     {
       name: "Secondary tuition",
-      khmer: "ថ្លៃសិក្សាអនុវិទ្យាល័យ",
       price: "$420",
       detail: "Grades 7–9",
       studentsCount: 296,
@@ -1224,7 +1147,6 @@ function FeePlans() {
     },
     {
       name: "Senior tuition",
-      khmer: "ថ្លៃសិក្សាវិទ្យាល័យ",
       price: "$520",
       detail: "Grades 10–12",
       studentsCount: 242,
@@ -1266,7 +1188,7 @@ function FeePlans() {
               <StatusChip status="Active" />
             </div>
             <h3 className="mt-3 font-semibold text-sm">{plan.name}</h3>
-            <p className="text-[11px] text-muted-foreground">{plan.khmer} · {plan.detail}</p>
+            <p className="text-[11px] text-muted-foreground">{plan.detail}</p>
             <p className="mt-3 text-xl font-bold">
               {plan.price}
               <span className="text-xs font-normal text-muted-foreground"> / term</span>
@@ -1294,7 +1216,7 @@ function FeePlans() {
                   <h3 className="text-lg font-bold text-foreground">{selectedPlan.name}</h3>
                   <StatusChip status="Active" />
                 </div>
-                <p className="text-xs text-muted-foreground">{selectedPlan.khmer} · {selectedPlan.detail}</p>
+                <p className="text-xs text-muted-foreground">{selectedPlan.detail}</p>
               </div>
               <Button variant="ghost" size="icon" className="size-8" onClick={() => setSelectedPlan(null)}>
                 <X className="size-4" />
@@ -1765,7 +1687,6 @@ function RolesPage() {
   // School profile form state
   const [schoolProfile, setSchoolProfile] = useState({
     nameEn: "New Sunrise School",
-    nameKh: "សាលា អរុណរះថ្មី",
     moeysLicense: "MoEYS-PP-2024-892",
     phone: "+855 23 888 777",
     email: "info@school.edu.kh",
@@ -1976,23 +1897,13 @@ function RolesPage() {
                 }}
                 className="mt-5 space-y-4 max-w-2xl text-xs"
               >
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className="font-semibold text-foreground">School Name (English)</label>
-                    <Input
-                      className="mt-1 h-9 text-xs"
-                      value={schoolProfile.nameEn}
-                      onChange={(e) => setSchoolProfile({ ...schoolProfile, nameEn: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="font-semibold text-foreground">School Name (Khmer)</label>
-                    <Input
-                      className="mt-1 h-9 text-xs"
-                      value={schoolProfile.nameKh}
-                      onChange={(e) => setSchoolProfile({ ...schoolProfile, nameKh: e.target.value })}
-                    />
-                  </div>
+                <div>
+                  <label className="font-semibold text-foreground">School Name</label>
+                  <Input
+                    className="mt-1 h-9 text-xs"
+                    value={schoolProfile.nameEn}
+                    onChange={(e) => setSchoolProfile({ ...schoolProfile, nameEn: e.target.value })}
+                  />
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -2628,12 +2539,12 @@ function AdmissionsPage() {
   ]);
 
   const [applicants, setApplicants] = useState([
-    { id: "APP-091", name: "Sokunthea Pich", khmer: "ពេជ្រ សុគន្ធា", grade: "Grade 7", parent: "Pich Sovan", phone: "+855 12 345 991", date: "19 Sep 2026", stage: "New applications", docs: "Birth cert, MoEYS book" },
-    { id: "APP-088", name: "Rithy Kem", khmer: "ខែម រិទ្ធី", grade: "Grade 6", parent: "Kem Sreynich", phone: "+855 17 889 002", date: "18 Sep 2026", stage: "New applications", docs: "Transcripts verified" },
-    { id: "APP-082", name: "Channary Mom", khmer: "ម៉ុម ចាន់ណារី", grade: "Grade 8", parent: "Mom Sovann", phone: "+855 89 223 344", date: "15 Sep 2026", stage: "Under review", docs: "Entrance exam: 86%" },
-    { id: "APP-079", name: "Vireak Chea", khmer: "ជា វិរៈ", grade: "Grade 9", parent: "Chea Dara", phone: "+855 92 112 233", date: "12 Sep 2026", stage: "Under review", docs: "Interview scheduled" },
-    { id: "APP-065", name: "Mony Oung", khmer: "អ៊ុង មុនី", grade: "Grade 7", parent: "Oung Piseth", phone: "+855 12 776 655", date: "10 Sep 2026", stage: "Accepted", docs: "Deposit invoice issued" },
-    { id: "APP-054", name: "Nita Seng", khmer: "សេង នីតា", grade: "Grade 6", parent: "Seng Borey", phone: "+855 16 998 877", date: "08 Sep 2026", stage: "Waitlisted", docs: "Awaiting vacancy" },
+    { id: "APP-091", name: "Sokunthea Pich", grade: "Grade 7", parent: "Pich Sovan", phone: "+855 12 345 991", date: "19 Sep 2026", stage: "New applications", docs: "Birth cert, MoEYS book" },
+    { id: "APP-088", name: "Rithy Kem", grade: "Grade 6", parent: "Kem Sreynich", phone: "+855 17 889 002", date: "18 Sep 2026", stage: "New applications", docs: "Transcripts verified" },
+    { id: "APP-082", name: "Channary Mom", grade: "Grade 8", parent: "Mom Sovann", phone: "+855 89 223 344", date: "15 Sep 2026", stage: "Under review", docs: "Entrance exam: 86%" },
+    { id: "APP-079", name: "Vireak Chea", grade: "Grade 9", parent: "Chea Dara", phone: "+855 92 112 233", date: "12 Sep 2026", stage: "Under review", docs: "Interview scheduled" },
+    { id: "APP-065", name: "Mony Oung", grade: "Grade 7", parent: "Oung Piseth", phone: "+855 12 776 655", date: "10 Sep 2026", stage: "Accepted", docs: "Deposit invoice issued" },
+    { id: "APP-054", name: "Nita Seng", grade: "Grade 6", parent: "Seng Borey", phone: "+855 16 998 877", date: "08 Sep 2026", stage: "Waitlisted", docs: "Awaiting vacancy" },
   ]);
 
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
@@ -2653,7 +2564,6 @@ function AdmissionsPage() {
     const newApp = {
       id: nextId,
       name: applicantName.trim(),
-      khmer: "",
       grade: applicantGrade,
       parent: parentName.trim(),
       phone: parentPhone.trim() || "+855 12 000 000",

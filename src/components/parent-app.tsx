@@ -43,7 +43,6 @@ import {
 import { cn } from "@/lib/utils";
 import { MobileDeviceFrame } from "@/components/mobile-device-frame";
 import { StatusChip } from "@/components/shared/status-chip";
-import { LanguageToggle, SupportedLanguage } from "@/components/shared/language-toggle";
 import { EmptyState } from "@/components/shared/empty-state";
 import {
   MOCK_PARENTS,
@@ -71,7 +70,6 @@ export type BusStateVariation =
 export function ParentApp() {
   const [tab, setTab] = useState<Tab>("home");
   const [detail, setDetail] = useState<Detail>(null);
-  const [lang, setLang] = useState<SupportedLanguage>("en");
   const [selectedStudentId, setSelectedStudentId] = useState<string>("stu-dara-meas");
   const [childMenu, setChildMenu] = useState(false);
   const [progressTab, setProgressTab] = useState<"attendance" | "grades">("attendance");
@@ -170,19 +168,6 @@ export function ParentApp() {
             </div>
 
             <div className="flex items-center gap-1.5">
-              <LanguageToggle
-                currentLanguage={lang}
-                onLanguageChange={(l) => {
-                  setLang(l);
-                  showToast(
-                    l === "kh"
-                      ? "បានប្តូរទៅជាភាសាខ្មែរ"
-                      : l === "fr"
-                      ? "Langue changée en français"
-                      : "Language switched to English",
-                  );
-                }}
-              />
 
               {!detail && (
                 <Button

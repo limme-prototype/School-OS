@@ -47,7 +47,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { MobileDeviceFrame } from "@/components/mobile-device-frame";
 import { StatusChip } from "@/components/shared/status-chip";
-import { LanguageToggle, SupportedLanguage } from "@/components/shared/language-toggle";
 import {
   MOCK_ROUTES,
   MOCK_ROUTE_03_STOPS,
@@ -64,7 +63,6 @@ type DemoScenario = "normal" | "delayed-noshow" | "afternoon-guardian";
 export function BusStaffApp() {
   const [screen, setScreen] = useState<Screen>("trips");
   const [tab, setTab] = useState<TripTab>("stops");
-  const [lang, setLang] = useState<SupportedLanguage>("en");
   const [scenario, setScenario] = useState<DemoScenario>("delayed-noshow");
 
   // State from mock data

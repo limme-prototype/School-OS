@@ -32,7 +32,6 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { MobileDeviceFrame } from "@/components/mobile-device-frame";
 import { StatusChip } from "@/components/shared/status-chip";
-import { LanguageToggle, SupportedLanguage } from "@/components/shared/language-toggle";
 import { cn } from "@/lib/utils";
 import {
   MOCK_TEACHERS,
@@ -147,7 +146,6 @@ const initialStudents: StudentAttendanceRecord[] = [
 
 export function TeacherApp() {
   const [tab, setTab] = useState<TeacherTab>("home");
-  const [lang, setLang] = useState<SupportedLanguage>("en");
   const [selectedClass, setSelectedClass] = useState<TeacherClass>(todayClasses[0]!);
   const [studentsRoster, setStudentsRoster] = useState<StudentAttendanceRecord[]>(initialStudents);
   const [busAutoAccepted, setBusAutoAccepted] = useState(false);
@@ -225,19 +223,6 @@ export function TeacherApp() {
             </div>
 
             <div className="flex items-center gap-1.5">
-              <LanguageToggle
-                currentLanguage={lang}
-                onLanguageChange={(l) => {
-                  setLang(l);
-                  showToast(
-                    l === "kh"
-                      ? "ប្តូរទៅជាភាសាខ្មែរ"
-                      : l === "fr"
-                      ? "Passé en français"
-                      : "Switched to English",
-                  );
-                }}
-              />
               <Button
                 variant="ghost"
                 size="icon"
