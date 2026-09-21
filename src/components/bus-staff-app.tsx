@@ -237,15 +237,15 @@ export function BusStaffApp() {
             <header className="sticky top-0 z-20 border-b border-border/60 bg-card/95 px-4 pb-3 pt-3 text-foreground backdrop-blur-xl">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <div className="grid size-9 place-items-center rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/30">
-                    <Bus className="size-4.5" />
+                  <div className="grid size-9 place-items-center rounded-xl bg-muted text-foreground border border-border/80">
+                    <Bus className="size-4" />
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
                       <h1 className="text-sm font-bold text-foreground">School OS</h1>
-                      <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold text-amber-700 dark:text-amber-400 border border-amber-500/25">
+                      <Badge variant="secondary" className="text-[10px]">
                         Fleet Driver
-                      </span>
+                      </Badge>
                     </div>
                     <p className="text-[11px] text-muted-foreground">Bus KH 2A-9412 · Seng Vibol</p>
                   </div>
@@ -255,21 +255,21 @@ export function BusStaffApp() {
                   <button
                     onClick={toggleSync}
                     className={cn(
-                      "flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold transition cursor-pointer border",
+                      "flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold transition cursor-pointer border",
                       isOnline
                         ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20"
-                        : "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20",
+                        : "bg-muted text-muted-foreground border-border",
                     )}
                     title="Tap to toggle online/offline simulation"
                   >
                     {isOnline ? (
                       <>
-                        <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="size-1.5 rounded-full bg-emerald-500" />
                         <Wifi className="size-3 text-emerald-600 dark:text-emerald-400" /> Online
                       </>
                     ) : (
                       <>
-                        <CloudOff className="size-3 text-amber-600 dark:text-amber-400" /> Offline
+                        <CloudOff className="size-3 text-muted-foreground" /> Offline
                       </>
                     )}
                   </button>
@@ -284,17 +284,17 @@ export function BusStaffApp() {
               </div>
 
               {/* Demo Journey Scenario Switcher */}
-              <div className="mt-3 rounded-xl border border-border/70 bg-muted/40 p-2 text-xs">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold text-muted-foreground">
-                    Demo Journey
+              <div className="mt-3 rounded-lg border border-border/70 bg-muted/30 p-1.5 text-xs">
+                <div className="flex items-center justify-between px-1">
+                  <span className="text-[10px] font-semibold text-muted-foreground">
+                    Simulation Journey
                   </span>
-                  <span className="text-[10px] text-muted-foreground font-mono">3 Scenarios</span>
+                  <span className="text-[10px] text-muted-foreground">3 Scenarios</span>
                 </div>
-                <div className="mt-1.5 grid grid-cols-3 gap-1">
+                <div className="mt-1 grid grid-cols-3 gap-1">
                   {[
                     { id: "normal", label: "Normal AM" },
-                    { id: "delayed-noshow", label: "Delayed + No-Show" },
+                    { id: "delayed-noshow", label: "Delayed + Alert" },
                     { id: "afternoon-guardian", label: "PM Drop-Off" },
                   ].map((sc) => (
                     <button
@@ -304,10 +304,10 @@ export function BusStaffApp() {
                         showToast(`Switched scenario to ${sc.label}`);
                       }}
                       className={cn(
-                        "rounded-lg px-1.5 py-1 text-[10px] font-bold transition cursor-pointer text-center",
+                        "rounded-md px-1.5 py-1 text-[10px] font-medium transition cursor-pointer text-center",
                         scenario === sc.id
-                          ? "bg-foreground text-background shadow-xs"
-                          : "bg-card text-muted-foreground hover:text-foreground border border-border/40",
+                          ? "bg-foreground text-background font-semibold shadow-2xs"
+                          : "text-muted-foreground hover:text-foreground",
                       )}
                     >
                       {sc.label}
@@ -323,7 +323,7 @@ export function BusStaffApp() {
                 <h2 className="text-xs font-bold text-foreground">
                   Today's Active Trips · 21 Sep 2026
                 </h2>
-                <Badge variant="outline" className="text-[10px] border-amber-500/40 text-amber-700 dark:text-amber-300">
+                <Badge variant="outline" className="text-[10px]">
                   Bus KH 2A-9412
                 </Badge>
               </div>
@@ -373,7 +373,7 @@ export function BusStaffApp() {
 
                 <Button
                   onClick={startTrip}
-                  className="mt-3.5 h-11 w-full bg-amber-500 text-amber-950 font-bold hover:bg-amber-400 text-xs shadow-md cursor-pointer gap-2"
+                  className="mt-3.5 h-11 w-full text-xs font-semibold gap-2 cursor-pointer shadow-2xs"
                 >
                   <Bus className="size-4" /> Open Active Trip Runner
                 </Button>
@@ -490,7 +490,7 @@ export function BusStaffApp() {
                 className={cn(
                   "flex-1 py-2.5 flex items-center justify-center gap-1.5 border-b-2 transition cursor-pointer",
                   tab === "stops"
-                    ? "border-amber-500 text-amber-700 dark:text-amber-400 font-bold bg-amber-500/5"
+                    ? "border-primary text-foreground font-bold bg-muted/30"
                     : "border-transparent text-muted-foreground hover:text-foreground",
                 )}
               >
@@ -502,7 +502,7 @@ export function BusStaffApp() {
                 className={cn(
                   "flex-1 py-2.5 flex items-center justify-center gap-1.5 border-b-2 transition cursor-pointer",
                   tab === "riders"
-                    ? "border-amber-500 text-amber-700 dark:text-amber-400 font-bold bg-amber-500/5"
+                    ? "border-primary text-foreground font-bold bg-muted/30"
                     : "border-transparent text-muted-foreground hover:text-foreground",
                 )}
               >
@@ -514,7 +514,7 @@ export function BusStaffApp() {
                 className={cn(
                   "flex-1 py-2.5 flex items-center justify-center gap-1.5 border-b-2 transition cursor-pointer relative",
                   tab === "incidents"
-                    ? "border-amber-500 text-amber-700 dark:text-amber-400 font-bold bg-amber-500/5"
+                    ? "border-primary text-foreground font-bold bg-muted/30"
                     : "border-transparent text-muted-foreground hover:text-foreground",
                 )}
               >
@@ -548,10 +548,10 @@ export function BusStaffApp() {
                         className={cn(
                           "rounded-xl border p-3 transition-all",
                           hasArrived
-                            ? "border-emerald-500/40 bg-emerald-500/5"
+                            ? "border-emerald-500/30 bg-emerald-500/5"
                             : isNext
-                            ? "border-amber-500 bg-amber-500/5 shadow-xs"
-                            : "border-border bg-card opacity-70",
+                            ? "border-primary/50 bg-card shadow-2xs"
+                            : "border-border/70 bg-card opacity-75",
                         )}
                       >
                         <div className="flex items-start justify-between gap-2">
@@ -562,7 +562,7 @@ export function BusStaffApp() {
                                 hasArrived
                                   ? "bg-emerald-500 text-white"
                                   : isNext
-                                  ? "bg-amber-500 text-amber-950 font-bold animate-pulse"
+                                  ? "bg-primary text-primary-foreground font-bold"
                                   : "bg-muted text-muted-foreground",
                               )}
                             >
@@ -585,19 +585,15 @@ export function BusStaffApp() {
                           </span>
 
                           {hasArrived ? (
-                            <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                            <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400">
                               <CheckCircle2 className="size-3.5" /> Arrived ({stop.actualArrivalTime || "06:42 AM"})
                             </span>
                           ) : (
                             <Button
                               size="sm"
+                              variant={isNext ? "default" : "outline"}
                               onClick={() => markArrived(stop.id)}
-                              className={cn(
-                                "h-8 px-3 text-xs font-bold cursor-pointer",
-                                isNext
-                                  ? "bg-amber-500 text-amber-950 font-bold hover:bg-amber-400"
-                                  : "bg-muted text-foreground hover:bg-muted/80",
-                              )}
+                              className="h-8 px-3 text-xs font-semibold cursor-pointer"
                             >
                               Mark Arrived
                             </Button>
@@ -611,7 +607,7 @@ export function BusStaffApp() {
                   <div className="pt-2">
                     <Button
                       onClick={finishTrip}
-                      className="h-11 w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-2 cursor-pointer shadow-md"
+                      className="h-11 w-full font-bold text-xs gap-2 cursor-pointer shadow-xs"
                     >
                       <Flag className="size-4" /> Reach Campus Gate 2 & Complete Trip
                     </Button>
@@ -637,11 +633,12 @@ export function BusStaffApp() {
                     </div>
                     <Button
                       size="sm"
+                      variant="outline"
                       onClick={() => {
                         setScanComplete(false);
                         setScanOpen(true);
                       }}
-                      className="h-9 gap-1.5 bg-amber-500 text-amber-950 font-bold hover:bg-amber-400 text-xs px-3 cursor-pointer shrink-0"
+                      className="h-9 gap-1.5 text-xs px-3 cursor-pointer shrink-0 font-semibold"
                     >
                       <QrCode className="size-3.5" /> Scan QR
                     </Button>
@@ -693,13 +690,9 @@ export function BusStaffApp() {
                           <div className="mt-3 flex gap-2 pt-2 border-t border-border/60">
                             <Button
                               size="sm"
+                              variant={isPicked ? "secondary" : "default"}
                               onClick={() => toggleRiderStatus(rider.studentId)}
-                              className={cn(
-                                "flex-1 h-9 text-xs font-bold cursor-pointer gap-1.5",
-                                isPicked
-                                  ? "bg-emerald-600 hover:bg-emerald-500 text-white"
-                                  : "bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-900",
-                              )}
+                              className="flex-1 h-9 text-xs font-semibold cursor-pointer gap-1.5"
                             >
                               <UserCheck className="size-3.5" />
                               {isPicked ? "Boarded (Tap to Change)" : "Mark Boarded"}
@@ -879,20 +872,20 @@ export function BusStaffApp() {
 
             {!scanComplete ? (
               <div className="space-y-4 py-2">
-                <div className="relative mx-auto grid size-44 place-items-center rounded-2xl border-2 border-dashed border-amber-500 bg-muted/30">
-                  <div className="absolute inset-2 border border-amber-500/40 rounded-xl" />
-                  <QrCode className="size-20 text-muted-foreground/40 animate-pulse" />
+                <div className="relative mx-auto grid size-44 place-items-center rounded-2xl border-2 border-dashed border-border/80 bg-muted/30">
+                  <div className="absolute inset-2 border border-border/60 rounded-xl" />
+                  <QrCode className="size-16 text-muted-foreground/50" />
                 </div>
                 <Button
                   onClick={simulateScan}
-                  className="h-10 w-full bg-amber-500 text-amber-950 font-bold hover:bg-amber-400 text-xs cursor-pointer"
+                  className="h-10 w-full text-xs font-semibold cursor-pointer shadow-2xs"
                 >
                   Simulate QR Scan (Chanthou Rath)
                 </Button>
               </div>
             ) : (
               <div className="space-y-3 py-2">
-                <div className="mx-auto grid size-12 place-items-center rounded-full bg-emerald-500 text-white shadow-md">
+                <div className="mx-auto grid size-12 place-items-center rounded-full bg-primary/10 text-primary">
                   <Check className="size-6" />
                 </div>
                 <div>
@@ -901,7 +894,7 @@ export function BusStaffApp() {
                 </div>
                 <Button
                   onClick={() => setScanOpen(false)}
-                  className="h-9 w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs cursor-pointer"
+                  className="h-9 w-full text-xs font-semibold cursor-pointer"
                 >
                   Done
                 </Button>

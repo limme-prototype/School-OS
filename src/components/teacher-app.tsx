@@ -471,9 +471,10 @@ export function TeacherApp() {
                 <div className="flex gap-2 pt-1">
                   <Button
                     size="sm"
+                    variant={busAutoAccepted ? "secondary" : "default"}
                     onClick={acceptBusSync}
                     disabled={busAutoAccepted}
-                    className="h-8 flex-1 text-xs font-bold bg-amber-500 hover:bg-amber-400 text-amber-950 cursor-pointer"
+                    className="h-8 flex-1 text-xs font-semibold cursor-pointer shadow-xs"
                   >
                     {busAutoAccepted ? "✓ Bus Roll Accepted" : "Accept Bus Auto-Roll"}
                   </Button>

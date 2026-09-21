@@ -793,7 +793,7 @@ export function ParentApp() {
                                 className={cn(
                                   "absolute -left-5 top-0.5 size-3.5 rounded-full border-2 border-background",
                                   busDemoState === "delayed"
-                                    ? "bg-amber-500 animate-pulse"
+                                    ? "bg-amber-500"
                                     : "bg-emerald-500",
                                 )}
                               />
@@ -1156,7 +1156,7 @@ export function ParentApp() {
                     setKhqrOpen(false);
                     showToast("Payment verified via Bakong! Receipt generated.");
                   }}
-                  className="w-full h-10 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs cursor-pointer"
+                  className="w-full h-10 text-xs font-semibold cursor-pointer shadow-xs"
                 >
                   I've Completed Payment
                 </Button>

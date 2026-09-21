@@ -93,42 +93,6 @@ export const PROTOTYPES: PrototypeAppDef[] = [
     description: "Comprehensive SIS, Bakong automated billing, live transport tracking, and role settings.",
     flows: ["Executive Dashboard", "Student Directory", "Fee Invoices", "Transport"],
   },
-  {
-    id: "applicant",
-    name: "Admissions Portal",
-    role: "Prospective Families",
-    route: "/applicant",
-    type: "responsive",
-    icon: Sparkles,
-    color: "bg-muted text-foreground",
-    badge: "Web",
-    description: "Online registration, document uploads, placement assessment booking, and status tracker.",
-    flows: ["Online Registration", "Document Upload", "Status Tracking"],
-  },
-  {
-    id: "alumni",
-    name: "Alumni Portal",
-    role: "Graduates & Mentors",
-    route: "/alumni",
-    type: "responsive",
-    icon: Users,
-    color: "bg-muted text-foreground",
-    badge: "Web",
-    description: "Alumni directory, student mentorship connections, and reunion event registration.",
-    flows: ["Community Feed", "Mentorship", "Events & Reunions"],
-  },
-  {
-    id: "employer",
-    name: "Employer Portal",
-    role: "Corporate & Vocational Partners",
-    route: "/employer",
-    type: "responsive",
-    icon: Briefcase,
-    color: "bg-muted text-foreground",
-    badge: "Web",
-    description: "Internship postings, verified talent directory, and student job placement coordination.",
-    flows: ["Job Postings", "Talent Pool", "Interview Requests"],
-  },
 ];
 
 export function ShowcaseNav() {
@@ -240,7 +204,7 @@ export function ShowcaseNav() {
         ) : (
           <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
             <span className="inline-block size-2 rounded-full bg-emerald-500" />
-            <span className="font-semibold text-foreground">{PROTOTYPES.length} Prototypes</span>
+            <span className="font-semibold text-foreground">5 Core Apps</span>
           </div>
         )}
       </div>
