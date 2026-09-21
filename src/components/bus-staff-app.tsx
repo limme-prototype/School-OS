@@ -1003,7 +1003,7 @@ export function BusStaffApp() {
 
             <div className="space-y-3 py-2 text-xs">
               <div className="flex items-center gap-3 rounded-xl bg-muted/60 p-3">
-                <div className="grid size-10 place-items-center rounded-full bg-amber-500 text-amber-950 font-bold">
+                <div className="grid size-10 place-items-center rounded-full bg-muted text-foreground border border-border/80 font-bold">
                   SV
                 </div>
                 <div>

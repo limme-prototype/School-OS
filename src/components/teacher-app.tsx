@@ -531,10 +531,10 @@ export function TeacherApp() {
                     {/* Quick 4-Way Status Toggle */}
                     <div className="grid grid-cols-4 gap-1.5 pt-1 border-t border-border/60">
                       {[
-                        { key: "P", label: "Present", color: "bg-emerald-600 text-white" },
-                        { key: "L", label: "Late", color: "bg-amber-500 text-amber-950 font-bold" },
-                        { key: "A", label: "Absent", color: "bg-rose-600 text-white" },
-                        { key: "E", label: "Excused", color: "bg-blue-600 text-white" },
+                        { key: "P", label: "Present", color: "bg-emerald-600 text-white dark:bg-emerald-700" },
+                        { key: "L", label: "Late", color: "bg-amber-600 text-white dark:bg-amber-700" },
+                        { key: "A", label: "Absent", color: "bg-rose-600 text-white dark:bg-rose-700" },
+                        { key: "E", label: "Excused", color: "bg-muted-foreground/80 text-background" },
                       ].map((st) => (
                         <button
                           key={st.key}
@@ -556,7 +556,7 @@ export function TeacherApp() {
 
               <Button
                 onClick={saveAttendance}
-                className="h-11 w-full bg-primary text-white font-bold text-xs shadow-md cursor-pointer gap-1.5"
+                className="h-11 w-full font-bold text-xs cursor-pointer gap-1.5"
               >
                 <Save className="size-4" /> Save Homeroom Attendance
               </Button>

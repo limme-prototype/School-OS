@@ -894,9 +894,9 @@ export function ParentApp() {
                     <div className="space-y-2">
                       <div
                         onClick={() => setDetail("thread")}
-                        className="rounded-xl border border-border bg-card p-3 shadow-xs cursor-pointer hover:border-primary/60 transition flex items-start gap-3"
+                        className="rounded-xl border border-border bg-card p-3 shadow-xs cursor-pointer hover:border-foreground/30 transition flex items-start gap-3"
                       >
-                        <div className="grid size-9 place-items-center rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-400 shrink-0">
+                        <div className="grid size-9 place-items-center rounded-lg bg-muted text-foreground border border-border/80 shrink-0">
                           <Bus className="size-4.5" />
                         </div>
                         <div className="min-w-0 flex-1">
@@ -917,9 +917,9 @@ export function ParentApp() {
 
                       <div
                         onClick={() => setDetail("thread")}
-                        className="rounded-xl border border-border bg-card p-3 shadow-xs cursor-pointer hover:border-primary/60 transition flex items-start gap-3"
+                        className="rounded-xl border border-border bg-card p-3 shadow-xs cursor-pointer hover:border-foreground/30 transition flex items-start gap-3"
                       >
-                        <div className="grid size-9 place-items-center rounded-lg bg-primary/15 text-primary shrink-0">
+                        <div className="grid size-9 place-items-center rounded-lg bg-muted text-foreground border border-border/80 shrink-0">
                           <GraduationCap className="size-4.5" />
                         </div>
                         <div className="min-w-0 flex-1">

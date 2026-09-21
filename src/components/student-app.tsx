@@ -958,10 +958,10 @@ function HomeScreen({
         {dueHomework && (
           <div
             className={cn(
-              "flex items-center gap-3 rounded-2xl border p-3.5 shadow-xs transition-all",
+              "flex items-center gap-3 rounded-2xl border p-3.5 shadow-2xs transition-all",
               dueHomework.completed
-                ? "border-emerald-500/30 bg-emerald-500/5"
-                : "border-amber-500/30 bg-card hover:border-amber-500/60"
+                ? "border-border/60 bg-muted/30"
+                : "border-border bg-card hover:border-foreground/30"
             )}
           >
             <button
@@ -969,7 +969,7 @@ function HomeScreen({
               className={cn(
                 "grid size-6 shrink-0 place-items-center rounded-lg border transition cursor-pointer",
                 dueHomework.completed
-                  ? "border-emerald-500 bg-emerald-500 text-white"
+                  ? "border-primary bg-primary text-primary-foreground"
                   : "border-border bg-card hover:border-primary text-transparent"
               )}
               title={dueHomework.completed ? "Mark incomplete" : "Mark completed"}
@@ -1433,15 +1433,15 @@ function renderDetail(
   if (detail === "class") {
     return (
       <div className="space-y-3 p-3.5">
-        <div className={cn("rounded-xl p-4 text-white shadow-xs", selectedClass?.color || "bg-primary")}>
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-2xs">
           <div className="flex items-center justify-between">
-            <span className="inline-block rounded-md bg-white/20 px-2 py-0.5 text-[10px] font-bold">
+            <span className="inline-block rounded-md bg-muted px-2 py-0.5 text-[10px] font-bold text-foreground border border-border/60">
               {selectedClass?.unit || "LESSON"}
             </span>
-            <span className="text-[11px] font-medium opacity-90">{selectedClass?.time}</span>
+            <span className="text-[11px] font-semibold text-muted-foreground">{selectedClass?.time}</span>
           </div>
-          <h1 className="mt-2 text-xl font-bold">{selectedClass?.subject}</h1>
-          <p className="text-xs opacity-90">{selectedClass?.kh} · Room {selectedClass?.room}</p>
+          <h1 className="mt-2 text-lg font-bold text-foreground">{selectedClass?.subject}</h1>
+          <p className="text-xs text-muted-foreground">{selectedClass?.kh} · Room {selectedClass?.room}</p>
         </div>
 
         <Card>
@@ -1549,17 +1549,22 @@ function renderDetail(
   if (detail === "bus") {
     return (
       <div className="space-y-3 p-3.5">
-        <div className="rounded-2xl bg-amber-500 p-3.5 text-amber-950">
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-2xs">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[11px] font-medium opacity-90">School bus · រថយន្តសាលា</p>
-              <h1 className="mt-0.5 text-xl font-bold">Route 07</h1>
+              <p className="text-[11px] font-medium text-muted-foreground">School Bus · រថយន្តសាលា</p>
+              <h1 className="mt-0.5 text-lg font-bold text-foreground">Route 07 · Sen Sok Express</h1>
             </div>
-            <Bus className="size-8" />
+            <div className="grid size-10 place-items-center rounded-xl bg-muted text-foreground border border-border/80">
+              <Bus className="size-5" />
+            </div>
           </div>
-          <div className="mt-2.5 flex items-center gap-1.5 rounded-lg bg-white/80 p-2 text-xs font-semibold">
-            <Wifi className="size-3.5 text-success" />
-            <span>Live · Bus on the way</span>
+          <div className="mt-3 flex items-center gap-2 rounded-lg bg-muted/60 px-2.5 py-1.5 text-xs font-medium text-foreground">
+            <span className="relative flex size-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full size-2 bg-emerald-500" />
+            </span>
+            <span>Live · Bus approaching your stop</span>
           </div>
         </div>
 

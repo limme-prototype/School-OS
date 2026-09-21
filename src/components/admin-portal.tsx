@@ -612,16 +612,16 @@ function Kpi({
     <div
       onClick={onClick}
       className={cn(
-        "rounded-lg border border-border bg-card p-5 shadow-card transition",
-        onClick && "cursor-pointer hover:border-primary/60 hover:shadow-md active:scale-[.99]"
+        "rounded-xl border border-border bg-card p-5 shadow-card transition",
+        onClick && "cursor-pointer hover:border-foreground/30 hover:shadow-md active:scale-[.99]"
       )}
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-xs font-medium text-muted-foreground">{label}</p>
-          <p className="mt-1.5 text-2xl font-bold">{value}</p>
+          <p className="text-xs font-semibold text-muted-foreground">{label}</p>
+          <p className="mt-1.5 text-2xl font-bold tracking-tight text-foreground">{value}</p>
         </div>
-        <div className={cn("flex size-10 items-center justify-center rounded-md", `tone-${tone}`)}>
+        <div className="flex size-10 items-center justify-center rounded-xl bg-muted text-foreground border border-border/60">
           <Icon className="size-5" />
         </div>
       </div>
@@ -1559,7 +1559,7 @@ function TransportPage() {
               <div>
                 <label className="text-xs font-semibold text-foreground">Urgency / Category</label>
                 <div className="grid grid-cols-3 gap-1.5 mt-1">
-                  <span className="rounded-md border border-amber-500/40 bg-amber-500/10 p-1.5 text-center font-bold text-amber-700 dark:text-amber-400">
+                  <span className="rounded-md border border-primary/40 bg-primary/10 p-1.5 text-center font-bold text-primary">
                     Delay Warning
                   </span>
                   <span className="rounded-md border border-border bg-muted/40 p-1.5 text-center font-medium text-muted-foreground">
@@ -1580,7 +1580,7 @@ function TransportPage() {
                 />
               </div>
 
-              <div className="rounded-lg bg-amber-500/10 p-2 text-[11px] text-amber-800 dark:text-amber-300 border border-amber-500/20">
+              <div className="rounded-lg bg-muted/60 p-2.5 text-[11px] text-muted-foreground border border-border">
                 Notice will be pushed to 18 active parent devices and synced to the Parent App Bus tab.
               </div>
 
@@ -1588,7 +1588,7 @@ function TransportPage() {
                 <Button type="button" variant="outline" size="sm" onClick={() => setAlertModalOpen(false)}>
                   Cancel
                 </Button>
-                <Button type="submit" size="sm" className="bg-amber-500 hover:bg-amber-400 text-amber-950 font-extrabold">
+                <Button type="submit" size="sm">
                   Send Broadcast
                 </Button>
               </div>
@@ -3553,15 +3553,15 @@ function ReportsPage() {
                   <p className="text-2xl font-extrabold text-foreground">$199,000.00</p>
                   <p className="text-[11px] text-muted-foreground">842 invoices issued</p>
                 </div>
-                <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 space-y-1">
-                  <span className="text-emerald-700 dark:text-emerald-400 text-xs font-semibold">Total Collected</span>
-                  <p className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$184,200.00</p>
-                  <p className="text-[11px] text-muted-foreground">92.5% settlement rate</p>
+                <div className="rounded-xl border border-border bg-card p-4 space-y-1">
+                  <span className="text-muted-foreground text-xs font-semibold">Total Collected</span>
+                  <p className="text-2xl font-extrabold text-foreground">$184,200.00</p>
+                  <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">92.5% settlement rate</p>
                 </div>
-                <div className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4 space-y-1">
-                  <span className="text-rose-700 dark:text-rose-400 text-xs font-semibold">Overdue / Outstanding</span>
-                  <p className="text-2xl font-extrabold text-rose-600 dark:text-rose-400">$14,800.00</p>
-                  <p className="text-[11px] text-muted-foreground">18 accounts pending follow-up</p>
+                <div className="rounded-xl border border-border bg-card p-4 space-y-1">
+                  <span className="text-muted-foreground text-xs font-semibold">Overdue / Outstanding</span>
+                  <p className="text-2xl font-extrabold text-foreground">$14,800.00</p>
+                  <p className="text-[11px] text-rose-600 dark:text-rose-400 font-semibold">18 accounts pending follow-up</p>
                 </div>
               </div>
 
