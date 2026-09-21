@@ -31,6 +31,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { MobileDeviceFrame } from "@/components/mobile-device-frame";
+import { LanguageToggle, SupportedLanguage } from "@/components/shared/language-toggle";
 import { cn } from "@/lib/utils";
 
 type Tab = "home" | "classes" | "homework" | "results" | "more";
@@ -379,6 +380,7 @@ const subjectAssessmentData: Record<
 export function StudentApp() {
   const [tab, setTab] = useState<Tab>("home");
   const [detail, setDetail] = useState<Detail>(null);
+  const [lang, setLang] = useState<SupportedLanguage>("en");
   const [resultTab, setResultTab] = useState<"attendance" | "grades">("attendance");
   const [day, setDay] = useState("Mon");
   const [filter, setFilter] = useState("All");
@@ -469,18 +471,25 @@ export function StudentApp() {
             </div>
           </div>
           {!detail && (
-            <Button
-              aria-label="Notifications"
-              size="icon"
-              variant="ghost"
-              onClick={() => setNotifsOpen(true)}
-              className="relative size-8 text-muted-foreground hover:text-foreground cursor-pointer shrink-0 ml-2"
-            >
-              <Bell className="size-4" />
-              {unreadNotifs > 0 && (
-                <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-destructive ring-2 ring-card" />
-              )}
-            </Button>
+            <div className="flex items-center gap-1.5 shrink-0 ml-2">
+              <LanguageToggle
+                currentLanguage={lang}
+                onLanguageChange={(l) => setLang(l)}
+                size="sm"
+              />
+              <Button
+                aria-label="Notifications"
+                size="icon"
+                variant="ghost"
+                onClick={() => setNotifsOpen(true)}
+                className="relative size-8 text-muted-foreground hover:text-foreground cursor-pointer"
+              >
+                <Bell className="size-4" />
+                {unreadNotifs > 0 && (
+                  <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-destructive ring-2 ring-card" />
+                )}
+              </Button>
+            </div>
           )}
         </header>
 
@@ -778,8 +787,8 @@ function HomeScreen({
     <div className="space-y-3.5 p-3.5">
       <div className="pt-0.5">
         <p className="text-xs text-muted-foreground">Good morning · អរុណសួស្តី</p>
-        <h1 className="text-xl font-bold text-foreground">Sovann Dara · សុវណ្ណ ដារ៉ា</h1>
-        <p className="text-[11px] text-muted-foreground">Monday, 21 September · Grade 9A</p>
+        <h1 className="text-xl font-bold text-foreground">Dara Meas · ដារ៉ា មាស</h1>
+        <p className="text-[11px] text-muted-foreground">Monday, 21 September · Grade 6A</p>
       </div>
 
       <div className="grid grid-cols-2 gap-2">
@@ -791,7 +800,7 @@ function HomeScreen({
             <CheckCircle2 className="size-3.5 text-success" /> Attendance
           </span>
           <strong className="mt-1 block text-sm font-bold text-foreground">
-            96% <span className="font-normal text-[10px] text-muted-foreground">this term</span>
+            98% <span className="font-normal text-[10px] text-muted-foreground">this term</span>
           </strong>
         </button>
 
@@ -800,10 +809,10 @@ function HomeScreen({
           className="min-h-16 rounded-lg border border-warning/40 bg-warning-soft p-2.5 text-left cursor-pointer transition hover:border-warning"
         >
           <span className="flex items-center gap-1.5 text-xs text-warning-strong">
-            <Bus className="size-3.5 text-warning" /> Bus 07
+            <Bus className="size-3.5 text-warning" /> Bus 03 (AM)
           </span>
           <strong className="mt-1 flex items-center justify-between text-xs font-bold text-foreground">
-            <span>On the way</span> <ChevronRight className="size-3.5 text-muted-foreground" />
+            <span>+12m Delay</span> <ChevronRight className="size-3.5 text-muted-foreground" />
           </strong>
         </button>
       </div>

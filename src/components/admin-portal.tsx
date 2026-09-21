@@ -40,6 +40,7 @@ import {
 } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -52,6 +53,7 @@ type Section =
   | "Fees & Finance"
   | "Transport"
   | "Communication"
+  | "Reports"
   | "Settings & Roles";
 
 const navItems: Array<{ label: Section; khmer: string; icon: LucideIcon }> = [
@@ -62,6 +64,7 @@ const navItems: Array<{ label: Section; khmer: string; icon: LucideIcon }> = [
   { label: "Fees & Finance", khmer: "ថ្លៃសិក្សា និងហិរញ្ញវត្ថុ", icon: CircleDollarSign },
   { label: "Transport", khmer: "ការដឹកជញ្ជូន", icon: Bus },
   { label: "Communication", khmer: "ទំនាក់ទំនង", icon: MessageSquare },
+  { label: "Reports", khmer: "របាយការណ៍ និងស្ថិតិ", icon: TrendingUp },
   { label: "Settings & Roles", khmer: "ការកំណត់ និងតួនាទី", icon: Settings },
 ];
 
@@ -107,6 +110,7 @@ export function AdminPortal() {
           {section === "Students & Parents" && <StudentsPage />}
           {section === "Fees & Finance" && <FinancePage />}
           {section === "Transport" && <TransportPage />}
+          {section === "Reports" && <ReportsPage />}
           {section === "Settings & Roles" && <RolesPage />}
           {section === "Classes & Programs" && <ClassesPage />}
           {section === "Admissions" && <AdmissionsPage />}
@@ -1373,15 +1377,28 @@ function FeePlans() {
 function TransportPage() {
   const [tab, setTab] = useState("Routes / Stops");
   const [addRouteOpen, setAddRouteOpen] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const [selectedRouteModal, setSelectedRouteModal] = useState<string | null>(null);
   const [newRouteName, setNewRouteName] = useState("");
   const [newStops, setNewStops] = useState("6 stops");
   const [newRiders, setNewRiders] = useState("24 riders");
+  const [alertTargetRoute, setAlertTargetRoute] = useState("Route 03");
+  const [alertMessage, setAlertMessage] = useState(
+    "Russian Blvd municipal drainage roadwork delay (+12m). All students are safe and comfortable onboard.",
+  );
+  const [toastMsg, setToastMsg] = useState("");
+
   const [routes, setRoutes] = useState<Array<string[]>>([
-    ["R01", "Toul Kork → School", "8 stops", "42 riders", "Active"],
-    ["R02", "Sen Sok → School", "11 stops", "38 riders", "Active"],
-    ["R03", "Chroy Changvar → School", "9 stops", "34 riders", "Delayed"],
-    ["R04", "Chamkarmon → School", "7 stops", "29 riders", "Active"],
+    ["R03", "Route 03 · Toul Kork & Russian Blvd", "5 stops", "24 riders", "Delayed"],
+    ["R07", "Route 07 · Chamkarmon & BKK1", "6 stops", "22 riders", "Active"],
+    ["R01", "Route 01 · Sen Sok & Camko City", "8 stops", "29 riders", "Active"],
+    ["L12", "Ligne 12 · Campus Paris 15e", "5 stops", "18 riders", "Active"],
   ]);
+
+  const showToast = (msg: string) => {
+    setToastMsg(msg);
+    setTimeout(() => setToastMsg(""), 3500);
+  };
 
   const handleAddRoute = (e: React.FormEvent) => {
     e.preventDefault();
@@ -1393,26 +1410,51 @@ function TransportPage() {
     ]);
     setNewRouteName("");
     setAddRouteOpen(false);
+    showToast(`New route ${newRouteName.trim()} registered.`);
+  };
+
+  const handleSendAlert = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAlertModalOpen(false);
+    showToast(`Broadcast sent: Route Alert dispatched to 18 parents on ${alertTargetRoute}!`);
   };
 
   return (
     <div className="mx-auto max-w-[1440px] p-5 lg:p-7">
+      {toastMsg && (
+        <div className="fixed top-18 right-8 z-50 rounded-xl bg-slate-900 text-white p-3 text-xs font-semibold shadow-2xl border border-white/20 animate-in fade-in flex items-center gap-2">
+          <CheckCircle2 className="size-4 text-emerald-400 shrink-0" />
+          <span>{toastMsg}</span>
+        </div>
+      )}
+
       <PageHeader
         eyebrow="Transport operations"
         title="Transport"
-        description="Manage routes, vehicles, live trips, and safety incidents."
+        description="Manage routes, ordered stops, fleet tracking, safety incidents, and family delay alerts."
         action={
-          <Button size="sm" className="h-9 gap-1 text-xs" onClick={() => setAddRouteOpen(true)}>
-            <Plus className="size-4" />
-            <span>Add route</span>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-9 gap-1.5 text-xs font-semibold"
+              onClick={() => setAlertModalOpen(true)}
+            >
+              <Bell className="size-3.5 text-amber-500" />
+              <span>Broadcast Route Alert</span>
+            </Button>
+            <Button size="sm" className="h-9 gap-1 text-xs" onClick={() => setAddRouteOpen(true)}>
+              <Plus className="size-4" />
+              <span>Add route</span>
+            </Button>
+          </div>
         }
       />
       <div className="mb-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <Kpi icon={MapPin} label="Active routes" value={`${routes.length + 8}`} detail="54 stops total" tone="blue" />
         <Kpi icon={Bus} label="Buses in service" value="14 / 16" detail="2 in maintenance" tone="amber" />
         <Kpi icon={Users} label="Subscribed riders" value="386" detail="31% of student body" tone="green" />
-        <Kpi icon={ShieldCheck} label="Open incidents" value="3" detail="1 needs review" tone="red" />
+        <Kpi icon={ShieldCheck} label="Open incidents" value="2" detail="1 roadwork in progress" tone="red" />
       </div>
       <div className="rounded-lg border border-border bg-card shadow-card">
         <Tabs
@@ -1420,7 +1462,11 @@ function TransportPage() {
           value={tab}
           onChange={setTab}
         />
-        <TransportContent tab={tab} dynamicRoutes={routes} />
+        <TransportContent
+          tab={tab}
+          dynamicRoutes={routes}
+          onSelectRoute={(code) => setSelectedRouteModal(code)}
+        />
       </div>
 
       {/* Add Route Modal */}
@@ -1437,9 +1483,9 @@ function TransportPage() {
               </Button>
             </div>
 
-            <form onSubmit={handleAddRoute} className="mt-4 space-y-3">
+            <form onSubmit={handleAddRoute} className="mt-4 space-y-3 text-xs">
               <div>
-                <label className="text-xs font-semibold">Route Path *</label>
+                <label className="font-semibold">Route Path *</label>
                 <Input
                   required
                   placeholder="e.g. Boeng Keng Kang → School"
@@ -1450,7 +1496,7 @@ function TransportPage() {
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-xs font-semibold">Estimated Stops</label>
+                  <label className="font-semibold">Estimated Stops</label>
                   <Input
                     placeholder="8 stops"
                     value={newStops}
@@ -1459,7 +1505,7 @@ function TransportPage() {
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold">Expected Riders</label>
+                  <label className="font-semibold">Expected Riders</label>
                   <Input
                     placeholder="30 riders"
                     value={newRiders}
@@ -1481,17 +1527,159 @@ function TransportPage() {
           </div>
         </div>
       )}
+
+      {/* Broadcast Route Alert Modal (Prompt 9) */}
+      {alertModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 animate-in fade-in">
+          <div className="w-full max-w-md rounded-xl border border-border bg-card p-5 shadow-2xl text-left text-xs space-y-3">
+            <div className="flex items-center justify-between border-b pb-3">
+              <div>
+                <h3 className="text-sm font-bold text-foreground">Broadcast Route-Specific Parent Alert</h3>
+                <p className="text-[11px] text-muted-foreground">Direct SMS & In-App push to affected families</p>
+              </div>
+              <Button variant="ghost" size="icon" className="size-8" onClick={() => setAlertModalOpen(false)}>
+                <X className="size-4" />
+              </Button>
+            </div>
+
+            <form onSubmit={handleSendAlert} className="space-y-3">
+              <div>
+                <label className="font-bold text-muted-foreground uppercase text-[10px]">Target Route *</label>
+                <select
+                  value={alertTargetRoute}
+                  onChange={(e) => setAlertTargetRoute(e.target.value)}
+                  className="mt-1 w-full h-9 rounded-lg border border-input bg-background px-3 font-semibold text-xs"
+                >
+                  <option>Route 03 · Toul Kork & Russian Blvd (18 Families)</option>
+                  <option>Route 07 · Chamkarmon & BKK1 (22 Families)</option>
+                  <option>Route 01 · Sen Sok & Camko City (29 Families)</option>
+                  <option>Ligne 12 · Campus Paris 15e (18 Families)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="font-bold text-muted-foreground uppercase text-[10px]">Urgency / Category</label>
+                <div className="grid grid-cols-3 gap-1.5 mt-1">
+                  <span className="rounded-md border border-amber-500/40 bg-amber-500/10 p-1.5 text-center font-bold text-amber-700 dark:text-amber-400">
+                    Delay Warning
+                  </span>
+                  <span className="rounded-md border border-border bg-muted/40 p-1.5 text-center font-medium text-muted-foreground">
+                    Substitute Bus
+                  </span>
+                  <span className="rounded-md border border-border bg-muted/40 p-1.5 text-center font-medium text-muted-foreground">
+                    Route Change
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold text-muted-foreground uppercase text-[10px]">Message Copy *</label>
+                <textarea
+                  value={alertMessage}
+                  onChange={(e) => setAlertMessage(e.target.value)}
+                  className="mt-1 w-full rounded-lg border border-input bg-background p-2.5 text-xs min-h-20"
+                />
+              </div>
+
+              <div className="rounded-lg bg-amber-500/10 p-2 text-[11px] text-amber-800 dark:text-amber-300 border border-amber-500/20">
+                Notice will be pushed to 18 active parent devices and synced to the Parent App Bus tab.
+              </div>
+
+              <div className="flex justify-end gap-2 border-t pt-3">
+                <Button type="button" variant="outline" size="sm" onClick={() => setAlertModalOpen(false)}>
+                  Cancel
+                </Button>
+                <Button type="submit" size="sm" className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold">
+                  Send Broadcast
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Route Detail Inspector Modal */}
+      {selectedRouteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 animate-in fade-in">
+          <div className="w-full max-w-lg rounded-xl border border-border bg-card p-6 shadow-2xl text-xs space-y-4">
+            <div className="flex items-center justify-between border-b pb-3">
+              <div>
+                <h3 className="text-sm font-bold text-foreground">Route Details: {selectedRouteModal}</h3>
+                <p className="text-[11px] text-muted-foreground">Ordered stop sequence and rider manifests</p>
+              </div>
+              <Button variant="ghost" size="icon" className="size-8" onClick={() => setSelectedRouteModal(null)}>
+                <X className="size-4" />
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2 rounded-xl bg-muted/50 p-3 text-center">
+              <div>
+                <p className="text-muted-foreground text-[10px]">Vehicle</p>
+                <p className="font-bold text-foreground">KH 2A-9412 (28 Seats)</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground text-[10px]">Driver</p>
+                <p className="font-bold text-foreground">Seng Vibol (+855 12 998 123)</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground text-[10px]">Current Status</p>
+                <p className="font-bold text-amber-600 dark:text-amber-400">+12m Traffic Delay</p>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <h4 className="font-bold text-foreground uppercase tracking-wider text-[10px] text-muted-foreground">
+                Ordered Stops & Times
+              </h4>
+              <div className="divide-y divide-border rounded-lg border">
+                {[
+                  { stop: "Stop 1: Toul Kork Circle (TK Avenue)", pickup: "06:40 AM", riders: "4 riders", status: "Arrived" },
+                  { stop: "Stop 2: St. 315 & St. 592 Intersection", pickup: "06:52 AM", riders: "5 riders", status: "Arrived" },
+                  { stop: "Stop 3: Russian Blvd / 7 Makara Flyover", pickup: "07:08 AM", riders: "6 riders", status: "Delayed (+12m)" },
+                  { stop: "Stop 4: Santhormok Junction", pickup: "07:22 AM", riders: "5 riders", status: "Pending" },
+                  { stop: "Stop 5: Phnom Penh Main Campus Gate 2", pickup: "07:35 AM", riders: "Campus Arrival", status: "Pending" },
+                ].map((st, i) => (
+                  <div key={i} className="flex items-center justify-between p-2.5">
+                    <div>
+                      <p className="font-semibold text-foreground">{st.stop}</p>
+                      <p className="text-[10px] text-muted-foreground">{st.riders}</p>
+                    </div>
+                    <div className="text-right">
+                      <span className="font-mono font-bold text-foreground">{st.pickup}</span>
+                      <span className="block text-[10px] text-muted-foreground">{st.status}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <Button size="sm" onClick={() => setSelectedRouteModal(null)}>
+                Close Inspector
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-function TransportContent({ tab, dynamicRoutes }: { tab: string; dynamicRoutes?: Array<string[]> }) {
+function TransportContent({
+  tab,
+  dynamicRoutes,
+  onSelectRoute,
+}: {
+  tab: string;
+  dynamicRoutes?: Array<string[]>;
+  onSelectRoute?: (code: string) => void;
+}) {
   const content: Record<string, Array<string[]>> = {
     "Routes / Stops": dynamicRoutes ?? [
-      ["R01", "Toul Kork → School", "8 stops", "42 riders", "Active"],
-      ["R02", "Sen Sok → School", "11 stops", "38 riders", "Active"],
-      ["R03", "Chroy Changvar → School", "9 stops", "34 riders", "Delayed"],
-      ["R04", "Chamkarmon → School", "7 stops", "29 riders", "Active"],
+      ["R03", "Route 03 · Toul Kork & Russian Blvd", "5 stops", "24 riders", "Delayed"],
+      ["R07", "Route 07 · Chamkarmon & BKK1", "6 stops", "22 riders", "Active"],
+      ["R01", "Route 01 · Sen Sok & Camko City", "8 stops", "29 riders", "Active"],
+      ["L12", "Ligne 12 · Campus Paris 15e", "5 stops", "18 riders", "Active"],
     ],
     "Buses / Drivers": [
       ["BUS-01", "Toyota Coaster · 2AB-3842", "Sok Vuthy", "42 seats", "In service"],
@@ -1499,14 +1687,14 @@ function TransportContent({ tab, dynamicRoutes }: { tab: string; dynamicRoutes?:
       ["BUS-03", "Toyota Coaster · 2BD-5571", "Kim Veasna", "42 seats", "Maintenance"],
     ],
     Trips: [
-      ["TRP-0920-01", "R01 · Morning pickup", "06:15", "42 riders", "Completed"],
-      ["TRP-0920-02", "R02 · Morning pickup", "06:20", "38 riders", "Completed"],
-      ["TRP-0920-03", "R03 · Afternoon drop-off", "15:45", "34 riders", "Scheduled"],
+      ["TRP-0920-01", "R03 · Morning pickup", "06:35", "24 riders", "Delayed (+12m)"],
+      ["TRP-0920-02", "R07 · Morning pickup", "06:40", "22 riders", "Completed"],
+      ["TRP-0920-03", "R03 · Afternoon drop-off", "15:45", "24 riders", "Scheduled"],
     ],
     "Incidents & No-Shows": [
-      ["INC-118", "Student no-show", "R03 · Stop 5", "20 Sep, 06:48", "Open"],
-      ["INC-117", "Traffic delay", "R02 · Monivong Blvd", "19 Sep, 16:02", "Resolved"],
-      ["INC-116", "Rider picked up late", "R01 · Stop 2", "18 Sep, 06:31", "Resolved"],
+      ["INC-118", "Road drainage delay", "Russian Blvd Flyover", "21 Sep, 07:15", "Investigating"],
+      ["INC-117", "Student no-show", "R03 Stop 2 (St. 315)", "21 Sep, 06:56", "Resolved"],
+      ["INC-116", "Traffic congestion", "Monivong Blvd", "18 Sep, 16:02", "Resolved"],
     ],
   };
 
@@ -1534,14 +1722,21 @@ function TransportContent({ tab, dynamicRoutes }: { tab: string; dynamicRoutes?:
       </div>
       <DataTable headers={tableHeaders}>
         {rows.map((row) => (
-          <tr key={row[0]} className="border-b border-border last:border-0 hover:bg-muted/60">
+          <tr
+            key={row[0]}
+            onClick={() => tab === "Routes / Stops" && onSelectRoute?.(row[1] ?? row[0] ?? "")}
+            className={cn(
+              "border-b border-border last:border-0 hover:bg-muted/60 transition",
+              tab === "Routes / Stops" && "cursor-pointer",
+            )}
+          >
             {row.map((cell, index) => (
               <td
                 key={cell}
                 className={cn(
                   "px-4 py-3 text-xs",
                   index === 0 && "font-semibold text-primary font-mono",
-                  index === 1 && "text-xs font-medium"
+                  index === 1 && "text-xs font-medium",
                 )}
               >
                 {index === row.length - 1 ? <StatusChip status={cell} /> : cell}
@@ -3139,4 +3334,297 @@ function initials(name: string) {
     .join("")
     .slice(0, 2)
     .toUpperCase();
+}
+
+// ==========================================
+// REPORTS & ANALYTICS PAGE (PROMPT 12)
+// ==========================================
+
+function ReportsPage() {
+  const [reportTab, setReportTab] = useState<"Transport" | "Attendance" | "Finance" | "Engagement">("Transport");
+  const [toastMsg, setToastMsg] = useState("");
+
+  const showToast = (msg: string) => {
+    setToastMsg(msg);
+    setTimeout(() => setToastMsg(""), 3500);
+  };
+
+  return (
+    <div className="mx-auto max-w-[1440px] p-5 lg:p-7 space-y-6">
+      {/* Toast */}
+      {toastMsg && (
+        <div className="fixed top-18 right-8 z-50 rounded-xl bg-slate-900 text-white p-3 text-xs font-semibold shadow-2xl border border-white/20 animate-in fade-in flex items-center gap-2">
+          <CheckCircle2 className="size-4 text-emerald-400 shrink-0" />
+          <span>{toastMsg}</span>
+        </div>
+      )}
+
+      <PageHeader
+        eyebrow="Intelligence & Executive Reporting"
+        title="Reports & Analytics"
+        description="Comprehensive operational metrics across Core SIS, Finance, Transport Safety, and Family Engagement."
+        action={
+          <Button
+            size="sm"
+            variant="outline"
+            className="h-9 gap-1.5 text-xs font-semibold"
+            onClick={() => showToast("Exported executive PDF report for Academic Board.")}
+          >
+            <Download className="size-4 text-primary" />
+            <span>Export Board Summary (PDF)</span>
+          </Button>
+        }
+      />
+
+      {/* Top Executive KPIs */}
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <Kpi
+          icon={Users}
+          label="Attendance Rate (School-wide)"
+          value="96.4%"
+          detail="+1.2% above MoEYS benchmark"
+          tone="green"
+        />
+        <Kpi
+          icon={CircleDollarSign}
+          label="Fee Collection Efficiency"
+          value="92.5%"
+          detail="$184,200 collected / $199k billed"
+          tone="blue"
+        />
+        <Kpi
+          icon={Bus}
+          label="Transport Fleet Occupancy"
+          value="84.8%"
+          detail="386 active riders / 455 seats"
+          tone="amber"
+        />
+        <Kpi
+          icon={MessageSquare}
+          label="Parent App Activation"
+          value="88.2%"
+          detail="720 active guardian accounts"
+          tone="green"
+        />
+      </div>
+
+      {/* Report Section Tabs */}
+      <div className="rounded-xl border border-border bg-card shadow-xs">
+        <Tabs
+          tabs={["Transport", "Attendance", "Finance", "Engagement"]}
+          value={reportTab}
+          onChange={(t) => setReportTab(t as any)}
+        />
+
+        <div className="p-5 space-y-5 text-xs">
+          {/* ---------------------------------------------------- */}
+          {/* TAB 1: TRANSPORT PERFORMANCE                         */}
+          {/* ---------------------------------------------------- */}
+          {reportTab === "Transport" && (
+            <div className="space-y-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-bold text-foreground">Fleet Route Performance & Reconciliation</h3>
+                  <p className="text-xs text-muted-foreground">Term 2 ridership, delay frequency, and fee reconciliation by route</p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-8 text-xs"
+                  onClick={() => showToast("Exported route transport roster CSV.")}
+                >
+                  <Download className="size-3.5 mr-1" /> Export Transport CSV
+                </Button>
+              </div>
+
+              <div className="overflow-x-auto rounded-lg border border-border">
+                <table className="w-full text-left">
+                  <thead className="bg-muted/60 text-[11px] font-bold uppercase tracking-wider text-muted-foreground border-b">
+                    <tr>
+                      <th className="p-3">Route Code</th>
+                      <th className="p-3">Zone & Campus</th>
+                      <th className="p-3">Capacity</th>
+                      <th className="p-3">Ridership</th>
+                      <th className="p-3">On-Time %</th>
+                      <th className="p-3">Incidents (30d)</th>
+                      <th className="p-3 text-right">Fee Reconciled</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {[
+                      { code: "Route 03", zone: "Toul Kork / Russian Blvd", cap: 28, riders: 24, onTime: "91.8%", inc: "2 (roadwork)", rev: "$4,320.00" },
+                      { code: "Route 07", zone: "Chamkarmon / BKK1", cap: 26, riders: 22, onTime: "96.4%", inc: "0", rev: "$3,960.00" },
+                      { code: "Route 01", zone: "Sen Sok / Camko City", cap: 32, riders: 29, onTime: "94.2%", inc: "1 (traffic)", rev: "$5,220.00" },
+                      { code: "Route 04", zone: "Chroy Changvar / Riverside", cap: 30, riders: 26, onTime: "95.0%", inc: "1 (bridge)", rev: "$4,680.00" },
+                      { code: "Ligne 12", zone: "Campus Paris 15e / Rive Gauche", cap: 24, riders: 18, onTime: "98.1%", inc: "0", rev: "€3,960.00" },
+                    ].map((row) => (
+                      <tr key={row.code} className="hover:bg-muted/40 transition">
+                        <td className="p-3 font-bold text-foreground">{row.code}</td>
+                        <td className="p-3 text-muted-foreground">{row.zone}</td>
+                        <td className="p-3 font-mono">{row.cap} seats</td>
+                        <td className="p-3">
+                          <span className="font-bold text-foreground">{row.riders}</span>
+                          <span className="text-muted-foreground ml-1">({Math.round((row.riders / row.cap) * 100)}%)</span>
+                        </td>
+                        <td className="p-3">
+                          <span className="font-bold text-emerald-600 dark:text-emerald-400">{row.onTime}</span>
+                        </td>
+                        <td className="p-3 text-muted-foreground">{row.inc}</td>
+                        <td className="p-3 text-right font-bold text-foreground">{row.rev}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Transport Insights Grid */}
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="rounded-xl border border-border bg-muted/30 p-4 space-y-1">
+                  <h4 className="font-bold text-foreground">Top Delay Factor</h4>
+                  <p className="text-xl font-extrabold text-amber-600 dark:text-amber-400">Road Drainage Works</p>
+                  <p className="text-[11px] text-muted-foreground">Russian Blvd corridor accounts for 68% of delayed arrivals this month.</p>
+                </div>
+                <div className="rounded-xl border border-border bg-muted/30 p-4 space-y-1">
+                  <h4 className="font-bold text-foreground">Safety Record</h4>
+                  <p className="text-xl font-extrabold text-emerald-600 dark:text-emerald-400">100% Incident Resolved</p>
+                  <p className="text-[11px] text-muted-foreground">Zero injuries or vehicle breakdowns. All 4 logged events closed within 24 hours.</p>
+                </div>
+                <div className="rounded-xl border border-border bg-muted/30 p-4 space-y-1">
+                  <h4 className="font-bold text-foreground">Parent Route Trust</h4>
+                  <p className="text-xl font-extrabold text-primary">86.4% GeoAlert Opt-In</p>
+                  <p className="text-[11px] text-muted-foreground">Subscribed parents receive automated 10-minute proximity notifications.</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ---------------------------------------------------- */}
+          {/* TAB 2: ATTENDANCE OVERVIEW                           */}
+          {/* ---------------------------------------------------- */}
+          {reportTab === "Attendance" && (
+            <div className="space-y-5">
+              <div>
+                <h3 className="text-sm font-bold text-foreground">Attendance Distribution by Grade Level</h3>
+                <p className="text-xs text-muted-foreground">Aggregated physical and bus auto-synced roll calls</p>
+              </div>
+
+              <div className="space-y-3">
+                {[
+                  { grade: "Early Years & Kindergarten (Toul Kork Campus)", rate: 97.4, count: "120/123" },
+                  { grade: "Primary Grade 1 - 5 (Main Campus)", rate: 96.8, count: "310/320" },
+                  { grade: "Lower Secondary Grade 6 - 8 (Grade 6A Homeroom)", rate: 95.4, count: "212/222" },
+                  { grade: "Upper Secondary Grade 9 - 12 (MoEYS Baccalaureate)", rate: 94.2, count: "188/200" },
+                  { grade: "Collège & Lycée (Campus Paris 15e)", rate: 97.1, count: "172/177" },
+                ].map((item) => (
+                  <div key={item.grade} className="rounded-xl border border-border bg-card p-3.5 space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-foreground">{item.grade}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-muted-foreground font-mono">{item.count}</span>
+                        <span className="font-extrabold text-primary">{item.rate}%</span>
+                      </div>
+                    </div>
+                    <div className="h-2 rounded-full bg-muted overflow-hidden">
+                      <div className="h-full rounded-full bg-primary" style={{ width: `${item.rate}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ---------------------------------------------------- */}
+          {/* TAB 3: FEES & FINANCE                                */}
+          {/* ---------------------------------------------------- */}
+          {reportTab === "Finance" && (
+            <div className="space-y-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-bold text-foreground">Revenue Collection & Aging Balances</h3>
+                  <p className="text-xs text-muted-foreground">Tuition, transport subscriptions, and activity fee reconciliation</p>
+                </div>
+                <Badge variant="outline" className="text-xs">
+                  Term 2 Invoicing
+                </Badge>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="rounded-xl border border-border bg-card p-4 space-y-1">
+                  <span className="text-muted-foreground uppercase text-[10px] font-bold">Total Invoiced</span>
+                  <p className="text-2xl font-extrabold text-foreground">$199,000.00</p>
+                  <p className="text-[11px] text-muted-foreground">842 invoices issued</p>
+                </div>
+                <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 space-y-1">
+                  <span className="text-emerald-700 dark:text-emerald-400 uppercase text-[10px] font-bold">Total Collected</span>
+                  <p className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$184,200.00</p>
+                  <p className="text-[11px] text-muted-foreground">92.5% settlement rate</p>
+                </div>
+                <div className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4 space-y-1">
+                  <span className="text-rose-700 dark:text-rose-400 uppercase text-[10px] font-bold">Overdue / Outstanding</span>
+                  <p className="text-2xl font-extrabold text-rose-600 dark:text-rose-400">$14,800.00</p>
+                  <p className="text-[11px] text-muted-foreground">18 accounts pending follow-up</p>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-border bg-muted/20 p-4 space-y-2">
+                <h4 className="font-bold text-foreground">Payment Channel Breakdown</h4>
+                <div className="grid grid-cols-3 gap-3 pt-1 text-center">
+                  <div className="rounded-lg bg-card p-3 border">
+                    <p className="text-lg font-bold text-primary">68%</p>
+                    <p className="text-xs font-semibold text-foreground">Bakong KHQR</p>
+                    <p className="text-[10px] text-muted-foreground">$125,256 · Direct settlement</p>
+                  </div>
+                  <div className="rounded-lg bg-card p-3 border">
+                    <p className="text-lg font-bold text-foreground">22%</p>
+                    <p className="text-xs font-semibold text-foreground">Bank Wire Transfer</p>
+                    <p className="text-[10px] text-muted-foreground">$40,524 · ABA & Canadia</p>
+                  </div>
+                  <div className="rounded-lg bg-card p-3 border">
+                    <p className="text-lg font-bold text-foreground">10%</p>
+                    <p className="text-xs font-semibold text-foreground">SEPA & Card (France)</p>
+                    <p className="text-[10px] text-muted-foreground">€18,420 · Campus Paris</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ---------------------------------------------------- */}
+          {/* TAB 4: PARENT ENGAGEMENT                            */}
+          {/* ---------------------------------------------------- */}
+          {reportTab === "Engagement" && (
+            <div className="space-y-5">
+              <div>
+                <h3 className="text-sm font-bold text-foreground">Family Adoption & Digital Engagement</h3>
+                <p className="text-xs text-muted-foreground">Weekly active parents, notice read velocity, and bus alert usage</p>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-4">
+                <div className="rounded-xl border border-border bg-card p-4 space-y-1 text-center">
+                  <p className="text-2xl font-extrabold text-primary">88.2%</p>
+                  <p className="text-xs font-bold text-foreground">App Activation</p>
+                  <p className="text-[10px] text-muted-foreground">720 active accounts</p>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-4 space-y-1 text-center">
+                  <p className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">94.1%</p>
+                  <p className="text-xs font-bold text-foreground">Notice Read Rate</p>
+                  <p className="text-[10px] text-muted-foreground">Read within 24 hours</p>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-4 space-y-1 text-center">
+                  <p className="text-2xl font-extrabold text-amber-600 dark:text-amber-400">86.4%</p>
+                  <p className="text-xs font-bold text-foreground">Bus Alert Usage</p>
+                  <p className="text-[10px] text-muted-foreground">GeoAlert opt-in rate</p>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-4 space-y-1 text-center">
+                  <p className="text-2xl font-extrabold text-foreground">14 min</p>
+                  <p className="text-xs font-bold text-foreground">Helpdesk Response</p>
+                  <p className="text-[10px] text-muted-foreground">Average resolution time</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
