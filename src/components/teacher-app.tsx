@@ -447,18 +447,18 @@ export function TeacherApp() {
           {/* ---------------------------------------------------- */}
           {tab === "attendance" && (
             <div className="space-y-3.5">
-              {/* Transport Suggestion Strip (Prompt 7 requirement!) */}
-              <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 shadow-xs space-y-2">
+              {/* Transport Suggestion Strip */}
+              <div className="rounded-xl border border-border/80 bg-card p-3.5 shadow-2xs space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Bus className="size-4 text-amber-600 dark:text-amber-400" />
-                    <span className="text-xs font-extrabold text-foreground">
+                    <Bus className="size-4 text-primary" />
+                    <span className="text-xs font-bold text-foreground">
                       Route 03 AM Auto-Sync
                     </span>
                   </div>
                   <Badge
-                    variant="outline"
-                    className="text-[9px] border-amber-500/30 text-amber-800 dark:text-amber-300"
+                    variant="secondary"
+                    className="text-[9px]"
                   >
                     At Campus Gate 2 (07:38 AM)
                   </Badge>

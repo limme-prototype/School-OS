@@ -27,19 +27,19 @@ export function ApplicantPortal() {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <div className="min-h-[calc(100dvh-3rem)] bg-muted/20 text-foreground pb-12">
-      {/* Hero Header */}
-      <div className="bg-gradient-to-r from-emerald-800 via-teal-800 to-slate-900 text-white py-8 px-4 sm:px-8 border-b">
+    <div className="min-h-[calc(100dvh-3rem)] bg-background text-foreground pb-12">
+      {/* Header */}
+      <div className="border-b border-border/80 bg-card py-7 px-4 sm:px-8">
         <div className="mx-auto max-w-5xl">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-emerald-200">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
                 <Sparkles className="size-3.5" /> Admissions 2026–2027 Open
               </div>
-              <h1 className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight">
+              <h1 className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
                 New Sunrise School Admissions Portal
               </h1>
-              <p className="mt-1 text-xs sm:text-sm text-emerald-100/80">
+              <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
                 ផតថលចុះឈ្មោះចូលរៀន · Fast, bilingual enrollment for K-12 students in Phnom Penh.
               </p>
             </div>
@@ -48,7 +48,7 @@ export function ApplicantPortal() {
                 variant={tab === "home" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setTab("home")}
-                className={cn("text-xs", tab === "home" ? "bg-emerald-600 hover:bg-emerald-500" : "text-white border-white/20 hover:bg-white/10")}
+                className="text-xs"
               >
                 Overview
               </Button>
@@ -60,7 +60,7 @@ export function ApplicantPortal() {
                   setSubmitted(false);
                   setStep(1);
                 }}
-                className={cn("text-xs", tab === "apply" ? "bg-emerald-600 hover:bg-emerald-500" : "text-white border-white/20 hover:bg-white/10")}
+                className="text-xs"
               >
                 Apply Online
               </Button>
@@ -68,7 +68,7 @@ export function ApplicantPortal() {
                 variant={tab === "status" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setTab("status")}
-                className={cn("text-xs", tab === "status" ? "bg-emerald-600 hover:bg-emerald-500" : "text-white border-white/20 hover:bg-white/10")}
+                className="text-xs"
               >
                 My Applications (2)
               </Button>
@@ -82,38 +82,38 @@ export function ApplicantPortal() {
         {tab === "home" && (
           <div className="space-y-6">
             <div className="grid gap-4 md:grid-cols-3">
-              <div className="rounded-xl border border-border bg-card p-5 shadow-xs">
-                <div className="grid size-10 place-items-center rounded-lg bg-emerald-500/15 text-emerald-600 font-bold">
+              <div className="rounded-xl border border-border bg-card p-5 shadow-2xs">
+                <div className="grid size-9 place-items-center rounded-lg bg-muted text-foreground font-bold text-sm">
                   1
                 </div>
                 <h3 className="mt-3 font-bold text-sm">Fill Application Form</h3>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
                   Complete personal details, prior academic records, and select transportation preferences.
                 </p>
               </div>
 
-              <div className="rounded-xl border border-border bg-card p-5 shadow-xs">
-                <div className="grid size-10 place-items-center rounded-lg bg-emerald-500/15 text-emerald-600 font-bold">
+              <div className="rounded-xl border border-border bg-card p-5 shadow-2xs">
+                <div className="grid size-9 place-items-center rounded-lg bg-muted text-foreground font-bold text-sm">
                   2
                 </div>
                 <h3 className="mt-3 font-bold text-sm">Upload Documents</h3>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
                   Birth certificate, family book, and transcript from the previous school year.
                 </p>
               </div>
 
-              <div className="rounded-xl border border-border bg-card p-5 shadow-xs">
-                <div className="grid size-10 place-items-center rounded-lg bg-emerald-500/15 text-emerald-600 font-bold">
+              <div className="rounded-xl border border-border bg-card p-5 shadow-2xs">
+                <div className="grid size-9 place-items-center rounded-lg bg-muted text-foreground font-bold text-sm">
                   3
                 </div>
                 <h3 className="mt-3 font-bold text-sm">Assessment & Interview</h3>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
                   Get notified for an entrance placement test and family orientation interview.
                 </p>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-xs flex flex-wrap items-center justify-between gap-4">
+            <div className="rounded-2xl border border-border bg-card p-6 shadow-2xs flex flex-wrap items-center justify-between gap-4">
               <div>
                 <h3 className="text-base font-bold">Ready to register your child?</h3>
                 <p className="text-xs text-muted-foreground mt-0.5">
@@ -121,7 +121,7 @@ export function ApplicantPortal() {
                 </p>
               </div>
               <Button
-                className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs h-10 px-5"
+                className="font-semibold text-xs h-10 px-5"
                 onClick={() => {
                   setTab("apply");
                   setStep(1);
@@ -149,11 +149,11 @@ export function ApplicantPortal() {
                       <div
                         key={num}
                         className={cn(
-                          "size-7 rounded-full grid place-items-center text-xs font-bold",
+                          "size-7 rounded-full grid place-items-center text-xs font-semibold",
                           step === num
-                            ? "bg-emerald-600 text-white"
+                            ? "bg-primary text-primary-foreground"
                             : step > num
-                            ? "bg-emerald-100 text-emerald-800"
+                            ? "bg-primary/10 text-primary"
                             : "bg-muted text-muted-foreground"
                         )}
                       >
@@ -232,40 +232,40 @@ export function ApplicantPortal() {
                   <div className="space-y-3.5 text-xs">
                     <h3 className="font-bold text-sm text-foreground">Step 3: Document Attachments</h3>
                     <div className="space-y-2">
-                      <div className="flex items-center justify-between rounded-lg border border-dashed border-emerald-500/40 p-3 bg-emerald-50/20">
-                        <div className="flex items-center gap-2">
-                          <FileText className="size-5 text-emerald-600" />
+                      <div className="flex items-center justify-between rounded-lg border border-border bg-card p-3 shadow-2xs">
+                        <div className="flex items-center gap-2.5">
+                          <FileText className="size-4.5 text-primary" />
                           <div>
                             <p className="font-semibold">Birth Certificate / សំបុត្រកំណើត</p>
                             <p className="text-[10px] text-muted-foreground">birth_certificate_voeun.pdf (1.2 MB)</p>
                           </div>
                         </div>
-                        <Badge className="bg-emerald-600 text-white text-[10px]">Uploaded</Badge>
+                        <Badge variant="secondary" className="text-[10px]">Uploaded</Badge>
                       </div>
 
-                      <div className="flex items-center justify-between rounded-lg border border-dashed border-emerald-500/40 p-3 bg-emerald-50/20">
-                        <div className="flex items-center gap-2">
-                          <FileCheck className="size-5 text-emerald-600" />
+                      <div className="flex items-center justify-between rounded-lg border border-border bg-card p-3 shadow-2xs">
+                        <div className="flex items-center gap-2.5">
+                          <FileCheck className="size-4.5 text-primary" />
                           <div>
                             <p className="font-semibold">Previous Grade 6 Transcript</p>
                             <p className="text-[10px] text-muted-foreground">transcript_2025_2026.pdf (2.4 MB)</p>
                           </div>
                         </div>
-                        <Badge className="bg-emerald-600 text-white text-[10px]">Uploaded</Badge>
+                        <Badge variant="secondary" className="text-[10px]">Uploaded</Badge>
                       </div>
                     </div>
 
-                    <div className="rounded-lg bg-muted/60 p-3">
+                    <div className="rounded-lg bg-muted/50 p-3">
                       <p className="font-semibold text-foreground">Transport Enrollment:</p>
                       <label className="flex items-center gap-2 mt-1.5 cursor-pointer">
-                        <input type="checkbox" defaultChecked className="size-4 text-emerald-600 rounded" />
-                        <span>Request school bus service (Toul Kork route pickup)</span>
+                        <input type="checkbox" defaultChecked className="size-4 rounded accent-primary" />
+                        <span className="text-muted-foreground">Request school bus service (Toul Kork route pickup)</span>
                       </label>
                     </div>
                   </div>
                 )}
 
-                <div className="mt-6 flex justify-between border-t pt-4">
+                <div className="mt-6 flex justify-between border-t border-border/80 pt-4">
                   {step > 1 ? (
                     <Button variant="outline" size="sm" onClick={() => setStep((s) => s - 1)}>
                       Previous
@@ -275,7 +275,6 @@ export function ApplicantPortal() {
                   {step < 3 ? (
                     <Button
                       size="sm"
-                      className="bg-emerald-600 hover:bg-emerald-500 text-white"
                       onClick={() => setStep((s) => s + 1)}
                     >
                       Continue
@@ -283,21 +282,21 @@ export function ApplicantPortal() {
                   ) : (
                     <Button
                       size="sm"
-                      className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold"
+                      className="font-bold gap-1.5"
                       onClick={() => setSubmitted(true)}
                     >
-                      <Send className="size-3.5 mr-1" /> Submit Application
+                      <Send className="size-3.5" /> Submit Application
                     </Button>
                   )}
                 </div>
               </>
             ) : (
               <div className="text-center py-8 space-y-4">
-                <div className="mx-auto size-16 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center">
-                  <CheckCircle2 className="size-9" />
+                <div className="mx-auto size-14 rounded-full bg-primary/10 text-primary grid place-items-center">
+                  <CheckCircle2 className="size-8" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-foreground">Application Submitted Successfully!</h3>
+                  <h3 className="text-lg font-bold text-foreground">Application Submitted Successfully</h3>
                   <p className="text-xs text-muted-foreground mt-1">
                     Application reference number: <strong className="text-foreground font-mono">APP-2026-0419</strong>
                   </p>
@@ -308,7 +307,6 @@ export function ApplicantPortal() {
                 <div className="pt-2 flex justify-center gap-3">
                   <Button
                     size="sm"
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white"
                     onClick={() => setTab("status")}
                   >
                     Track Status
@@ -327,14 +325,14 @@ export function ApplicantPortal() {
           <div className="space-y-4 max-w-3xl mx-auto">
             <h2 className="text-base font-bold">My Submitted Applications</h2>
             <div className="space-y-3">
-              <div className="rounded-xl border bg-card p-5 shadow-xs">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b pb-3">
+              <div className="rounded-xl border border-border/80 bg-card p-5 shadow-2xs">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-3">
                   <div>
                     <span className="font-mono text-xs font-bold text-primary">APP-2026-0419</span>
                     <h3 className="text-sm font-bold mt-0.5">Channary Voeun · Grade 7 Enrollment</h3>
                   </div>
-                  <Badge className="bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-200">
-                    <Clock className="size-3 mr-1" /> Under Registrar Review
+                  <Badge variant="outline" className="text-xs gap-1">
+                    <Clock className="size-3" /> Under Registrar Review
                   </Badge>
                 </div>
                 <div className="mt-3 grid grid-cols-3 gap-2 text-xs text-muted-foreground">
@@ -353,20 +351,20 @@ export function ApplicantPortal() {
                 </div>
               </div>
 
-              <div className="rounded-xl border bg-card p-5 shadow-xs">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b pb-3">
+              <div className="rounded-xl border border-border/80 bg-card p-5 shadow-2xs">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-3">
                   <div>
                     <span className="font-mono text-xs font-bold text-primary">APP-2026-0102</span>
                     <h3 className="text-sm font-bold mt-0.5">Malis Voeun · Kindergarten K2</h3>
                   </div>
-                  <Badge className="bg-emerald-100 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200">
-                    <CheckCircle2 className="size-3 mr-1" /> Accepted · Enrollment Confirmed
+                  <Badge variant="secondary" className="text-xs gap-1">
+                    <CheckCircle2 className="size-3" /> Accepted · Confirmed
                   </Badge>
                 </div>
                 <div className="mt-3 flex items-center justify-between text-xs">
                   <span className="text-muted-foreground">Tuition Deposit Paid via Bakong</span>
-                  <Button variant="outline" size="sm" className="h-7 text-xs">
-                    <Download className="size-3 mr-1" /> Download Letter
+                  <Button variant="outline" size="sm" className="h-7 text-xs gap-1">
+                    <Download className="size-3" /> Download Letter
                   </Button>
                 </div>
               </div>

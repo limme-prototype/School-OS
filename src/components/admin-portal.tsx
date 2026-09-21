@@ -431,7 +431,7 @@ function PageHeader({
   description,
   action,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description: string;
   action?: React.ReactNode;
@@ -439,8 +439,7 @@ function PageHeader({
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <p className="mb-1 text-xs font-semibold text-primary">{eyebrow}</p>
-        <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">{title}</h1>
         <p className="mt-1 text-xs text-muted-foreground">{description}</p>
       </div>
       {action}

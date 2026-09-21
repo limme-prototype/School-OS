@@ -8,7 +8,6 @@ import {
   MessageSquare,
   Search,
   Share2,
-  Sparkles,
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,17 +27,19 @@ export function AlumniPortal() {
   ];
 
   return (
-    <div className="min-h-[calc(100dvh-3rem)] bg-muted/20 text-foreground pb-12">
+    <div className="min-h-[calc(100dvh-3rem)] bg-background text-foreground pb-12">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-900 via-indigo-950 to-slate-900 text-white py-8 px-4 sm:px-8 border-b">
+      <div className="border-b border-border/80 bg-card py-7 px-4 sm:px-8">
         <div className="mx-auto max-w-5xl">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-purple-200">
-                🎓 Alumni Network
-              </span>
-              <h1 className="mt-2 text-2xl sm:text-3xl font-bold">School OS Alumni Portal</h1>
-              <p className="mt-1 text-xs sm:text-sm text-purple-200/80">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
+                <Users className="size-3.5" /> Alumni Network
+              </div>
+              <h1 className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                School OS Alumni Portal
+              </h1>
+              <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
                 ផតថលអតីតសិស្ស · Stay connected, mentor current students, and give back to the school community.
               </p>
             </div>
@@ -46,7 +47,7 @@ export function AlumniPortal() {
               <Button
                 variant={tab === "feed" ? "default" : "outline"}
                 size="sm"
-                className={tab === "feed" ? "bg-purple-600 text-white hover:bg-purple-500" : "text-white border-white/20 hover:bg-white/10"}
+                className="text-xs"
                 onClick={() => setTab("feed")}
               >
                 Community Feed
@@ -54,7 +55,7 @@ export function AlumniPortal() {
               <Button
                 variant={tab === "events" ? "default" : "outline"}
                 size="sm"
-                className={tab === "events" ? "bg-purple-600 text-white hover:bg-purple-500" : "text-white border-white/20 hover:bg-white/10"}
+                className="text-xs"
                 onClick={() => setTab("events")}
               >
                 Events (3)
@@ -62,7 +63,7 @@ export function AlumniPortal() {
               <Button
                 variant={tab === "network" ? "default" : "outline"}
                 size="sm"
-                className={tab === "network" ? "bg-purple-600 text-white hover:bg-purple-500" : "text-white border-white/20 hover:bg-white/10"}
+                className="text-xs"
                 onClick={() => setTab("network")}
               >
                 Directory
@@ -77,10 +78,10 @@ export function AlumniPortal() {
         {tab === "feed" && (
           <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
             <div className="space-y-4">
-              <div className="rounded-xl border bg-card p-5 shadow-xs">
+              <div className="rounded-xl border border-border/80 bg-card p-5 shadow-2xs">
                 <div className="flex items-center gap-3">
                   <Avatar className="size-10">
-                    <AvatarFallback className="bg-purple-600 text-white font-bold">NS</AvatarFallback>
+                    <AvatarFallback className="bg-primary/10 text-primary font-bold">NS</AvatarFallback>
                   </Avatar>
                   <div>
                     <h3 className="font-bold text-xs text-foreground">New Sunrise School Official</h3>
@@ -91,23 +92,23 @@ export function AlumniPortal() {
                   Congratulations to our Class of 2026 for achieving a 98% pass rate on the National BacII
                   Examination! Special recognition to our alumni mentors who volunteered weekend tutorial sessions.
                 </p>
-                <div className="mt-3 flex gap-4 border-t pt-2 text-xs text-muted-foreground">
-                  <button className="flex items-center gap-1.5 hover:text-purple-600">
+                <div className="mt-3 flex gap-4 border-t border-border/60 pt-2 text-xs text-muted-foreground">
+                  <button className="flex items-center gap-1.5 hover:text-foreground transition-colors cursor-pointer">
                     <Heart className="size-3.5 text-rose-500" /> 48 Likes
                   </button>
-                  <button className="flex items-center gap-1.5 hover:text-purple-600">
+                  <button className="flex items-center gap-1.5 hover:text-foreground transition-colors cursor-pointer">
                     <MessageSquare className="size-3.5" /> 12 Comments
                   </button>
-                  <button className="flex items-center gap-1.5 hover:text-purple-600 ml-auto">
+                  <button className="flex items-center gap-1.5 hover:text-foreground transition-colors ml-auto cursor-pointer">
                     <Share2 className="size-3.5" /> Share
                   </button>
                 </div>
               </div>
 
-              <div className="rounded-xl border bg-card p-5 shadow-xs">
+              <div className="rounded-xl border border-border/80 bg-card p-5 shadow-2xs">
                 <div className="flex items-center gap-3">
                   <Avatar className="size-10">
-                    <AvatarFallback className="bg-blue-600 text-white font-bold">SV</AvatarFallback>
+                    <AvatarFallback className="bg-primary/10 text-primary font-bold">SV</AvatarFallback>
                   </Avatar>
                   <div>
                     <h3 className="font-bold text-xs text-foreground">Serey Vathana · Class of 2019</h3>
@@ -118,11 +119,11 @@ export function AlumniPortal() {
                   Excited to share that our engineering team at ABA Bank is hiring junior frontend interns! Open to
                   recent school graduates with React & TypeScript experience. Feel free to message me directly.
                 </p>
-                <div className="mt-3 flex gap-4 border-t pt-2 text-xs text-muted-foreground">
-                  <button className="flex items-center gap-1.5 hover:text-purple-600">
+                <div className="mt-3 flex gap-4 border-t border-border/60 pt-2 text-xs text-muted-foreground">
+                  <button className="flex items-center gap-1.5 hover:text-foreground transition-colors cursor-pointer">
                     <Heart className="size-3.5 text-rose-500" /> 31 Likes
                   </button>
-                  <button className="flex items-center gap-1.5 hover:text-purple-600">
+                  <button className="flex items-center gap-1.5 hover:text-foreground transition-colors cursor-pointer">
                     <MessageSquare className="size-3.5" /> 7 Inquiries
                   </button>
                 </div>
@@ -131,19 +132,19 @@ export function AlumniPortal() {
 
             {/* Sidebar widgets */}
             <div className="space-y-4">
-              <div className="rounded-xl border bg-card p-4 shadow-xs">
+              <div className="rounded-xl border border-border/80 bg-card p-4 shadow-2xs">
                 <h4 className="font-bold text-xs text-foreground">Alumni Mentorship Program</h4>
-                <p className="text-[11px] text-muted-foreground mt-1">
+                <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
                   Connect with high school seniors preparing for university scholarships and careers in STEM.
                 </p>
-                <Button className="mt-3 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs h-8">
+                <Button className="mt-3 w-full text-xs h-8">
                   Join as a Mentor
                 </Button>
               </div>
 
-              <div className="rounded-xl border bg-card p-4 shadow-xs">
+              <div className="rounded-xl border border-border/80 bg-card p-4 shadow-2xs">
                 <h4 className="font-bold text-xs text-foreground">Campus Support Fund</h4>
-                <p className="text-[11px] text-muted-foreground mt-1">
+                <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
                   Contribute to the STEM Laboratory equipment drive via Bakong KHQR.
                 </p>
                 <Button variant="outline" className="mt-3 w-full text-xs h-8">
@@ -178,18 +179,18 @@ export function AlumniPortal() {
                 registered: "8 Teams Competing",
               },
             ].map((event) => (
-              <div key={event.title} className="rounded-xl border bg-card p-5 shadow-xs flex flex-wrap items-center justify-between gap-4">
+              <div key={event.title} className="rounded-xl border border-border/80 bg-card p-5 shadow-2xs flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <Badge variant="outline" className="text-[10px] text-purple-600 border-purple-300">
-                    <Calendar className="size-3 mr-1" /> {event.date}
+                  <Badge variant="outline" className="text-[10px] gap-1">
+                    <Calendar className="size-3" /> {event.date}
                   </Badge>
                   <h3 className="font-bold text-sm text-foreground mt-1.5">{event.title}</h3>
                   <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
                     <MapPin className="size-3.5" /> {event.location}
                   </p>
-                  <p className="text-[10px] font-semibold text-emerald-600 mt-2">{event.registered}</p>
+                  <p className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 mt-2">{event.registered}</p>
                 </div>
-                <Button size="sm" className="bg-purple-600 hover:bg-purple-500 text-white text-xs">
+                <Button size="sm" className="text-xs">
                   RSVP Now
                 </Button>
               </div>
@@ -214,10 +215,10 @@ export function AlumniPortal() {
 
             <div className="space-y-2.5">
               {alumni.map((alum) => (
-                <div key={alum.name} className="flex items-center justify-between rounded-xl border bg-card p-4 shadow-xs">
+                <div key={alum.name} className="flex items-center justify-between rounded-xl border border-border/80 bg-card p-4 shadow-2xs">
                   <div className="flex items-center gap-3">
-                    <Avatar className="size-11">
-                      <AvatarFallback className="bg-purple-600/10 text-purple-700 font-bold text-xs">
+                    <Avatar className="size-10">
+                      <AvatarFallback className="bg-muted text-foreground font-bold text-xs">
                         {alum.name.split(" ").map((n) => n[0]).join("")}
                       </AvatarFallback>
                     </Avatar>
@@ -228,7 +229,7 @@ export function AlumniPortal() {
                           {alum.year}
                         </Badge>
                         {alum.mentor && (
-                          <span className="rounded-full bg-emerald-100 px-2 py-0.2 text-[9px] font-bold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                          <span className="rounded-full bg-emerald-500/10 px-2 py-0.2 text-[9px] font-semibold text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
                             Available to Mentor
                           </span>
                         )}

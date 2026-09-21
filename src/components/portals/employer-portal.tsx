@@ -10,7 +10,6 @@ import {
   MessageSquare,
   Plus,
   Search,
-  Sparkles,
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -36,17 +35,19 @@ export function EmployerPortal() {
   ];
 
   return (
-    <div className="min-h-[calc(100dvh-3rem)] bg-muted/20 text-foreground pb-12">
+    <div className="min-h-[calc(100dvh-3rem)] bg-background text-foreground pb-12">
       {/* Header */}
-      <div className="bg-gradient-to-r from-teal-900 via-cyan-950 to-slate-900 text-white py-8 px-4 sm:px-8 border-b">
+      <div className="border-b border-border/80 bg-card py-7 px-4 sm:px-8">
         <div className="mx-auto max-w-5xl">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-teal-200">
-                💼 Vocational & Corporate Partnerships
-              </span>
-              <h1 className="mt-2 text-2xl sm:text-3xl font-bold">School OS Employer Portal</h1>
-              <p className="mt-1 text-xs sm:text-sm text-teal-200/80">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
+                <Briefcase className="size-3.5" /> Corporate & Vocational Partnerships
+              </div>
+              <h1 className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                School OS Employer Portal
+              </h1>
+              <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
                 ផតថលដៃគូវិជ្ជាជីវៈ · Connect with vetted student talent, offer internships, and recruit top graduates.
               </p>
             </div>
@@ -54,7 +55,7 @@ export function EmployerPortal() {
               <Button
                 variant={tab === "jobs" ? "default" : "outline"}
                 size="sm"
-                className={tab === "jobs" ? "bg-teal-600 text-white hover:bg-teal-500" : "text-white border-white/20 hover:bg-white/10"}
+                className="text-xs"
                 onClick={() => setTab("jobs")}
               >
                 Our Postings ({jobs.length})
@@ -62,7 +63,7 @@ export function EmployerPortal() {
               <Button
                 variant={tab === "candidates" ? "default" : "outline"}
                 size="sm"
-                className={tab === "candidates" ? "bg-teal-600 text-white hover:bg-teal-500" : "text-white border-white/20 hover:bg-white/10"}
+                className="text-xs"
                 onClick={() => setTab("candidates")}
               >
                 Talent Pool
@@ -70,7 +71,7 @@ export function EmployerPortal() {
               <Button
                 variant={tab === "messages" ? "default" : "outline"}
                 size="sm"
-                className={tab === "messages" ? "bg-teal-600 text-white hover:bg-teal-500" : "text-white border-white/20 hover:bg-white/10"}
+                className="text-xs"
                 onClick={() => setTab("messages")}
               >
                 Inquiries
@@ -91,7 +92,7 @@ export function EmployerPortal() {
               </div>
               <Button
                 size="sm"
-                className="bg-teal-600 hover:bg-teal-500 text-white text-xs gap-1 font-semibold"
+                className="text-xs gap-1 font-semibold"
                 onClick={() => setNewJobOpen(true)}
               >
                 <Plus className="size-4" /> Post New Internship
@@ -100,14 +101,14 @@ export function EmployerPortal() {
 
             <div className="space-y-3">
               {jobs.map((job) => (
-                <div key={job.id} className="rounded-xl border bg-card p-5 shadow-xs flex flex-wrap items-center justify-between gap-4">
+                <div key={job.id} className="rounded-xl border border-border/80 bg-card p-5 shadow-2xs flex flex-wrap items-center justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="font-bold text-sm text-foreground">{job.title}</h3>
-                      <Badge variant="outline" className="text-[10px] text-teal-700 border-teal-300">
+                      <Badge variant="outline" className="text-[10px]">
                         {job.type}
                       </Badge>
-                      <Badge className="bg-emerald-100 text-emerald-800 text-[10px]">
+                      <Badge variant="secondary" className="text-[10px]">
                         {job.status}
                       </Badge>
                     </div>
@@ -127,7 +128,7 @@ export function EmployerPortal() {
                     >
                       Review Applicants ({job.applicants})
                     </Button>
-                    <Button size="sm" className="text-xs bg-teal-600 hover:bg-teal-500 text-white">
+                    <Button size="sm" variant="default" className="text-xs">
                       Manage
                     </Button>
                   </div>
@@ -158,12 +159,12 @@ export function EmployerPortal() {
 
             <div className="grid gap-4 md:grid-cols-2">
               {candidates.map((cand) => (
-                <div key={cand.name} className="rounded-xl border bg-card p-5 shadow-xs flex flex-col justify-between">
+                <div key={cand.name} className="rounded-xl border border-border/80 bg-card p-5 shadow-2xs flex flex-col justify-between">
                   <div>
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3">
-                        <Avatar className="size-11">
-                          <AvatarFallback className="bg-teal-600/10 text-teal-700 font-bold text-xs">
+                        <Avatar className="size-10">
+                          <AvatarFallback className="bg-muted text-foreground font-bold text-xs">
                             {cand.name.split(" ").map((n) => n[0]).join("")}
                           </AvatarFallback>
                         </Avatar>
@@ -172,7 +173,7 @@ export function EmployerPortal() {
                           <p className="text-xs text-muted-foreground">{cand.grade}</p>
                         </div>
                       </div>
-                      <Badge variant="secondary" className="text-[10px] bg-teal-50 text-teal-800 dark:bg-teal-950 dark:text-teal-200">
+                      <Badge variant="secondary" className="text-[10px]">
                         {cand.badge}
                       </Badge>
                     </div>
@@ -184,7 +185,7 @@ export function EmployerPortal() {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Cumulative GPA:</span>
-                        <span className="font-semibold text-emerald-600">{cand.gpa}</span>
+                        <span className="font-semibold text-emerald-600 dark:text-emerald-400">{cand.gpa}</span>
                       </div>
                     </div>
 
@@ -197,7 +198,7 @@ export function EmployerPortal() {
                     </div>
                   </div>
 
-                  <div className="mt-5 pt-3 border-t flex gap-2">
+                  <div className="mt-5 pt-3 border-t border-border/60 flex gap-2">
                     <Button
                       variant="outline"
                       size="sm"
@@ -206,8 +207,8 @@ export function EmployerPortal() {
                     >
                       <Mail className="size-3 mr-1" /> Request Interview
                     </Button>
-                    <Button size="sm" className="text-xs bg-teal-600 hover:bg-teal-500 text-white">
-                      View Verified Portfolio
+                    <Button size="sm" variant="default" className="text-xs">
+                      View Portfolio
                     </Button>
                   </div>
                 </div>
@@ -220,16 +221,16 @@ export function EmployerPortal() {
         {tab === "messages" && (
           <div className="max-w-3xl space-y-4">
             <h2 className="text-base font-bold">Candidate Interview Inquiries</h2>
-            <div className="rounded-xl border bg-card p-5 shadow-xs">
-              <div className="flex items-center gap-3 border-b pb-3">
+            <div className="rounded-xl border border-border/80 bg-card p-5 shadow-2xs">
+              <div className="flex items-center gap-3 border-b border-border/60 pb-3">
                 <Avatar className="size-10">
-                  <AvatarFallback className="bg-teal-600 text-white font-bold text-xs">SC</AvatarFallback>
+                  <AvatarFallback className="bg-muted text-foreground font-bold text-xs">SC</AvatarFallback>
                 </Avatar>
                 <div>
                   <h3 className="text-xs font-bold">Interview Scheduled: Sokha Chan</h3>
                   <p className="text-[10px] text-muted-foreground">Role: Junior Web Developer Intern</p>
                 </div>
-                <Badge className="ml-auto bg-emerald-100 text-emerald-800 text-[10px]">
+                <Badge variant="secondary" className="ml-auto text-[10px]">
                   Confirmed: Tue 22 Sep · 3:00 PM
                 </Badge>
               </div>
@@ -241,7 +242,7 @@ export function EmployerPortal() {
                 <Button variant="outline" size="sm" className="text-xs">
                   Reschedule
                 </Button>
-                <Button size="sm" className="text-xs bg-teal-600 hover:bg-teal-500 text-white">
+                <Button size="sm" variant="default" className="text-xs">
                   Join Interview Room
                 </Button>
               </div>

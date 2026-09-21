@@ -329,17 +329,16 @@ export function BusStaffApp() {
               </div>
 
               {/* Active Trip Card: Route 03 AM */}
-              <div className="rounded-xl border-2 border-amber-500 bg-card p-4 shadow-sm relative overflow-hidden">
-                <div className="absolute top-0 right-0 rounded-bl-lg bg-amber-500 px-2.5 py-0.5 text-[10px] font-bold text-amber-950">
-                  CURRENT ACTIVE
-                </div>
-
-                <div className="flex items-start justify-between">
+              <div className="rounded-xl border border-border/80 bg-card p-4 shadow-2xs relative">
+                <div className="flex items-start justify-between gap-2">
                   <div>
-                    <span className="inline-block rounded-md bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold text-amber-800 dark:text-amber-300">
-                      AM Session · Morning Inbound
-                    </span>
-                    <h3 className="mt-1 text-sm font-bold text-foreground">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="secondary" className="text-[10px]">
+                        AM Session · Morning Inbound
+                      </Badge>
+                      <Badge className="text-[10px]">Active Run</Badge>
+                    </div>
+                    <h3 className="mt-2 text-sm font-bold text-foreground">
                       Route 03 · Toul Kork & Russian Blvd
                     </h3>
                     <p className="text-xs text-muted-foreground">
@@ -348,7 +347,7 @@ export function BusStaffApp() {
                   </div>
                 </div>
 
-                <div className="mt-3 grid grid-cols-3 gap-2 rounded-lg bg-muted/60 p-2.5 text-center text-xs">
+                <div className="mt-3 grid grid-cols-3 gap-2 rounded-lg bg-muted/50 p-2.5 text-center text-xs">
                   <div>
                     <p className="text-[10px] text-muted-foreground">Stops</p>
                     <p className="font-bold text-foreground">5 Stops</p>
@@ -359,15 +358,15 @@ export function BusStaffApp() {
                   </div>
                   <div>
                     <p className="text-[10px] text-muted-foreground">Status</p>
-                    <p className="font-bold text-amber-600 dark:text-amber-400">
+                    <p className="font-bold text-amber-700 dark:text-amber-400">
                       {scenario === "delayed-noshow" ? "+12m Delay" : "On Time"}
                     </p>
                   </div>
                 </div>
 
                 {scenario === "delayed-noshow" && (
-                  <div className="mt-2.5 flex items-center gap-2 rounded-md bg-amber-500/15 px-2.5 py-1.5 text-[11px] font-semibold text-amber-800 dark:text-amber-300 border border-amber-500/30">
-                    <AlertTriangle className="size-3.5 shrink-0" />
+                  <div className="mt-2.5 flex items-center gap-2 rounded-md bg-muted/60 px-2.5 py-1.5 text-[11px] font-semibold text-foreground border border-border/60">
+                    <AlertTriangle className="size-3.5 text-amber-600 shrink-0" />
                     <span>Roadwork on Russian Blvd. ETA revised.</span>
                   </div>
                 )}

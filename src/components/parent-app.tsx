@@ -1184,11 +1184,14 @@ export function ParentApp() {
             </div>
 
             <div className="flex-1 overflow-y-auto py-3 space-y-2">
-              <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 space-y-1">
-                <span className="text-[10px] font-bold text-amber-700 dark:text-amber-400">
-                  Transport Alert · 07:16 AM
-                </span>
-                <p className="font-bold text-foreground">Route 03 Delayed by 12 Minutes</p>
+              <div className="rounded-xl border border-border/80 bg-card p-3 shadow-2xs space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-semibold text-amber-700 dark:text-amber-400">
+                    Transport Alert · 07:16 AM
+                  </span>
+                  <span className="size-1.5 rounded-full bg-amber-500" />
+                </div>
+                <p className="font-semibold text-foreground text-xs">Route 03 Delayed by 12 Minutes</p>
                 <p className="text-[11px] text-muted-foreground">
                   Traffic roadwork on Russian Blvd. Bus is safely moving toward Santhormok.
                 </p>
@@ -1308,10 +1311,10 @@ function MessageThread({
   const [input, setInput] = useState("");
 
   const quickReplies = [
-    "📍 Where is the bus now?",
-    "⏱️ Running 5 min late to stop",
-    "🚗 Will pick up at campus today",
-    "🩺 Dara is absent today",
+    "Where is the bus now?",
+    "Running 5 min late to stop",
+    "Will pick up at campus today",
+    "Dara is absent today",
   ];
 
   const handleSend = (textToSend?: string) => {
@@ -1326,20 +1329,20 @@ function MessageThread({
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-50/70 dark:bg-slate-950/40">
+    <div className="flex flex-col h-full bg-muted/20">
       {/* Officer Presence Bar */}
       <div className="flex items-center justify-between border-b border-border/60 bg-card/95 px-3.5 py-2.5 backdrop-blur-md shrink-0">
         <div className="flex items-center gap-2.5">
           <div className="relative">
-            <div className="grid size-9 place-items-center rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/30">
-              <Bus className="size-4.5" />
+            <div className="grid size-9 place-items-center rounded-full bg-primary/10 text-primary font-bold border border-primary/20">
+              <Bus className="size-4" />
             </div>
             <span className="absolute bottom-0 right-0 size-2.5 rounded-full bg-emerald-500 ring-2 ring-card" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
               <h4 className="text-xs font-bold text-foreground">Route 03 Dispatch Desk</h4>
-              <span className="rounded bg-emerald-500/10 px-1.5 py-0.2 text-[9px] font-bold text-emerald-600 dark:text-emerald-400">
+              <span className="rounded bg-emerald-500/10 px-1.5 py-0.2 text-[9px] font-semibold text-emerald-700 dark:text-emerald-400">
                 Live
               </span>
             </div>
@@ -1353,7 +1356,7 @@ function MessageThread({
           size="sm"
           variant="outline"
           onClick={onCallDriver}
-          className="h-8 gap-1 rounded-full text-xs font-bold border-border bg-card px-3 text-foreground hover:bg-muted cursor-pointer shadow-xs"
+          className="h-8 gap-1 rounded-full text-xs font-semibold border-border bg-card px-3 text-foreground hover:bg-muted cursor-pointer shadow-2xs"
         >
           <Phone className="size-3.5 text-primary" />
           <span>Call</span>
@@ -1364,14 +1367,14 @@ function MessageThread({
       <div className="flex-1 overflow-y-auto p-3.5 space-y-3 text-xs scrollbar-none">
         {/* Date separator */}
         <div className="flex justify-center">
-          <span className="rounded-full bg-muted/80 px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground border border-border/40">
+          <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-medium text-muted-foreground border border-border/40">
             Today · 21 September 2026
           </span>
         </div>
 
         {/* System Alert banner */}
-        <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-2.5 text-center text-[10px] text-amber-900 dark:text-amber-200">
-          <p className="font-bold">Morning Trip TRP-0920-01 in progress</p>
+        <div className="rounded-xl border border-border/80 bg-card p-2.5 text-center text-[10px] shadow-2xs">
+          <p className="font-semibold text-foreground">Morning Trip TRP-0920-01 in progress</p>
           <p className="text-muted-foreground mt-0.5">
             Real-time GPS broadcast and student check-ins are active.
           </p>
@@ -1380,7 +1383,7 @@ function MessageThread({
         {messages.map((m, i) =>
           m.sender === "desk" ? (
             <div key={i} className="flex items-start gap-2 max-w-[85%]">
-              <div className="grid size-7 shrink-0 place-items-center rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-300 font-bold text-[10px]">
+              <div className="grid size-7 shrink-0 place-items-center rounded-full bg-primary/10 text-primary font-bold text-[10px]">
                 R03
               </div>
               <div>
