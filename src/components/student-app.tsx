@@ -516,7 +516,9 @@ export function StudentApp() {
                     onAllHomework={() => go("homework")}
                     onAllClasses={() => go("classes")}
                     onResults={() => go("results")}
+                    onIdCard={() => setIdCardOpen(true)}
                     homeworkList={homeworkList}
+                    onToggleHomework={toggleCompleteHomework}
                   />
                 )}
                 {tab === "classes" && (
@@ -770,7 +772,9 @@ function HomeScreen({
   onAllHomework,
   onAllClasses,
   onResults,
+  onIdCard,
   homeworkList,
+  onToggleHomework,
 }: {
   onClass: (item: ScheduleItem) => void;
   onHomework: (item: HomeworkItem) => void;
@@ -778,97 +782,229 @@ function HomeScreen({
   onAllHomework: () => void;
   onAllClasses: () => void;
   onResults: () => void;
+  onIdCard: () => void;
   homeworkList: HomeworkItem[];
+  onToggleHomework: (id: string) => void;
 }) {
   const schedule = schedulesByDay["Mon"] ?? [];
+  const currentClass = schedule[0]; // Period 1
   const dueHomework = homeworkList.find((h) => !h.completed) || homeworkList[0];
 
   return (
     <div className="space-y-3.5 p-3.5">
-      <div className="pt-0.5">
-        <p className="text-xs text-muted-foreground">Good morning · អរុណសួស្តី</p>
-        <h1 className="text-xl font-bold text-foreground">Dara Meas · ដារ៉ា មាស</h1>
-        <p className="text-[11px] text-muted-foreground">Monday, 21 September · Grade 6A</p>
+      {/* Student Welcome Header & Digital Pass */}
+      <div className="flex items-center justify-between rounded-2xl border border-border/70 bg-gradient-to-r from-blue-600/10 via-card to-card p-3.5 shadow-xs">
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <img
+              src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=160&auto=format&fit=crop&q=80"
+              alt="Dara Meas"
+              className="size-11 rounded-full object-cover border-2 border-primary shadow-xs"
+            />
+            <span className="absolute bottom-0 right-0 size-3 rounded-full bg-emerald-500 ring-2 ring-card" />
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <h1 className="text-sm font-bold text-foreground">Dara Meas</h1>
+              <span className="rounded-full bg-primary/15 px-2 py-0.2 text-[10px] font-bold text-primary">
+                Grade 6A
+              </span>
+            </div>
+            <p className="text-[11px] text-muted-foreground mt-0.5">
+              Phnom Penh Main Campus · ID: STU-09284
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={onIdCard}
+          className="flex flex-col items-center gap-1 rounded-xl border border-border bg-card p-2 text-[10px] font-bold text-foreground shadow-xs hover:bg-muted transition cursor-pointer shrink-0 active:scale-95"
+          title="Open Digital Student ID"
+        >
+          <QrCode className="size-4 text-primary" />
+          <span>ID Pass</span>
+        </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
+      {/* "Happening Now" Hero Class Banner */}
+      {currentClass && (
+        <div
+          onClick={() => onClass(currentClass)}
+          className="relative overflow-hidden rounded-2xl border border-blue-500/40 bg-gradient-to-br from-blue-600/15 via-card to-card p-3.5 shadow-xs cursor-pointer hover:border-blue-500 transition-all group"
+        >
+          <div className="flex items-center justify-between pb-1.5 border-b border-border/40">
+            <div className="flex items-center gap-2">
+              <span className="relative flex size-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                <span className="relative inline-flex rounded-full size-2 bg-blue-600" />
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                Happening Now · Period 1
+              </span>
+            </div>
+            <span className="font-mono text-[11px] font-bold text-foreground">08:00 - 08:50 AM</span>
+          </div>
+
+          <div className="mt-2.5 flex items-start justify-between">
+            <div>
+              <h3 className="text-sm font-extrabold text-foreground group-hover:text-primary transition-colors">
+                {currentClass.subject} ({currentClass.unit})
+              </h3>
+              <p className="text-xs text-muted-foreground mt-0.5">{currentClass.lesson}</p>
+              <p className="text-[10px] text-muted-foreground mt-1">
+                Room <strong className="text-foreground">{currentClass.room}</strong> · {currentClass.teacher}
+              </p>
+            </div>
+            <div className="grid size-9 place-items-center rounded-xl bg-primary text-white font-bold shadow-xs">
+              <BookOpen className="size-5" />
+            </div>
+          </div>
+
+          <div className="mt-2.5 flex items-center justify-between pt-1 text-[10px] font-semibold text-primary">
+            <span>25 mins remaining · Materials ready</span>
+            <span className="flex items-center gap-0.5 group-hover:underline">
+              Lesson Details <ChevronRight className="size-3" />
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Dual Quick Action Tiles (Attendance & Bus Pass) */}
+      <div className="grid grid-cols-2 gap-2.5">
         <button
           onClick={onResults}
-          className="min-h-16 rounded-lg border border-border bg-card p-2.5 text-left shadow-xs cursor-pointer transition hover:border-primary/50"
+          className="rounded-2xl border border-border/70 bg-gradient-to-br from-card to-muted/20 p-3 text-left shadow-xs cursor-pointer hover:border-primary/50 transition-all group"
         >
-          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <CheckCircle2 className="size-3.5 text-success" /> Attendance
-          </span>
-          <strong className="mt-1 block text-sm font-bold text-foreground">
-            98% <span className="font-normal text-[10px] text-muted-foreground">this term</span>
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+              Attendance
+            </span>
+            <div className="grid size-7 place-items-center rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+              <CheckCircle2 className="size-4" />
+            </div>
+          </div>
+          <strong className="mt-1 block text-xl font-extrabold text-foreground">
+            98% <span className="font-normal text-[10px] text-muted-foreground">term rate</span>
           </strong>
+          <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-0.5 mt-0.5">
+            ✓ 0 unexcused
+          </span>
         </button>
 
         <button
           onClick={onBus}
-          className="min-h-16 rounded-lg border border-warning/40 bg-warning-soft p-2.5 text-left cursor-pointer transition hover:border-warning"
+          className="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-card to-card p-3 text-left shadow-xs cursor-pointer hover:border-amber-500 transition-all group"
         >
-          <span className="flex items-center gap-1.5 text-xs text-warning-strong">
-            <Bus className="size-3.5 text-warning" /> Bus 03 (AM)
-          </span>
-          <strong className="mt-1 flex items-center justify-between text-xs font-bold text-foreground">
-            <span>+12m Delay</span> <ChevronRight className="size-3.5 text-muted-foreground" />
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider">
+              Bus 03 (AM)
+            </span>
+            <div className="grid size-7 place-items-center rounded-lg bg-amber-500/20 text-amber-700 dark:text-amber-300">
+              <Bus className="size-4" />
+            </div>
+          </div>
+          <strong className="mt-1 flex items-center justify-between text-base font-bold text-foreground">
+            <span>+12m Delay</span>
+            <ChevronRight className="size-3.5 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
           </strong>
+          <span className="text-[10px] text-muted-foreground truncate block mt-0.5">
+            Boarded safely · En route
+          </span>
         </button>
       </div>
 
-      <SectionHeader title="Today’s timetable" kh="កាលវិភាគថ្ងៃនេះ" action="View all" onClick={onAllClasses} />
-      <Card>
-        {schedule.map((item, i) => (
-          <button
-            key={item.subject}
-            onClick={() => onClass(item)}
-            className={cn(
-              "flex min-h-14 w-full items-center gap-2.5 px-3 text-left cursor-pointer transition hover:bg-muted/40",
-              i > 0 && "border-t border-border"
-            )}
-          >
-            <span className={cn("h-7 w-1 rounded-full", item.color)} />
-            <span className="w-12 text-xs font-mono font-semibold text-foreground">{item.time.split(" ")[0]}</span>
-            <span className="min-w-0 flex-1">
-              <strong className="block truncate text-xs font-bold text-foreground">{item.subject}</strong>
-              <small className="block truncate text-[10px] text-muted-foreground">
-                {item.kh} · {item.room}
-              </small>
-            </span>
-            <ChevronRight className="size-3.5 text-muted-foreground" />
-          </button>
-        ))}
-      </Card>
+      {/* Today's Timetable Section */}
+      <div>
+        <SectionHeader title="Today's Timetable" kh="កាលវិភាគថ្ងៃនេះ" action="View all" onClick={onAllClasses} />
+        <Card className="rounded-2xl overflow-hidden border-border/70 divide-y divide-border/60">
+          {schedule.map((item, i) => (
+            <button
+              key={item.subject}
+              onClick={() => onClass(item)}
+              className={cn(
+                "flex w-full items-center gap-3 p-3 text-left cursor-pointer transition hover:bg-muted/40",
+                i === 0 && "bg-primary/5"
+              )}
+            >
+              <span className={cn("size-2 rounded-full shrink-0", item.color)} />
+              <div className="w-14 shrink-0">
+                <span className="block font-mono text-xs font-bold text-foreground">
+                  {item.time.split(" - ")[0]}
+                </span>
+                <span className="block text-[9px] text-muted-foreground">
+                  {item.time.split(" - ")[1]}
+                </span>
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-1.5">
+                  <strong className="block truncate text-xs font-bold text-foreground">
+                    {item.subject}
+                  </strong>
+                  <span className="rounded bg-muted px-1.5 py-0.2 text-[9px] font-semibold text-muted-foreground">
+                    {item.room}
+                  </span>
+                </div>
+                <p className="block truncate text-[10px] text-muted-foreground mt-0.5">
+                  {item.lesson} · {item.teacher}
+                </p>
+              </div>
+              <ChevronRight className="size-3.5 text-muted-foreground shrink-0" />
+            </button>
+          ))}
+        </Card>
+      </div>
 
-      <SectionHeader title="Homework" kh="កិច្ចការផ្ទះ" action="View all" onClick={onAllHomework} />
-      {dueHomework && (
-        <button
-          onClick={() => onHomework(dueHomework)}
-          className={cn(
-            "flex min-h-16 w-full items-center gap-2.5 rounded-lg border bg-card p-3 text-left shadow-xs cursor-pointer transition",
-            dueHomework.completed ? "border-success/50 hover:border-success" : "border-warning/50 hover:border-warning"
-          )}
-        >
+      {/* Homework Action Card with Toggle */}
+      <div>
+        <SectionHeader title="Homework & Tasks" kh="កិច្ចការផ្ទះ" action="View all" onClick={onAllHomework} />
+        {dueHomework && (
           <div
             className={cn(
-              "flex size-9 shrink-0 items-center justify-center rounded-lg",
-              dueHomework.completed ? "bg-success-soft text-success" : "bg-warning-soft text-warning"
+              "flex items-center gap-3 rounded-2xl border p-3.5 shadow-xs transition-all",
+              dueHomework.completed
+                ? "border-emerald-500/30 bg-emerald-500/5"
+                : "border-amber-500/30 bg-card hover:border-amber-500/60"
             )}
           >
-            <FileText className="size-4" />
+            <button
+              onClick={() => onToggleHomework(dueHomework.id)}
+              className={cn(
+                "grid size-6 shrink-0 place-items-center rounded-lg border transition cursor-pointer",
+                dueHomework.completed
+                  ? "border-emerald-500 bg-emerald-500 text-white"
+                  : "border-border bg-card hover:border-primary text-transparent"
+              )}
+              title={dueHomework.completed ? "Mark incomplete" : "Mark completed"}
+            >
+              <Check className="size-3.5 stroke-[3]" />
+            </button>
+
+            <div
+              onClick={() => onHomework(dueHomework)}
+              className="min-w-0 flex-1 cursor-pointer"
+            >
+              <div className="flex items-center gap-2">
+                <strong className={cn("block text-xs font-bold", dueHomework.completed ? "line-through text-muted-foreground" : "text-foreground")}>
+                  {dueHomework.title}
+                </strong>
+                <span className="rounded bg-primary/10 px-1.5 py-0.2 text-[9px] font-bold text-primary">
+                  {dueHomework.subject}
+                </span>
+              </div>
+              <span className="block text-[10px] text-muted-foreground mt-0.5">
+                Due {dueHomework.due} · {dueHomework.teacher}
+              </span>
+            </div>
+
+            <button
+              onClick={() => onHomework(dueHomework)}
+              className="text-primary hover:underline text-[11px] font-semibold shrink-0 cursor-pointer"
+            >
+              Open
+            </button>
           </div>
-          <div className="min-w-0 flex-1">
-            <strong className="block text-xs font-bold text-foreground">{dueHomework.title}</strong>
-            <span className="text-[10px] text-muted-foreground">
-              {dueHomework.subject} · Due {dueHomework.due}
-            </span>
-          </div>
-          <Chip tone={dueHomework.completed ? "success" : dueHomework.tone}>
-            {dueHomework.completed ? "Completed" : dueHomework.state}
-          </Chip>
-        </button>
-      )}
+        )}
+      </div>
     </div>
   );
 }
@@ -1537,8 +1673,12 @@ function BottomNav({ active, onChange }: { active: Tab; onChange: (v: Tab) => vo
   );
 }
 
-function Card({ children }: { children: ReactNode }) {
-  return <div className="overflow-hidden rounded-xl border border-border bg-card shadow-xs">{children}</div>;
+function Card({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <div className={cn("overflow-hidden rounded-xl border border-border bg-card shadow-xs", className)}>
+      {children}
+    </div>
+  );
 }
 
 function Chip({ children, tone }: { children: ReactNode; tone?: string }) {

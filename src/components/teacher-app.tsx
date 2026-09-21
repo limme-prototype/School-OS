@@ -204,16 +204,23 @@ export function TeacherApp() {
           </div>
         )}
 
-        {/* Header */}
-        <header className="shrink-0 bg-primary px-4 pb-3 pt-2.5 text-primary-foreground shadow-xs">
+        {/* Modern Frosted Header */}
+        <header className="shrink-0 border-b border-border/60 bg-card/95 px-4 pb-2.5 pt-3 text-foreground backdrop-blur-xl shadow-xs">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="grid size-8 place-items-center rounded-lg bg-white/20 text-white font-bold text-xs">
-                TC
+            <div className="flex items-center gap-2.5">
+              <div className="relative">
+                <div className="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground font-bold text-xs shadow-xs">
+                  CM
+                </div>
+                <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-emerald-500 ring-2 ring-card" />
               </div>
               <div>
-                <p className="text-[10px] font-medium opacity-80">School OS · Faculty Portal</p>
-                <h1 className="text-sm font-bold leading-tight">Mr. Chhay Meng · Grade 6A</h1>
+                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                  School OS · Faculty Portal
+                </p>
+                <h1 className="text-sm font-bold leading-tight text-foreground">
+                  Mr. Chhay Meng · Grade 6A Lead
+                </h1>
               </div>
             </div>
 
@@ -235,17 +242,20 @@ export function TeacherApp() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setNotifsOpen(true)}
-                className="size-8 text-white hover:bg-white/15 cursor-pointer relative"
+                className="relative size-8 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer"
               >
                 <Bell className="size-4" />
-                <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-amber-400" />
+                <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-amber-400 ring-2 ring-card" />
               </Button>
             </div>
           </div>
 
-          <div className="mt-2.5 flex items-center justify-between rounded-xl bg-white/15 px-3 py-1.5 text-xs font-semibold">
-            <span>Today: 3 classes · 82 students</span>
-            <span className="rounded bg-white/20 px-2 py-0.5 text-[10px] font-bold">
+          <div className="mt-2.5 flex items-center justify-between rounded-xl bg-muted/60 border border-border/60 px-3 py-1.5 text-xs font-semibold text-foreground">
+            <span className="flex items-center gap-1.5">
+              <span className="size-2 rounded-full bg-emerald-500" />
+              <span>Today: 3 classes · 82 students</span>
+            </span>
+            <span className="rounded-full bg-card border border-border/60 px-2 py-0.5 text-[10px] font-bold text-muted-foreground">
               Term 2 · Sep 2026
             </span>
           </div>
@@ -258,28 +268,48 @@ export function TeacherApp() {
           {/* ---------------------------------------------------- */}
           {tab === "home" && (
             <div className="space-y-3.5">
-              {/* Quick Roll Call Banner */}
+              {/* Smart Homeroom Roll Call Card */}
               <div
                 onClick={() => setTab("attendance")}
-                className="rounded-xl border border-primary/40 bg-primary/10 p-3.5 shadow-xs cursor-pointer hover:border-primary transition flex items-center justify-between"
+                className="relative overflow-hidden rounded-2xl border border-blue-500/40 bg-gradient-to-br from-blue-600/10 via-card to-card p-3.5 shadow-xs cursor-pointer hover:border-blue-500 transition-all group"
               >
-                <div className="flex items-center gap-3">
-                  <div className="grid size-10 place-items-center rounded-xl bg-primary text-white font-bold">
-                    <FileCheck className="size-5" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
-                      Homeroom Roll Call Ready
+                <div className="flex items-center justify-between pb-1.5 border-b border-border/40">
+                  <div className="flex items-center gap-2">
+                    <span className="relative flex size-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full size-2 bg-blue-600" />
                     </span>
-                    <h3 className="text-xs font-extrabold text-foreground mt-0.5">
-                      Grade 6A Attendance (Period 1)
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                      Homeroom Roll Call Ready · Period 1
+                    </span>
+                  </div>
+                  <span className="rounded-full bg-emerald-500/15 px-2 py-0.2 text-[9px] font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                    ⚡ 3 Bus Arrivals Synced
+                  </span>
+                </div>
+
+                <div className="mt-2.5 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-extrabold text-foreground group-hover:text-primary transition-colors">
+                      Grade 6A Attendance & Roll Call
                     </h3>
-                    <p className="text-[10px] text-muted-foreground">
-                      3 bus arrivals auto-synced · Tap to take roll
+                    <p className="text-[11px] text-muted-foreground mt-0.5">
+                      Dara Meas, Sokha Kim & Chanthou Rath pre-verified from Route 03 AM manifest.
                     </p>
                   </div>
+                  <div className="grid size-9 place-items-center rounded-xl bg-primary text-white font-bold shadow-xs shrink-0">
+                    <FileCheck className="size-5" />
+                  </div>
                 </div>
-                <ChevronRight className="size-4 text-primary shrink-0" />
+
+                <div className="mt-2.5 flex items-center justify-between pt-1 text-[11px] font-semibold text-primary">
+                  <span className="flex items-center gap-1 group-hover:underline">
+                    Review & Submit Attendance (24 Present) <ChevronRight className="size-3.5" />
+                  </span>
+                  <span className="text-[10px] text-muted-foreground font-normal">
+                    Due 08:15 AM
+                  </span>
+                </div>
               </div>
 
               {/* Today's Schedule */}
@@ -288,12 +318,12 @@ export function TeacherApp() {
                   <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
                     Today's Teaching Schedule
                   </h3>
-                  <Badge variant="outline" className="text-[10px]">
+                  <Badge variant="outline" className="text-[10px] rounded-full">
                     3 Periods
                   </Badge>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   {todayClasses.map((cls, idx) => (
                     <div
                       key={cls.id}
@@ -302,10 +332,10 @@ export function TeacherApp() {
                         setTab("classes");
                       }}
                       className={cn(
-                        "rounded-xl border p-3.5 shadow-xs cursor-pointer transition bg-card",
+                        "rounded-2xl border p-3.5 shadow-xs cursor-pointer transition-all bg-card",
                         idx === 0
-                          ? "border-primary/60 ring-1 ring-primary/40"
-                          : "border-border hover:border-primary/40",
+                          ? "border-blue-500/50 ring-1 ring-blue-500/30 bg-gradient-to-br from-blue-50/50 dark:from-blue-950/20 to-card"
+                          : "border-border/70 hover:border-primary/40",
                       )}
                     >
                       <div className="flex items-start justify-between">
@@ -313,29 +343,29 @@ export function TeacherApp() {
                           <div className="flex items-center gap-2">
                             <h4 className="text-xs font-bold text-foreground">{cls.name}</h4>
                             {idx === 0 && (
-                              <Badge className="bg-primary text-white text-[9px] px-1.5 py-0">
+                              <Badge className="bg-primary text-white text-[9px] px-1.5 py-0 rounded-full font-bold">
                                 Current
                               </Badge>
                             )}
                           </div>
                           <p className="text-[11px] text-muted-foreground mt-0.5">
-                            {cls.subject} · {cls.room}
+                            {cls.subject} · Room <strong className="text-foreground">{cls.room}</strong>
                           </p>
                         </div>
-                        <span className="font-mono text-xs font-bold text-foreground">
+                        <span className="font-mono text-xs font-bold text-foreground rounded-md bg-muted/60 px-2 py-0.5 border border-border/50">
                           {cls.time}
                         </span>
                       </div>
 
-                      <div className="mt-2.5 flex items-center justify-between pt-2 border-t border-border/60 text-[11px]">
-                        <span className="text-muted-foreground">{cls.studentsCount} Students</span>
+                      <div className="mt-2.5 flex items-center justify-between pt-2 border-t border-border/50 text-[11px]">
+                        <span className="text-muted-foreground font-medium">{cls.studentsCount} Students Enrolled</span>
                         {cls.attendanceDone ? (
                           <span className="flex items-center gap-1 font-bold text-emerald-600 dark:text-emerald-400">
                             <CheckCircle2 className="size-3.5" /> Roll Call Done
                           </span>
                         ) : (
-                          <span className="text-amber-600 dark:text-amber-400 font-bold">
-                            Pending Roll Call
+                          <span className="flex items-center gap-1 font-bold text-amber-600 dark:text-amber-400">
+                            <Clock className="size-3.5" /> Pending Roll Call
                           </span>
                         )}
                       </div>
@@ -345,18 +375,18 @@ export function TeacherApp() {
               </div>
 
               {/* Quick Actions Grid */}
-              <div className="grid grid-cols-2 gap-2 pt-1">
+              <div className="grid grid-cols-2 gap-2.5 pt-1">
                 <Button
                   onClick={() => setNewHwOpen(true)}
                   variant="outline"
-                  className="h-10 text-xs font-bold gap-1.5 cursor-pointer border-border hover:border-primary"
+                  className="h-11 rounded-xl text-xs font-bold gap-2 cursor-pointer border-border/80 hover:border-primary hover:bg-primary/5 transition shadow-xs"
                 >
                   <FilePlus className="size-4 text-primary" /> Post Homework
                 </Button>
                 <Button
                   onClick={() => setTab("grades")}
                   variant="outline"
-                  className="h-10 text-xs font-bold gap-1.5 cursor-pointer border-border hover:border-primary"
+                  className="h-11 rounded-xl text-xs font-bold gap-2 cursor-pointer border-border/80 hover:border-sky-600 hover:bg-sky-50 dark:hover:bg-sky-950/20 transition shadow-xs"
                 >
                   <FileSpreadsheet className="size-4 text-sky-600" /> Enter Grades
                 </Button>

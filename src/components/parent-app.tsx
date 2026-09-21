@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   ChevronDown,
   ChevronLeft,
+  ChevronRight,
   CircleDollarSign,
   Clock,
   Clock3,
@@ -135,38 +136,40 @@ export function ParentApp() {
           </div>
         )}
 
-        {/* Header */}
-        <header className="shrink-0 bg-primary px-4 pb-3 pt-2.5 text-primary-foreground shadow-xs">
-          <div className="mb-2 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+        {/* Modern Frosted Header */}
+        <header className="shrink-0 border-b border-border/60 bg-card/95 px-4 pb-2.5 pt-3 text-foreground backdrop-blur-xl shadow-xs">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
               {detail ? (
                 <Button
                   aria-label="Go back"
                   variant="ghost"
                   size="icon"
-                  className="size-8 text-white hover:bg-white/15 cursor-pointer"
+                  className="size-8 rounded-full text-foreground hover:bg-muted cursor-pointer"
                   onClick={() => setDetail(null)}
                 >
                   <ChevronLeft className="size-5" />
                 </Button>
               ) : (
-                <div className="grid size-7 place-items-center rounded-lg bg-white/20 text-white font-bold text-xs">
-                  OS
+                <div className="grid size-8 place-items-center rounded-xl bg-blue-600/10 text-blue-600 dark:text-blue-400 font-bold text-xs shadow-xs">
+                  <ShieldCheck className="size-4.5" />
                 </div>
               )}
               <div>
-                <p className="text-[10px] font-medium opacity-80">School OS · Family Portal</p>
-                <h1 className="text-sm font-bold leading-tight">
+                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                  {detail ? "School OS · Support" : "School OS · Family"}
+                </p>
+                <h1 className="text-sm font-bold leading-tight text-foreground">
                   {detail === "invoice"
                     ? "Invoice & Receipt"
                     : detail === "thread"
-                    ? "School & Transport Office"
+                    ? "Transport Operations Desk"
                     : navItems.find((item) => item.id === tab)?.label}
                 </h1>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <LanguageToggle
                 currentLanguage={lang}
                 onLanguageChange={(l) => {
@@ -187,156 +190,176 @@ export function ParentApp() {
                   variant="ghost"
                   size="icon"
                   onClick={() => setNotifsOpen(true)}
-                  className="relative size-8 text-white hover:bg-white/15 cursor-pointer"
+                  className="relative size-8 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer"
                 >
                   <Bell className="size-4" />
                   {unreadNotifs > 0 && (
-                    <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-amber-400 ring-2 ring-primary" />
+                    <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-rose-500 ring-2 ring-card" />
                   )}
                 </Button>
               )}
             </div>
           </div>
 
-          {/* Child Switcher Dropdown */}
-          {!detail && (
-            <div className="relative mt-1">
-              <Button
-                variant="ghost"
-                className="h-11 w-full justify-between px-3 bg-white/15 hover:bg-white/25 text-white border border-white/20 cursor-pointer rounded-xl"
-                onClick={() => setChildMenu(!childMenu)}
-                aria-expanded={childMenu}
-              >
-                <span className="flex items-center gap-2.5 text-left">
-                  <img
-                    src={activeStudent.avatar}
-                    alt={activeStudent.fullName}
-                    className="size-7 rounded-full object-cover border border-white/40"
-                  />
-                  <span>
-                    <span className="block text-xs font-bold leading-tight">
-                      {activeStudent.fullName}
+          {/* Child Switcher Horizontal Carousel (Visible on main tabs) */}
+          {!detail && (tab === "home" || tab === "progress" || tab === "fees") && (
+            <div className="mt-2.5 flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
+              {MOCK_STUDENTS.map((item) => {
+                const isSelected = item.id === activeStudent.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setSelectedStudentId(item.id);
+                      showToast(`Viewing ${item.fullName}`);
+                    }}
+                    className={cn(
+                      "flex items-center gap-2 rounded-full px-2.5 py-1 text-xs font-semibold transition-all shrink-0 cursor-pointer border",
+                      isSelected
+                        ? "bg-primary text-primary-foreground border-primary shadow-xs"
+                        : "bg-muted/50 text-muted-foreground border-border/70 hover:bg-muted hover:text-foreground"
+                    )}
+                  >
+                    <img
+                      src={item.avatar}
+                      alt={item.fullName}
+                      className="size-5 rounded-full object-cover"
+                    />
+                    <span className="truncate max-w-[100px]">{item.fullName.split(" ")[0]}</span>
+                    <span
+                      className={cn(
+                        "rounded-full px-1.5 py-0.2 text-[9px] font-bold",
+                        isSelected
+                          ? "bg-white/20 text-white"
+                          : "bg-background text-muted-foreground border border-border/40",
+                      )}
+                    >
+                      {item.grade}
                     </span>
-                    <span className="block text-[10px] opacity-80 leading-tight">
-                      {activeStudent.className} · {activeStudent.studentId}
-                    </span>
-                  </span>
-                </span>
-                <ChevronDown className={cn("size-4 transition-transform", childMenu && "rotate-180")} />
-              </Button>
-
-              {childMenu && (
-                <div className="absolute inset-x-0 top-[48px] z-30 rounded-xl border border-border bg-popover p-1.5 text-popover-foreground shadow-2xl animate-in fade-in">
-                  <p className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                    Switch Child Profile
-                  </p>
-                  {MOCK_STUDENTS.map((item) => {
-                    const isSelected = item.id === selectedStudentId;
-                    return (
-                      <Button
-                        key={item.id}
-                        variant="ghost"
-                        className={cn(
-                          "h-11 w-full justify-start px-2.5 text-left cursor-pointer rounded-lg",
-                          isSelected && "bg-muted font-bold",
-                        )}
-                        onClick={() => {
-                          setSelectedStudentId(item.id);
-                          setChildMenu(false);
-                          showToast(`Switched view to ${item.fullName}`);
-                        }}
-                      >
-                        <img
-                          src={item.avatar}
-                          alt={item.fullName}
-                          className="size-7 rounded-full object-cover mr-2.5 border"
-                        />
-                        <div className="min-w-0 flex-1">
-                          <span className="block text-xs font-bold text-foreground">
-                            {item.fullName}
-                          </span>
-                          <span className="block text-[10px] text-muted-foreground">
-                            {item.className} · {item.grade}
-                          </span>
-                        </div>
-                        {isSelected && <Check className="ml-auto size-4 text-primary" />}
-                      </Button>
-                    );
-                  })}
-                </div>
-              )}
+                  </button>
+                );
+              })}
             </div>
           )}
         </header>
 
-        {/* Scrollable Body Content */}
-        <div className="min-h-0 flex-1 overflow-y-auto bg-background scrollbar-none">
-          <div className="px-3.5 py-3.5 space-y-3.5">
-            {detail === "invoice" && selectedInvoice ? (
-              <InvoiceDetail
-                invoice={selectedInvoice}
-                student={activeStudent}
-                onDownloadPdf={() =>
-                  showToast(`Downloaded receipt PDF for ${selectedInvoice.invoiceNumber}`)
-                }
-                onPayBakong={() => setKhqrOpen(true)}
-              />
-            ) : detail === "thread" ? (
-              <MessageThread onSend={() => showToast("Message delivered to School Office")} />
-            ) : (
-              <>
+        {/* Scrollable Body Content / Fullscreen Thread */}
+        {detail === "thread" ? (
+          <div className="min-h-0 flex-1 flex flex-col">
+            <MessageThread
+              onSend={(text) => showToast(`Message sent: "${text}"`)}
+              onCallDriver={() => setCallDriverModal(true)}
+            />
+          </div>
+        ) : (
+          <div className="min-h-0 flex-1 overflow-y-auto bg-background scrollbar-none">
+            <div className="px-3.5 py-3.5 space-y-3.5">
+              {detail === "invoice" && selectedInvoice ? (
+                <InvoiceDetail
+                  invoice={selectedInvoice}
+                  student={activeStudent}
+                  onDownloadPdf={() =>
+                    showToast(`Downloaded receipt PDF for ${selectedInvoice.invoiceNumber}`)
+                  }
+                  onPayBakong={() => setKhqrOpen(true)}
+                />
+              ) : (
+                <>
                 {/* ---------------------------------------------------- */}
                 {/* TAB 1: HOME                                          */}
                 {/* ---------------------------------------------------- */}
                 {tab === "home" && (
                   <div className="space-y-3.5">
-                    {/* Live Bus Banner on Home */}
+                    {/* Live Transport Activity Card on Home */}
                     {activeStudent.busSubscription?.subscribed && (
                       <div
                         onClick={() => go("bus")}
-                        className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 shadow-xs cursor-pointer hover:border-amber-500 transition-all flex items-center justify-between"
+                        className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-b from-amber-500/10 via-card to-card p-3.5 shadow-xs transition-all hover:border-amber-500/60 cursor-pointer group"
                       >
-                        <div className="flex items-center gap-3">
-                          <div className="grid size-9 place-items-center rounded-lg bg-amber-500 text-slate-950 font-bold shadow-xs">
-                            <Bus className="size-5" />
+                        {/* Top Live Beacon */}
+                        <div className="flex items-center justify-between pb-2 border-b border-border/50">
+                          <div className="flex items-center gap-2">
+                            <span className="relative flex size-2.5">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                              <span className="relative inline-flex rounded-full size-2.5 bg-emerald-500" />
+                            </span>
+                            <span className="text-xs font-bold text-foreground">Route 03 · Morning Pickup</span>
+                            <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-[9px] font-bold text-amber-700 dark:text-amber-400 border border-amber-500/30">
+                              +12m Delay
+                            </span>
                           </div>
+                          <span className="text-xs font-mono font-bold text-primary">ETA 07:47 AM</span>
+                        </div>
+
+                        {/* Current Status Headline */}
+                        <div className="mt-2.5 flex items-center justify-between">
                           <div>
-                            <div className="flex items-center gap-1.5">
-                              <StatusChip status="delayed" label="Route 03 Delayed (+12m)" size="sm" />
-                            </div>
-                            <p className="text-xs font-bold text-foreground mt-1">
-                              Boarded safely · Approaching Santhormok
+                            <h4 className="text-xs font-bold text-foreground">
+                              Approaching Santhormok Stop
+                            </h4>
+                            <p className="text-[11px] text-muted-foreground mt-0.5">
+                              Dara boarded safely at Toul Kork Circle (07:12 AM)
                             </p>
-                            <p className="text-[10px] text-muted-foreground">
-                              Driver: Seng Vibol · Estimated Campus Arrival: 07:47 AM
-                            </p>
+                          </div>
+                          <div className="grid size-8 place-items-center rounded-xl bg-amber-500 text-slate-950 font-bold shadow-xs">
+                            <Bus className="size-4.5" />
                           </div>
                         </div>
-                        <ArrowRight className="size-4 text-amber-700 dark:text-amber-400 shrink-0" />
+
+                        {/* Visual 3-step Route Track */}
+                        <div className="mt-2.5 rounded-xl bg-muted/50 p-2">
+                          <div className="flex items-center justify-between text-[10px] font-semibold text-muted-foreground mb-1">
+                            <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓ Boarded (07:12)</span>
+                            <span className="text-amber-600 dark:text-amber-400 font-bold">● En Route (Stop 3/5)</span>
+                            <span>Campus (07:47)</span>
+                          </div>
+                          <div className="relative h-1.5 w-full overflow-hidden rounded-full bg-muted">
+                            <div className="absolute left-0 top-0 h-full w-[60%] rounded-full bg-gradient-to-r from-emerald-500 to-amber-500" />
+                          </div>
+                        </div>
+
+                        {/* Quick Action Footer */}
+                        <div className="mt-2 flex items-center justify-between pt-1 text-[11px] font-semibold text-primary">
+                          <span className="flex items-center gap-1 group-hover:underline">
+                            Track Live on Map & Route Stops <ChevronRight className="size-3.5" />
+                          </span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setCallDriverModal(true);
+                            }}
+                            className="flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-primary hover:bg-primary/20 transition cursor-pointer"
+                          >
+                            <Phone className="size-3" /> Call Driver
+                          </button>
+                        </div>
                       </div>
                     )}
 
-                    {/* Child Quick Snapshot Cards */}
+                    {/* Child Quick Snapshot Metric Tiles */}
                     <div className="grid grid-cols-2 gap-2.5">
                       <div
                         onClick={() => {
                           setProgressTab("attendance");
                           go("progress");
                         }}
-                        className="rounded-xl border border-border bg-card p-3 shadow-xs cursor-pointer hover:border-primary/50 transition"
+                        className="rounded-2xl border border-border/70 bg-gradient-to-br from-card to-muted/20 p-3.5 shadow-xs cursor-pointer hover:border-primary/50 transition-all group"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-bold text-muted-foreground uppercase">
+                          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                             Attendance
                           </span>
-                          <CalendarDays className="size-3.5 text-primary" />
+                          <div className="grid size-7 place-items-center rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+                            <UserCheck className="size-4" />
+                          </div>
                         </div>
-                        <p className="text-xl font-extrabold text-foreground mt-1.5">
+                        <p className="text-2xl font-extrabold text-foreground mt-1 tracking-tight">
                           {activeStudent.attendanceRate}%
                         </p>
-                        <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">
-                          ✓ On track (0 unexcused)
-                        </p>
+                        <div className="mt-1 flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">
+                          <CheckCircle2 className="size-3" />
+                          <span>0 unexcused absences</span>
+                        </div>
                       </div>
 
                       <div
@@ -344,20 +367,23 @@ export function ParentApp() {
                           setProgressTab("grades");
                           go("progress");
                         }}
-                        className="rounded-xl border border-border bg-card p-3 shadow-xs cursor-pointer hover:border-primary/50 transition"
+                        className="rounded-2xl border border-border/70 bg-gradient-to-br from-card to-muted/20 p-3.5 shadow-xs cursor-pointer hover:border-primary/50 transition-all group"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-bold text-muted-foreground uppercase">
+                          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                             Academic GPA
                           </span>
-                          <TrendingUp className="size-3.5 text-sky-600" />
+                          <div className="grid size-7 place-items-center rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400">
+                            <TrendingUp className="size-4" />
+                          </div>
                         </div>
-                        <p className="text-xl font-extrabold text-foreground mt-1.5">
+                        <p className="text-2xl font-extrabold text-foreground mt-1 tracking-tight">
                           {activeStudent.gpa.toFixed(2)}
                         </p>
-                        <p className="text-[10px] text-muted-foreground font-semibold mt-0.5">
-                          Term 2 Honor Roll
-                        </p>
+                        <div className="mt-1 flex items-center gap-1 text-[10px] text-blue-600 dark:text-blue-400 font-semibold">
+                          <GraduationCap className="size-3" />
+                          <span>Term 2 Honor Roll</span>
+                        </div>
                       </div>
                     </div>
 
@@ -365,17 +391,22 @@ export function ParentApp() {
                     {unpaidInvoices.length > 0 && unpaidInvoices[0] && (
                       <div
                         onClick={() => go("fees")}
-                        className="rounded-xl border border-amber-500/30 bg-card p-3 shadow-xs cursor-pointer hover:border-amber-500 transition flex items-center justify-between"
+                        className="rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-card to-card p-3.5 shadow-xs cursor-pointer hover:border-amber-500 transition-all flex items-center justify-between"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="grid size-8 place-items-center rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-400">
-                            <CircleDollarSign className="size-4.5" />
+                          <div className="grid size-9 place-items-center rounded-xl bg-amber-500/20 text-amber-700 dark:text-amber-400 shadow-xs">
+                            <ReceiptText className="size-5" />
                           </div>
                           <div>
-                            <h4 className="text-xs font-bold text-foreground">
-                              {unpaidInvoices[0].items[0]?.description}
-                            </h4>
-                            <p className="text-[10px] text-muted-foreground">
+                            <div className="flex items-center gap-1.5">
+                              <h4 className="text-xs font-bold text-foreground">
+                                {unpaidInvoices[0].items[0]?.description}
+                              </h4>
+                              <span className="rounded bg-amber-500/20 px-1.5 py-0.2 text-[9px] font-bold text-amber-800 dark:text-amber-300">
+                                Due Soon
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-muted-foreground mt-0.5">
                               Due {unpaidInvoices[0].dueDate} · Balance:{" "}
                               <span className="font-bold text-foreground">
                                 ${unpaidInvoices[0].balanceDue}.00
@@ -383,8 +414,11 @@ export function ParentApp() {
                             </p>
                           </div>
                         </div>
-                        <Button size="sm" className="h-7 text-[11px] font-bold bg-primary text-white">
-                          Pay
+                        <Button
+                          size="sm"
+                          className="h-8 rounded-xl px-3 text-xs font-bold bg-primary text-white hover:bg-primary/90 shadow-xs gap-1 cursor-pointer"
+                        >
+                          <QrCode className="size-3" /> Pay
                         </Button>
                       </div>
                     )}
@@ -911,6 +945,7 @@ export function ParentApp() {
             )}
           </div>
         </div>
+      )}
 
         {/* Bottom Navigation */}
         {!detail && (
@@ -1250,48 +1285,159 @@ function InvoiceDetail({
   );
 }
 
-function MessageThread({ onSend }: { onSend: () => void }) {
-  const [messages, setMessages] = useState<string[]>([
-    "Hello! Kosal Meas here. Has Bus 03 cleared the Russian Blvd intersection?",
+function MessageThread({
+  onSend,
+  onCallDriver,
+}: {
+  onSend: (text: string) => void;
+  onCallDriver: () => void;
+}) {
+  const [messages, setMessages] = useState<
+    Array<{ sender: "desk" | "parent"; text: string; time: string }>
+  >([
+    {
+      sender: "desk",
+      text: "Good morning Mr. Meas! Yes, Bus 03 is past the flyover and moving smoothly toward Santhormok. ETA at campus is approximately 07:47 AM.",
+      time: "07:22 AM",
+    },
+    {
+      sender: "parent",
+      text: "Hello! Kosal Meas here. Has Bus 03 cleared the Russian Blvd intersection?",
+      time: "07:23 AM",
+    },
   ]);
   const [input, setInput] = useState("");
 
-  const handleSend = () => {
-    if (!input.trim()) return;
-    setMessages([...messages, input.trim()]);
-    setInput("");
-    onSend();
+  const quickReplies = [
+    "📍 Where is the bus now?",
+    "⏱️ Running 5 min late to stop",
+    "🚗 Will pick up at campus today",
+    "🩺 Dara is absent today",
+  ];
+
+  const handleSend = (textToSend?: string) => {
+    const text = (textToSend ?? input).trim();
+    if (!text) return;
+    setMessages((prev) => [
+      ...prev,
+      { sender: "parent", text, time: "Just now" },
+    ]);
+    if (!textToSend) setInput("");
+    onSend(text);
   };
 
   return (
-    <div className="flex flex-col h-[480px]">
-      <div className="flex-1 overflow-y-auto space-y-2.5 p-1 text-xs">
-        <div className="max-w-[85%] rounded-2xl rounded-tl-xs bg-muted p-3 text-foreground">
-          <p className="font-bold text-[10px] text-primary">Transport Coordinator Desk</p>
-          <p className="text-xs mt-0.5">
-            Good morning Mr. Meas! Yes, Bus 03 is past the flyover and moving smoothly toward Santhormok. ETA at campus is approximately 07:47 AM.
-          </p>
-          <span className="block text-[9px] text-muted-foreground mt-1">07:22 AM</span>
+    <div className="flex flex-col h-full bg-slate-50/70 dark:bg-slate-950/40">
+      {/* Officer Presence Bar */}
+      <div className="flex items-center justify-between border-b border-border/60 bg-card/95 px-3.5 py-2.5 backdrop-blur-md shrink-0">
+        <div className="flex items-center gap-2.5">
+          <div className="relative">
+            <div className="grid size-9 place-items-center rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/30">
+              <Bus className="size-4.5" />
+            </div>
+            <span className="absolute bottom-0 right-0 size-2.5 rounded-full bg-emerald-500 ring-2 ring-card" />
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <h4 className="text-xs font-bold text-foreground">Route 03 Dispatch Desk</h4>
+              <span className="rounded bg-emerald-500/10 px-1.5 py-0.2 text-[9px] font-bold text-emerald-600 dark:text-emerald-400">
+                Live
+              </span>
+            </div>
+            <p className="text-[10px] text-muted-foreground">
+              Driver: Seng Vibol · Vehicle: Toyota Coaster (2AB-3842)
+            </p>
+          </div>
         </div>
 
-        {messages.map((msg, i) => (
-          <div key={i} className="ml-auto max-w-[85%] rounded-2xl rounded-tr-xs bg-primary p-3 text-primary-foreground">
-            <p className="text-xs">{msg}</p>
-            <span className="block text-[9px] opacity-75 mt-1 text-right">Delivered</span>
-          </div>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={onCallDriver}
+          className="h-8 gap-1 rounded-full text-xs font-bold border-border bg-card px-3 text-foreground hover:bg-muted cursor-pointer shadow-xs"
+        >
+          <Phone className="size-3.5 text-primary" />
+          <span>Call</span>
+        </Button>
+      </div>
+
+      {/* Messages Scroll Area */}
+      <div className="flex-1 overflow-y-auto p-3.5 space-y-3 text-xs scrollbar-none">
+        {/* Date separator */}
+        <div className="flex justify-center">
+          <span className="rounded-full bg-muted/80 px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground border border-border/40">
+            Today · 21 September 2026
+          </span>
+        </div>
+
+        {/* System Alert banner */}
+        <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-2.5 text-center text-[10px] text-amber-900 dark:text-amber-200">
+          <p className="font-bold">Morning Trip TRP-0920-01 in progress</p>
+          <p className="text-muted-foreground mt-0.5">
+            Real-time GPS broadcast and student check-ins are active.
+          </p>
+        </div>
+
+        {messages.map((m, i) =>
+          m.sender === "desk" ? (
+            <div key={i} className="flex items-start gap-2 max-w-[85%]">
+              <div className="grid size-7 shrink-0 place-items-center rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-300 font-bold text-[10px]">
+                R03
+              </div>
+              <div>
+                <span className="text-[10px] font-bold text-muted-foreground ml-1">
+                  Transport Coordinator
+                </span>
+                <div className="mt-0.5 rounded-2xl rounded-tl-xs border border-border/60 bg-card p-3 shadow-xs text-foreground">
+                  <p className="leading-relaxed">{m.text}</p>
+                  <span className="mt-1 block text-[9px] text-muted-foreground text-right">
+                    {m.time}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div key={i} className="ml-auto max-w-[85%] flex flex-col items-end">
+              <div className="rounded-2xl rounded-tr-xs bg-primary p-3 text-primary-foreground shadow-xs">
+                <p className="leading-relaxed">{m.text}</p>
+                <div className="mt-1 flex items-center justify-end gap-1 text-[9px] opacity-80">
+                  <span>{m.time}</span>
+                  <Check className="size-3 text-sky-200" />
+                </div>
+              </div>
+            </div>
+          ),
+        )}
+      </div>
+
+      {/* Quick Suggestions Strip */}
+      <div className="border-t border-border/40 bg-card/70 px-3 py-2 overflow-x-auto scrollbar-none flex gap-1.5 shrink-0">
+        {quickReplies.map((reply, idx) => (
+          <button
+            key={idx}
+            onClick={() => handleSend(reply)}
+            className="rounded-full border border-border/70 bg-card px-3 py-1 text-[11px] font-medium text-foreground whitespace-nowrap shadow-xs hover:bg-muted transition cursor-pointer shrink-0"
+          >
+            {reply}
+          </button>
         ))}
       </div>
 
-      <div className="pt-2 border-t flex gap-2">
+      {/* Input Dock */}
+      <div className="border-t border-border/60 bg-card p-2.5 flex items-center gap-2 shrink-0">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
           placeholder="Message transport desk..."
-          className="flex-1 rounded-xl border border-input bg-card px-3 text-xs focus:outline-primary h-10"
+          className="flex-1 rounded-full border border-border bg-muted/40 px-4 py-2 text-xs focus:outline-primary focus:bg-card h-10 transition text-foreground"
         />
-        <Button onClick={handleSend} size="icon" className="size-10 shrink-0">
+        <Button
+          onClick={() => handleSend()}
+          size="icon"
+          className="size-10 rounded-full bg-primary hover:bg-primary/90 text-white shrink-0 shadow-xs cursor-pointer"
+        >
           <Send className="size-4" />
         </Button>
       </div>
