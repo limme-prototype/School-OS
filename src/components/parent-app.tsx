@@ -156,8 +156,8 @@ export function ParentApp() {
                 </div>
               )}
               <div>
-                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
-                  {detail ? "School OS · Support" : "School OS · Family"}
+                <p className="text-[11px] text-muted-foreground">
+                  {detail ? "Transport Support" : "Family Portal"}
                 </p>
                 <h1 className="text-sm font-bold leading-tight text-foreground">
                   {detail === "invoice"
@@ -216,22 +216,22 @@ export function ParentApp() {
                     className={cn(
                       "flex items-center gap-2 rounded-full px-2.5 py-1 text-xs font-semibold transition-all shrink-0 cursor-pointer border",
                       isSelected
-                        ? "bg-primary text-primary-foreground border-primary shadow-xs"
-                        : "bg-muted/50 text-muted-foreground border-border/70 hover:bg-muted hover:text-foreground"
+                        ? "bg-foreground text-background border-foreground shadow-2xs"
+                        : "bg-muted/40 text-muted-foreground border-border/70 hover:bg-muted hover:text-foreground"
                     )}
                   >
                     <img
                       src={item.avatar}
                       alt={item.fullName}
-                      className="size-5 rounded-full object-cover"
+                      className="size-4.5 rounded-full object-cover"
                     />
                     <span className="truncate max-w-[100px]">{item.fullName.split(" ")[0]}</span>
                     <span
                       className={cn(
-                        "rounded-full px-1.5 py-0.2 text-[9px] font-bold",
+                        "rounded-full px-1.5 py-0.2 text-[9px] font-medium",
                         isSelected
-                          ? "bg-white/20 text-white"
-                          : "bg-background text-muted-foreground border border-border/40",
+                          ? "bg-background/20 text-background"
+                          : "bg-background text-muted-foreground border border-border/50",
                       )}
                     >
                       {item.grade}
@@ -274,21 +274,21 @@ export function ParentApp() {
                     {activeStudent.busSubscription?.subscribed && (
                       <div
                         onClick={() => go("bus")}
-                        className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-b from-amber-500/10 via-card to-card p-3.5 shadow-xs transition-all hover:border-amber-500/60 cursor-pointer group"
+                        className="relative overflow-hidden rounded-2xl border border-border/80 bg-card p-3.5 shadow-2xs transition-colors hover:border-foreground/20 cursor-pointer group"
                       >
                         {/* Top Live Beacon */}
                         <div className="flex items-center justify-between pb-2 border-b border-border/50">
                           <div className="flex items-center gap-2">
-                            <span className="relative flex size-2.5">
+                            <span className="relative flex size-2">
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                              <span className="relative inline-flex rounded-full size-2.5 bg-emerald-500" />
+                              <span className="relative inline-flex rounded-full size-2 bg-emerald-500" />
                             </span>
-                            <span className="text-xs font-bold text-foreground">Route 03 · Morning Pickup</span>
-                            <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-[9px] font-bold text-amber-700 dark:text-amber-400 border border-amber-500/30">
+                            <span className="text-xs font-semibold text-foreground">Route 03 · Morning Pickup</span>
+                            <span className="rounded-full bg-amber-500/10 px-2 py-0.5 text-[9px] font-semibold text-amber-700 dark:text-amber-400 border border-amber-500/25">
                               +12m Delay
                             </span>
                           </div>
-                          <span className="text-xs font-mono font-bold text-primary">ETA 07:47 AM</span>
+                          <span className="text-xs font-mono font-semibold text-foreground">ETA 07:47 AM</span>
                         </div>
 
                         {/* Current Status Headline */}
@@ -301,20 +301,20 @@ export function ParentApp() {
                               Dara boarded safely at Toul Kork Circle (07:12 AM)
                             </p>
                           </div>
-                          <div className="grid size-8 place-items-center rounded-xl bg-amber-500 text-amber-950 font-bold shadow-xs">
-                            <Bus className="size-4.5" />
+                          <div className="grid size-8 place-items-center rounded-xl bg-muted text-foreground font-semibold">
+                            <Bus className="size-4" />
                           </div>
                         </div>
 
                         {/* Visual 3-step Route Track */}
-                        <div className="mt-2.5 rounded-xl bg-muted/50 p-2">
-                          <div className="flex items-center justify-between text-[10px] font-semibold text-muted-foreground mb-1">
-                            <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓ Boarded (07:12)</span>
-                            <span className="text-amber-600 dark:text-amber-400 font-bold">● En Route (Stop 3/5)</span>
+                        <div className="mt-2.5 rounded-xl bg-muted/40 p-2 border border-border/40">
+                          <div className="flex items-center justify-between text-[10px] font-medium text-muted-foreground mb-1">
+                            <span className="text-emerald-600 dark:text-emerald-400 font-semibold">✓ Boarded (07:12)</span>
+                            <span className="text-amber-600 dark:text-amber-400 font-semibold">● En Route (Stop 3/5)</span>
                             <span>Campus (07:47)</span>
                           </div>
                           <div className="relative h-1.5 w-full overflow-hidden rounded-full bg-muted">
-                            <div className="absolute left-0 top-0 h-full w-[60%] rounded-full bg-gradient-to-r from-emerald-500 to-amber-500" />
+                            <div className="absolute left-0 top-0 h-full w-[60%] rounded-full bg-primary" />
                           </div>
                         </div>
 
@@ -328,7 +328,7 @@ export function ParentApp() {
                               e.stopPropagation();
                               setCallDriverModal(true);
                             }}
-                            className="flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-primary hover:bg-primary/20 transition cursor-pointer"
+                            className="flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 text-foreground hover:bg-muted/80 transition cursor-pointer text-[10px] font-medium border border-border/60"
                           >
                             <Phone className="size-3" /> Call Driver
                           </button>
@@ -343,21 +343,21 @@ export function ParentApp() {
                           setProgressTab("attendance");
                           go("progress");
                         }}
-                        className="rounded-2xl border border-border/70 bg-gradient-to-br from-card to-muted/20 p-3.5 shadow-xs cursor-pointer hover:border-primary/50 transition-all group"
+                        className="rounded-2xl border border-border/80 bg-card p-3.5 shadow-2xs cursor-pointer hover:border-foreground/20 transition-colors group"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+                          <span className="text-xs font-semibold text-muted-foreground">
                             Attendance
                           </span>
-                          <div className="grid size-7 place-items-center rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+                          <div className="grid size-7 place-items-center rounded-lg bg-muted text-emerald-600 dark:text-emerald-400">
                             <UserCheck className="size-4" />
                           </div>
                         </div>
-                        <p className="text-2xl font-extrabold text-foreground mt-1 tracking-tight">
+                        <p className="text-xl font-bold text-foreground mt-1 tracking-tight">
                           {activeStudent.attendanceRate}%
                         </p>
-                        <div className="mt-1 flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">
-                          <CheckCircle2 className="size-3" />
+                        <div className="mt-1 flex items-center gap-1 text-[10px] text-muted-foreground font-medium">
+                          <CheckCircle2 className="size-3 text-emerald-600 dark:text-emerald-400" />
                           <span>0 unexcused absences</span>
                         </div>
                       </div>
@@ -367,21 +367,21 @@ export function ParentApp() {
                           setProgressTab("grades");
                           go("progress");
                         }}
-                        className="rounded-2xl border border-border/70 bg-gradient-to-br from-card to-muted/20 p-3.5 shadow-xs cursor-pointer hover:border-primary/50 transition-all group"
+                        className="rounded-2xl border border-border/80 bg-card p-3.5 shadow-2xs cursor-pointer hover:border-foreground/20 transition-colors group"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+                          <span className="text-xs font-semibold text-muted-foreground">
                             Academic GPA
                           </span>
-                          <div className="grid size-7 place-items-center rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400">
+                          <div className="grid size-7 place-items-center rounded-lg bg-muted text-foreground">
                             <TrendingUp className="size-4" />
                           </div>
                         </div>
-                        <p className="text-2xl font-extrabold text-foreground mt-1 tracking-tight">
+                        <p className="text-xl font-bold text-foreground mt-1 tracking-tight">
                           {activeStudent.gpa.toFixed(2)}
                         </p>
-                        <div className="mt-1 flex items-center gap-1 text-[10px] text-blue-600 dark:text-blue-400 font-semibold">
-                          <GraduationCap className="size-3" />
+                        <div className="mt-1 flex items-center gap-1 text-[10px] text-muted-foreground font-medium">
+                          <GraduationCap className="size-3 text-primary" />
                           <span>Term 2 Honor Roll</span>
                         </div>
                       </div>
@@ -391,24 +391,24 @@ export function ParentApp() {
                     {unpaidInvoices.length > 0 && unpaidInvoices[0] && (
                       <div
                         onClick={() => go("fees")}
-                        className="rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-card to-card p-3.5 shadow-xs cursor-pointer hover:border-amber-500 transition-all flex items-center justify-between"
+                        className="rounded-2xl border border-border/80 bg-card p-3.5 shadow-2xs cursor-pointer hover:border-foreground/20 transition-colors flex items-center justify-between"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="grid size-9 place-items-center rounded-xl bg-amber-500/20 text-amber-700 dark:text-amber-400 shadow-xs">
-                            <ReceiptText className="size-5" />
+                          <div className="grid size-9 place-items-center rounded-xl bg-muted text-foreground shadow-2xs">
+                            <ReceiptText className="size-4.5" />
                           </div>
                           <div>
                             <div className="flex items-center gap-1.5">
                               <h4 className="text-xs font-bold text-foreground">
                                 {unpaidInvoices[0].items[0]?.description}
                               </h4>
-                              <span className="rounded bg-amber-500/20 px-1.5 py-0.2 text-[9px] font-bold text-amber-800 dark:text-amber-300">
+                              <span className="rounded bg-amber-500/10 px-1.5 py-0.2 text-[9px] font-semibold text-amber-700 dark:text-amber-400 border border-amber-500/20">
                                 Due Soon
                               </span>
                             </div>
                             <p className="text-[11px] text-muted-foreground mt-0.5">
                               Due {unpaidInvoices[0].dueDate} · Balance:{" "}
-                              <span className="font-bold text-foreground">
+                              <span className="font-semibold text-foreground">
                                 ${unpaidInvoices[0].balanceDue}.00
                               </span>
                             </p>
@@ -416,7 +416,7 @@ export function ParentApp() {
                         </div>
                         <Button
                           size="sm"
-                          className="h-8 rounded-xl px-3 text-xs font-bold bg-primary text-white hover:bg-primary/90 shadow-xs gap-1 cursor-pointer"
+                          className="h-8 rounded-xl px-3 text-xs font-semibold bg-foreground text-background hover:bg-foreground/90 shadow-2xs gap-1 cursor-pointer"
                         >
                           <QrCode className="size-3" /> Pay
                         </Button>
@@ -426,12 +426,12 @@ export function ParentApp() {
                     {/* Latest School Announcements */}
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                        <h3 className="text-xs font-bold text-foreground">
                           School Circulars & News
                         </h3>
                         <button
                           onClick={() => go("messages")}
-                          className="text-[11px] font-bold text-primary hover:underline cursor-pointer"
+                          className="text-[11px] font-semibold text-primary hover:underline cursor-pointer"
                         >
                           View all
                         </button>
@@ -572,20 +572,28 @@ export function ParentApp() {
                 {/* ---------------------------------------------------- */}
                 {tab === "fees" && (
                   <div className="space-y-3.5">
-                    <div className="rounded-xl bg-gradient-to-r from-primary to-primary/80 p-4 text-white shadow-md">
-                      <p className="text-[10px] font-bold uppercase tracking-wider opacity-80">
-                        Total Balance Outstanding
-                      </p>
-                      <h3 className="text-2xl font-extrabold mt-1">
-                        ${unpaidInvoices.reduce((acc, i) => acc + i.balanceDue, 0)}.00
-                      </h3>
-                      <p className="text-[11px] opacity-90 mt-0.5">
-                        Academic Year 2026-2027 · Cambodia & France Billing
+                    <div className="rounded-2xl border border-border/80 bg-card p-4 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-semibold text-muted-foreground">
+                          Total Balance Outstanding
+                        </span>
+                        <span className="rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 px-2 py-0.5 text-[10px] font-semibold border border-amber-500/25">
+                          Due Soon
+                        </span>
+                      </div>
+                      <div className="mt-2 flex items-baseline gap-2">
+                        <h3 className="text-2xl font-bold tracking-tight text-foreground">
+                          ${unpaidInvoices.reduce((acc, i) => acc + i.balanceDue, 0)}.00
+                        </h3>
+                        <span className="text-xs text-muted-foreground">USD</span>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
+                        Academic Year 2026–2027 · Reconciled via Bakong KHQR
                       </p>
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                      <h4 className="text-xs font-bold text-foreground">
                         Invoices & Receipts
                       </h4>
                       <Badge variant="outline" className="text-[10px]">
@@ -635,10 +643,10 @@ export function ParentApp() {
                     {/* Demo State Switcher */}
                     <div className="rounded-xl border border-border bg-muted/60 p-2.5 text-xs">
                       <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                        <span className="text-[10px] font-semibold text-muted-foreground">
                           Simulate Bus Journey State:
                         </span>
-                        <span className="text-[10px] font-mono text-primary font-bold">9 States</span>
+                        <span className="text-[10px] font-mono text-muted-foreground">9 States</span>
                       </div>
                       <Select
                         value={busDemoState}
@@ -674,18 +682,9 @@ export function ParentApp() {
                     ) : (
                       <>
                         {/* Live Status Banner */}
-                        <div
-                          className={cn(
-                            "rounded-xl border p-3.5 shadow-xs space-y-1.5",
-                            busDemoState === "delayed"
-                              ? "border-amber-500 bg-amber-500/15"
-                              : busDemoState === "no-show"
-                              ? "border-rose-500 bg-rose-500/10"
-                              : "border-emerald-500 bg-emerald-500/10",
-                          )}
-                        >
+                        <div className="rounded-2xl border border-border/80 bg-card p-3.5 shadow-2xs space-y-1.5">
                           <div className="flex items-center justify-between">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                            <span className="text-xs font-semibold text-muted-foreground">
                               Live Transport Status
                             </span>
                             <StatusChip
@@ -700,7 +699,7 @@ export function ParentApp() {
                             />
                           </div>
 
-                          <h3 className="text-sm font-extrabold text-foreground">
+                          <h3 className="text-sm font-bold text-foreground">
                             {busDemoState === "upcoming" && "Bus en route to your stop (ETA 06:40 AM)"}
                             {busDemoState === "boarded" && "Dara boarded safely at Toul Kork Circle"}
                             {busDemoState === "delayed" && "Route 03 Delayed by ~12 mins (Russian Blvd)"}
@@ -724,22 +723,22 @@ export function ParentApp() {
                             size="sm"
                             variant="outline"
                             onClick={() => setCallDriverModal(true)}
-                            className="h-9 gap-1.5 text-xs font-bold border-border hover:border-primary cursor-pointer"
+                            className="h-9 gap-1.5 text-xs font-semibold border-border hover:border-foreground/30 cursor-pointer"
                           >
-                            <Phone className="size-3.5 text-primary" /> Call Bus Driver
+                            <Phone className="size-3.5 text-foreground" /> Call Bus Driver
                           </Button>
                           <Button
                             size="sm"
                             variant="outline"
                             onClick={() => setAbsenceModal(true)}
-                            className="h-9 gap-1.5 text-xs font-bold text-rose-600 border-rose-500/30 hover:bg-rose-500/10 cursor-pointer"
+                            className="h-9 gap-1.5 text-xs font-semibold text-rose-600 dark:text-rose-400 border-rose-500/20 hover:bg-rose-500/10 cursor-pointer"
                           >
                             <AlertCircle className="size-3.5" /> Report Absence
                           </Button>
                         </div>
 
                         {/* Route & Stop Summary Card */}
-                        <div className="rounded-xl border border-border bg-card p-3.5 shadow-xs space-y-2.5">
+                        <div className="rounded-2xl border border-border/80 bg-card p-3.5 shadow-2xs space-y-2.5">
                           <div className="flex items-center justify-between">
                             <h4 className="text-xs font-bold text-foreground">
                               Route 03 · Toul Kork & Russian Blvd
@@ -751,18 +750,18 @@ export function ParentApp() {
 
                           <div className="space-y-1.5 text-xs">
                             <div className="flex items-start gap-2">
-                              <MapPin className="size-4 text-amber-500 shrink-0 mt-0.5" />
+                              <MapPin className="size-4 text-muted-foreground shrink-0 mt-0.5" />
                               <div>
-                                <p className="font-bold text-foreground">Toul Kork Circle Stop</p>
+                                <p className="font-semibold text-foreground">Toul Kork Circle Stop</p>
                                 <p className="text-[10px] text-muted-foreground">
                                   Pickup: 06:40 AM · Drop-off: 04:10 PM
                                 </p>
                               </div>
                             </div>
                             <div className="flex items-start gap-2">
-                              <UserCheck className="size-4 text-primary shrink-0 mt-0.5" />
+                              <UserCheck className="size-4 text-muted-foreground shrink-0 mt-0.5" />
                               <div>
-                                <p className="font-bold text-foreground">Crew Onboard</p>
+                                <p className="font-semibold text-foreground">Crew Onboard</p>
                                 <p className="text-[10px] text-muted-foreground">
                                   Driver: Seng Vibol (+855 12 998 123) · Assistant: Chea Sreyneang
                                 </p>
@@ -772,8 +771,8 @@ export function ParentApp() {
                         </div>
 
                         {/* Transport Event Timeline */}
-                        <div className="rounded-xl border border-border bg-card p-3.5 shadow-xs space-y-3">
-                          <h4 className="text-xs font-bold text-foreground uppercase tracking-wider">
+                        <div className="rounded-2xl border border-border/80 bg-card p-3.5 shadow-2xs space-y-3">
+                          <h4 className="text-xs font-bold text-foreground">
                             Today's Journey Timeline
                           </h4>
 
@@ -880,7 +879,7 @@ export function ParentApp() {
                 {tab === "messages" && (
                   <div className="space-y-3.5">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                      <h4 className="text-xs font-bold text-foreground">
                         Direct Inboxes
                       </h4>
                       <Button
@@ -1247,7 +1246,7 @@ function InvoiceDetail({
 
       {/* Breakdown */}
       <div className="rounded-xl border border-border bg-card p-3.5 shadow-xs space-y-2">
-        <h4 className="font-bold text-foreground uppercase text-[10px] tracking-wider text-muted-foreground">
+        <h4 className="text-xs font-semibold text-foreground">
           Itemized Charges
         </h4>
         <div className="space-y-1.5 text-xs">

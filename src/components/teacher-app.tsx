@@ -215,8 +215,8 @@ export function TeacherApp() {
                 <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-emerald-500 ring-2 ring-card" />
               </div>
               <div>
-                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
-                  School OS · Faculty Portal
+                <p className="text-[11px] text-muted-foreground">
+                  Faculty Portal
                 </p>
                 <h1 className="text-sm font-bold leading-tight text-foreground">
                   Mr. Chhay Meng · Grade 6A Lead
@@ -255,7 +255,7 @@ export function TeacherApp() {
               <span className="size-2 rounded-full bg-emerald-500" />
               <span>Today: 3 classes · 82 students</span>
             </span>
-            <span className="rounded-full bg-card border border-border/60 px-2 py-0.5 text-[10px] font-bold text-muted-foreground">
+            <span className="rounded-full bg-card border border-border/60 px-2 py-0.5 text-[10px] font-semibold text-muted-foreground">
               Term 2 · Sep 2026
             </span>
           </div>
@@ -271,34 +271,31 @@ export function TeacherApp() {
               {/* Smart Homeroom Roll Call Card */}
               <div
                 onClick={() => setTab("attendance")}
-                className="relative overflow-hidden rounded-2xl border border-blue-500/40 bg-gradient-to-br from-blue-600/10 via-card to-card p-3.5 shadow-xs cursor-pointer hover:border-blue-500 transition-all group"
+                className="relative overflow-hidden rounded-2xl border border-border/80 bg-card p-3.5 shadow-2xs cursor-pointer hover:border-foreground/20 transition-colors group"
               >
                 <div className="flex items-center justify-between pb-1.5 border-b border-border/40">
                   <div className="flex items-center gap-2">
-                    <span className="relative flex size-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full size-2 bg-blue-600" />
-                    </span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                    <span className="size-2 rounded-full bg-primary" />
+                    <span className="text-xs font-semibold text-foreground">
                       Homeroom Roll Call Ready · Period 1
                     </span>
                   </div>
-                  <span className="rounded-full bg-emerald-500/15 px-2 py-0.2 text-[9px] font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                    ⚡ 3 Bus Arrivals Synced
+                  <span className="rounded-full bg-emerald-500/10 px-2 py-0.2 text-[9px] font-semibold text-emerald-700 dark:text-emerald-400 border border-emerald-500/25">
+                    3 Bus Arrivals Synced
                   </span>
                 </div>
 
                 <div className="mt-2.5 flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-extrabold text-foreground group-hover:text-primary transition-colors">
+                    <h3 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
                       Grade 6A Attendance & Roll Call
                     </h3>
                     <p className="text-[11px] text-muted-foreground mt-0.5">
                       Dara Meas, Sokha Kim & Chanthou Rath pre-verified from Route 03 AM manifest.
                     </p>
                   </div>
-                  <div className="grid size-9 place-items-center rounded-xl bg-primary text-white font-bold shadow-xs shrink-0">
-                    <FileCheck className="size-5" />
+                  <div className="grid size-9 place-items-center rounded-xl bg-muted text-foreground font-semibold shrink-0">
+                    <FileCheck className="size-4.5" />
                   </div>
                 </div>
 
@@ -315,7 +312,7 @@ export function TeacherApp() {
               {/* Today's Schedule */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                  <h3 className="text-xs font-bold text-foreground">
                     Today's Teaching Schedule
                   </h3>
                   <Badge variant="outline" className="text-[10px] rounded-full">
@@ -332,10 +329,10 @@ export function TeacherApp() {
                         setTab("classes");
                       }}
                       className={cn(
-                        "rounded-2xl border p-3.5 shadow-xs cursor-pointer transition-all bg-card",
+                        "rounded-2xl border p-3.5 shadow-2xs cursor-pointer transition-all bg-card",
                         idx === 0
-                          ? "border-blue-500/50 ring-1 ring-blue-500/30 bg-gradient-to-br from-blue-50/50 dark:from-blue-950/20 to-card"
-                          : "border-border/70 hover:border-primary/40",
+                          ? "border-primary/40 bg-primary/5"
+                          : "border-border/70 hover:border-foreground/20",
                       )}
                     >
                       <div className="flex items-start justify-between">
@@ -412,7 +409,7 @@ export function TeacherApp() {
               </div>
 
               <div>
-                <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-bold text-foreground mb-2">
                   Student Roster & Profiles
                 </h4>
                 <div className="space-y-2">
@@ -571,7 +568,7 @@ export function TeacherApp() {
           {tab === "grades" && (
             <div className="space-y-3.5">
               <div className="rounded-xl border border-border bg-card p-3 shadow-xs space-y-2">
-                <label className="text-[11px] font-bold text-muted-foreground uppercase">
+                <label className="text-xs font-semibold text-foreground">
                   Select Assessment
                 </label>
                 <select
@@ -623,7 +620,7 @@ export function TeacherApp() {
           {tab === "news" && (
             <div className="space-y-3.5">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                <h3 className="text-xs font-bold text-foreground">
                   School Bulletins
                 </h3>
                 <Button
@@ -709,7 +706,7 @@ export function TeacherApp() {
               </div>
 
               <div>
-                <label className="text-[10px] font-bold text-muted-foreground uppercase">
+                <label className="text-xs font-semibold text-foreground">
                   Assignment Title *
                 </label>
                 <Input
@@ -721,7 +718,7 @@ export function TeacherApp() {
               </div>
 
               <div>
-                <label className="text-[10px] font-bold text-muted-foreground uppercase">
+                <label className="text-xs font-semibold text-foreground">
                   Due Date
                 </label>
                 <Input type="date" defaultValue="2026-09-24" className="h-9 text-xs mt-1" />

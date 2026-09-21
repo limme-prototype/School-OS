@@ -748,7 +748,7 @@ export function BusStaffApp() {
               {tab === "incidents" && (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                    <span className="text-xs font-bold text-foreground">
                       Logged Route Incidents
                     </span>
                     <Button
@@ -925,7 +925,7 @@ export function BusStaffApp() {
 
             <div className="space-y-3 py-1">
               <div>
-                <label className="text-[11px] font-bold text-muted-foreground uppercase">
+                <label className="text-xs font-semibold text-foreground">
                   Incident Category *
                 </label>
                 <Select value={incidentType} onValueChange={setIncidentType}>
@@ -943,7 +943,7 @@ export function BusStaffApp() {
               </div>
 
               <div>
-                <label className="text-[11px] font-bold text-muted-foreground uppercase">
+                <label className="text-xs font-semibold text-foreground">
                   Severity Level *
                 </label>
                 <div className="grid grid-cols-3 gap-1.5 mt-1">
@@ -965,7 +965,7 @@ export function BusStaffApp() {
               </div>
 
               <div>
-                <label className="text-[11px] font-bold text-muted-foreground uppercase">
+                <label className="text-xs font-semibold text-foreground">
                   Situation Details *
                 </label>
                 <Textarea

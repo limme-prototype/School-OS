@@ -174,7 +174,7 @@ function Sidebar({
         </div>
 
         <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-3" aria-label="Main navigation">
-          <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-wider text-sidebar-muted">
+          <p className="mb-2 px-3 text-[11px] font-semibold text-sidebar-foreground/70">
             Workspace
           </p>
           {navItems.map(({ label, khmer, icon: Icon }) => (
@@ -1544,7 +1544,7 @@ function TransportPage() {
 
             <form onSubmit={handleSendAlert} className="space-y-3">
               <div>
-                <label className="font-bold text-muted-foreground uppercase text-[10px]">Target Route *</label>
+                <label className="text-xs font-semibold text-foreground">Target Route *</label>
                 <select
                   value={alertTargetRoute}
                   onChange={(e) => setAlertTargetRoute(e.target.value)}
@@ -1558,7 +1558,7 @@ function TransportPage() {
               </div>
 
               <div>
-                <label className="font-bold text-muted-foreground uppercase text-[10px]">Urgency / Category</label>
+                <label className="text-xs font-semibold text-foreground">Urgency / Category</label>
                 <div className="grid grid-cols-3 gap-1.5 mt-1">
                   <span className="rounded-md border border-amber-500/40 bg-amber-500/10 p-1.5 text-center font-bold text-amber-700 dark:text-amber-400">
                     Delay Warning
@@ -1573,7 +1573,7 @@ function TransportPage() {
               </div>
 
               <div>
-                <label className="font-bold text-muted-foreground uppercase text-[10px]">Message Copy *</label>
+                <label className="text-xs font-semibold text-foreground">Message Copy *</label>
                 <textarea
                   value={alertMessage}
                   onChange={(e) => setAlertMessage(e.target.value)}
@@ -1628,7 +1628,7 @@ function TransportPage() {
             </div>
 
             <div className="space-y-2">
-              <h4 className="font-bold text-foreground uppercase tracking-wider text-[10px] text-muted-foreground">
+              <h4 className="text-xs font-semibold text-foreground">
                 Ordered Stops & Times
               </h4>
               <div className="divide-y divide-border rounded-lg border">
@@ -3314,7 +3314,7 @@ function MiniStat({ value, label }: { value: string; label: string }) {
 function ProfileSection({ title, items }: { title: string; items: string[][] }) {
   return (
     <section className="mt-5">
-      <h3 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{title}</h3>
+      <h3 className="mb-2 text-xs font-semibold text-foreground">{title}</h3>
       <div className="divide-y divide-border rounded-md border border-border">
         {items.map(([label, value]) => (
           <div key={label} className="flex items-center justify-between gap-4 px-3 py-2 text-xs">
@@ -3439,7 +3439,7 @@ function ReportsPage() {
 
               <div className="overflow-x-auto rounded-lg border border-border">
                 <table className="w-full text-left">
-                  <thead className="bg-muted/60 text-[11px] font-bold uppercase tracking-wider text-muted-foreground border-b">
+                  <thead className="bg-muted/50 text-[11px] font-semibold text-muted-foreground border-b">
                     <tr>
                       <th className="p-3">Route Code</th>
                       <th className="p-3">Zone & Campus</th>
@@ -3550,17 +3550,17 @@ function ReportsPage() {
 
               <div className="grid gap-4 md:grid-cols-3">
                 <div className="rounded-xl border border-border bg-card p-4 space-y-1">
-                  <span className="text-muted-foreground uppercase text-[10px] font-bold">Total Invoiced</span>
+                  <span className="text-muted-foreground text-xs font-semibold">Total Invoiced</span>
                   <p className="text-2xl font-extrabold text-foreground">$199,000.00</p>
                   <p className="text-[11px] text-muted-foreground">842 invoices issued</p>
                 </div>
                 <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 space-y-1">
-                  <span className="text-emerald-700 dark:text-emerald-400 uppercase text-[10px] font-bold">Total Collected</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 text-xs font-semibold">Total Collected</span>
                   <p className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$184,200.00</p>
                   <p className="text-[11px] text-muted-foreground">92.5% settlement rate</p>
                 </div>
                 <div className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4 space-y-1">
-                  <span className="text-rose-700 dark:text-rose-400 uppercase text-[10px] font-bold">Overdue / Outstanding</span>
+                  <span className="text-rose-700 dark:text-rose-400 text-xs font-semibold">Overdue / Outstanding</span>
                   <p className="text-2xl font-extrabold text-rose-600 dark:text-rose-400">$14,800.00</p>
                   <p className="text-[11px] text-muted-foreground">18 accounts pending follow-up</p>
                 </div>

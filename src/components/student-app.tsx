@@ -462,7 +462,7 @@ export function StudentApp() {
               </div>
             )}
             <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+              <p className="text-[11px] text-muted-foreground">
                 School OS
               </p>
               <p className="text-xs font-bold leading-tight text-foreground truncate">
@@ -793,20 +793,20 @@ function HomeScreen({
   return (
     <div className="space-y-3.5 p-3.5">
       {/* Student Welcome Header & Digital Pass */}
-      <div className="flex items-center justify-between rounded-2xl border border-border/70 bg-gradient-to-r from-blue-600/10 via-card to-card p-3.5 shadow-xs">
+      <div className="flex items-center justify-between rounded-2xl border border-border/80 bg-card p-3.5 shadow-2xs">
         <div className="flex items-center gap-3">
           <div className="relative">
             <img
               src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=160&auto=format&fit=crop&q=80"
               alt="Dara Meas"
-              className="size-11 rounded-full object-cover border-2 border-primary shadow-xs"
+              className="size-11 rounded-full object-cover border border-border shadow-2xs"
             />
-            <span className="absolute bottom-0 right-0 size-3 rounded-full bg-emerald-500 ring-2 ring-card" />
+            <span className="absolute bottom-0 right-0 size-2.5 rounded-full bg-emerald-500 ring-2 ring-card" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
               <h1 className="text-sm font-bold text-foreground">Dara Meas</h1>
-              <span className="rounded-full bg-primary/15 px-2 py-0.2 text-[10px] font-bold text-primary">
+              <span className="rounded-full bg-muted px-2 py-0.2 text-[10px] font-semibold text-foreground border border-border/60">
                 Grade 6A
               </span>
             </div>
@@ -818,10 +818,10 @@ function HomeScreen({
 
         <button
           onClick={onIdCard}
-          className="flex flex-col items-center gap-1 rounded-xl border border-border bg-card p-2 text-[10px] font-bold text-foreground shadow-xs hover:bg-muted transition cursor-pointer shrink-0 active:scale-95"
+          className="flex flex-col items-center gap-1 rounded-xl border border-border bg-card p-2 text-[10px] font-semibold text-foreground shadow-2xs hover:bg-muted transition cursor-pointer shrink-0 active:scale-95"
           title="Open Digital Student ID"
         >
-          <QrCode className="size-4 text-primary" />
+          <QrCode className="size-4 text-foreground" />
           <span>ID Pass</span>
         </button>
       </div>
@@ -830,37 +830,34 @@ function HomeScreen({
       {currentClass && (
         <div
           onClick={() => onClass(currentClass)}
-          className="relative overflow-hidden rounded-2xl border border-blue-500/40 bg-gradient-to-br from-blue-600/15 via-card to-card p-3.5 shadow-xs cursor-pointer hover:border-blue-500 transition-all group"
+          className="relative overflow-hidden rounded-2xl border border-border/80 bg-card p-3.5 shadow-2xs cursor-pointer hover:border-foreground/20 transition-colors group"
         >
           <div className="flex items-center justify-between pb-1.5 border-b border-border/40">
             <div className="flex items-center gap-2">
-              <span className="relative flex size-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                <span className="relative inline-flex rounded-full size-2 bg-blue-600" />
-              </span>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
+              <span className="size-2 rounded-full bg-primary" />
+              <span className="text-xs font-semibold text-foreground">
                 Happening Now · Period 1
               </span>
             </div>
-            <span className="font-mono text-[11px] font-bold text-foreground">08:00 - 08:50 AM</span>
+            <span className="font-mono text-[11px] font-semibold text-muted-foreground">08:00 - 08:50 AM</span>
           </div>
 
           <div className="mt-2.5 flex items-start justify-between">
             <div>
-              <h3 className="text-sm font-extrabold text-foreground group-hover:text-primary transition-colors">
+              <h3 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
                 {currentClass.subject} ({currentClass.unit})
               </h3>
               <p className="text-xs text-muted-foreground mt-0.5">{currentClass.lesson}</p>
-              <p className="text-[10px] text-muted-foreground mt-1">
+              <p className="text-[11px] text-muted-foreground mt-1">
                 Room <strong className="text-foreground">{currentClass.room}</strong> · {currentClass.teacher}
               </p>
             </div>
-            <div className="grid size-9 place-items-center rounded-xl bg-primary text-white font-bold shadow-xs">
-              <BookOpen className="size-5" />
+            <div className="grid size-9 place-items-center rounded-xl bg-muted text-foreground font-semibold">
+              <BookOpen className="size-4.5" />
             </div>
           </div>
 
-          <div className="mt-2.5 flex items-center justify-between pt-1 text-[10px] font-semibold text-primary">
+          <div className="mt-2.5 flex items-center justify-between pt-1 text-[11px] font-semibold text-primary">
             <span>25 mins remaining · Materials ready</span>
             <span className="flex items-center gap-0.5 group-hover:underline">
               Lesson Details <ChevronRight className="size-3" />
@@ -873,33 +870,34 @@ function HomeScreen({
       <div className="grid grid-cols-2 gap-2.5">
         <button
           onClick={onResults}
-          className="rounded-2xl border border-border/70 bg-gradient-to-br from-card to-muted/20 p-3 text-left shadow-xs cursor-pointer hover:border-primary/50 transition-all group"
+          className="rounded-2xl border border-border/80 bg-card p-3 text-left shadow-2xs cursor-pointer hover:border-foreground/20 transition-colors group"
         >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground">
               Attendance
             </span>
-            <div className="grid size-7 place-items-center rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+            <div className="grid size-7 place-items-center rounded-lg bg-muted text-emerald-600 dark:text-emerald-400">
               <CheckCircle2 className="size-4" />
             </div>
           </div>
-          <strong className="mt-1 block text-xl font-extrabold text-foreground">
+          <strong className="mt-1 block text-lg font-bold text-foreground">
             98% <span className="font-normal text-[10px] text-muted-foreground">term rate</span>
           </strong>
-          <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-0.5 mt-0.5">
-            ✓ 0 unexcused
+          <span className="text-[10px] text-muted-foreground font-medium flex items-center gap-0.5 mt-0.5">
+            <CheckCircle2 className="size-3 text-emerald-600 dark:text-emerald-400" />
+            <span>0 unexcused</span>
           </span>
         </button>
 
         <button
           onClick={onBus}
-          className="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-card to-card p-3 text-left shadow-xs cursor-pointer hover:border-amber-500 transition-all group"
+          className="rounded-2xl border border-border/80 bg-card p-3 text-left shadow-2xs cursor-pointer hover:border-foreground/20 transition-colors group"
         >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground">
               Bus 03 (AM)
             </span>
-            <div className="grid size-7 place-items-center rounded-lg bg-amber-500/20 text-amber-700 dark:text-amber-300">
+            <div className="grid size-7 place-items-center rounded-lg bg-muted text-foreground">
               <Bus className="size-4" />
             </div>
           </div>

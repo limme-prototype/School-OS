@@ -146,7 +146,7 @@ export function ShowcaseNav() {
                     onClick={() => setDropdownOpen(false)}
                   />
                   <div className="absolute left-0 top-9 z-50 w-72 rounded-lg border border-border bg-popover p-1.5 shadow-xl">
-                    <div className="px-2 py-1 text-[10px] font-semibold uppercase text-muted-foreground">
+                    <div className="px-2 py-1 text-[11px] font-medium text-muted-foreground">
                       Switch Prototype
                     </div>
                     {PROTOTYPES.map((p) => {
